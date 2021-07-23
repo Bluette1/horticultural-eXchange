@@ -29,12 +29,10 @@ const login = (email, password) => {
 };
 
 const logout = () => {
+  const headers = authHeader();
+  localStorage.removeItem("user");
   return axios
-    .delete(API_URL + "sign_out", { headers: authHeader() })
-    .then((response) => {
-      localStorage.removeItem("user");
-      return response;
-    });
+    .delete(API_URL + "sign_out", { headers });
 };
 
 export default {
