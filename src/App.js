@@ -33,8 +33,8 @@ const App = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+      setShowModeratorBoard(currentUser.supervisor_role);
+      setShowAdminBoard(currentUser.superadmin_role);
     }
   }, [currentUser]);
 
@@ -85,7 +85,7 @@ const App = () => {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
+                  {currentUser.email}
                 </Link>
               </li>
               <li className="nav-item">

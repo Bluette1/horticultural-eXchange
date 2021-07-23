@@ -1,32 +1,40 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:3000/api/auth/";
+const API_URL = "http://localhost:3000/users/";
 
 const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
+  return axios.post(API_URL, {
     username,
     email,
     password,
   });
 };
 
-const login = (username, password) => {
+const login = (email, password) => {
   return axios
-    .post(API_URL + "signin", {
-      username,
-      password,
+    .post(API_URL + "sign_in", {
+      user: { email, password },
     })
     .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+      const user = response.data;
+
+      if (response.headers.authorization) {
+        user.accessToken = response.headers.authorization;
+        localStorage.setItem("user", JSON.stringify(user));
       }
 
-      return response.data;
+      return user;
     });
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
+  return axios
+    .delete(API_URL + "sign_out", { headers: authHeader() })
+    .then((response) => {
+      localStorage.removeItem("user");
+      return response;
+    });
 };
 
 export default {
