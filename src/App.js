@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import logo from './logo.png';
+import logo from "./logo.png";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -24,9 +24,10 @@ const App = () => {
 
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { message } = useSelector((state) => state.message);
 
   useEffect(() => {
-    history.listen((location) => {
+    history.listen(() => {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
@@ -38,18 +39,31 @@ const App = () => {
     }
   }, [currentUser]);
 
-  const logOut = () => {
-    dispatch(logout());
+  const logOut = (e) => {
+    e.preventDefault();
+    dispatch(logout())
   };
 
   return (
     <Router history={history}>
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            <img style={{ marginRight: "2px",width: "30px", height: "30px", borderRadius: 50}} src={logo} alt="" /> XChange
-          </Link>
+        <nav className="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-around justify-content-lg-between">
+        <div>
+       
           <div className="navbar-nav mr-auto">
+          <Link to={"/"} className="navbar-brand">
+            <img
+              style={{
+                marginRight: "2px",
+                width: "30px",
+                height: "30px",
+                borderRadius: 50,
+              }}
+              src={logo}
+              alt=""
+            />{" "}
+            XChange
+          </Link>
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
                 Home
@@ -78,20 +92,28 @@ const App = () => {
                   User
                 </Link>
               </li>
+              
             )}
+            {currentUser && (<li className="nav-item">
+              <Link to={"/profile"} className="nav-link">
+                {currentUser.email}
+              </Link>
+            </li>)}
+            
           </div>
+        </div>
 
-          {currentUser ? (
+          <div>{currentUser ? (
             <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.email}
-                </Link>
-              </li>
-              <li className="nav-item">
+              <li className="nav-item d-flex">
                 <a href="/login" className="nav-link" onClick={logOut}>
                   LogOut
                 </a>
+                {message && (
+                  <span className="alert alert-danger">
+                    {message}
+                  </span>
+                )}
               </li>
             </div>
           ) : (
@@ -108,7 +130,7 @@ const App = () => {
                 </Link>
               </li>
             </div>
-          )}
+          )}</div>
         </nav>
 
         <div className="container mt-3">

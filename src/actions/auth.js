@@ -103,7 +103,6 @@ export const logout = () => (dispatch) => {
       payload: message,
     });
 
-    return Promise.reject();
-  }
-  );
+    return Promise.reject(error);
+  })
 };
