@@ -11,6 +11,10 @@ COPY . .
 # Build the app
 RUN yarn build
 
+# Run the image as a non-root user
+RUN adduser -D mary
+USER mary
+
 # Bundle static assets with nginx
 FROM nginx:1.21.0-alpine as production
 ENV NODE_ENV production
