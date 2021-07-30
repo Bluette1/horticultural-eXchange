@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import { httpProtocol, host, port } from '../env.variables';
 
-const API_URL = "http://localhost:3000/api/";
+const API_URL = `${httpProtocol}://${host}:${port}/api/`;
 
 const getPublicContent = () => {
   return axios.get(API_URL + "plants");

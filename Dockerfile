@@ -26,6 +26,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # EXPOSE 80
 # Start nginx
 # CMD ["nginx", "-g", "daemon off;"]
-# CMD nginx --bind 0.0.0.0:$PORT wsgi 
 CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
 
