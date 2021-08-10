@@ -60,14 +60,8 @@ const PlantForm = (props) => {
       if (res.status !== 200) {
         setLoading(false);
       }
-        // .then((response) => {
-          console.log('here status: ', res.status)
-          // props.history.push("/");
-          // window.location.reload();
-        // })
-        // .catch(() => {
-        //   setLoading(false);
-        // });
+      props.history.push("/");
+      window.location.reload();
     } else {
       setLoading(false);
     }

@@ -1,8 +1,5 @@
 import { fileChecksum } from '../utils/checksum';
 import { httpProtocol, host, port } from '../env.variables';
-// import { PutObjectCommand } from "@aws-sdk/client-s3";
-// import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
-
 
 const BASE_URL = `${httpProtocol}://${host}:${port}`;
 const PLANTS_API_ENDPOINT = `${BASE_URL}/api/plants`;
