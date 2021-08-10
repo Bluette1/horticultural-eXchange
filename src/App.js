@@ -13,6 +13,7 @@ import StripeLoader from "./components/StripeLoader";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
+import PlantForm from './components/PlantForm';
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -146,6 +147,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/payment" component={StripeLoader} />
+            <Route exact path="/new-plant" component={PlantForm} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
