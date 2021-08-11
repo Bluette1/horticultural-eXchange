@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-// import { Redirect } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -29,11 +28,6 @@ const PlantForm = (props) => {
   const [imageSelected, setImageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // const { isLoggedIn } = useSelector(state => state.auth);
-  // const { message } = useSelector(state => state.message);
-
-  // const dispatch = useDispatch();
-
   const onChangeName = (e) => {
     const name = e.target.value;
     setName(name);
@@ -57,11 +51,13 @@ const PlantForm = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       const res =  createPlant({ image, name, category, price });
-      if (res.status !== 200) {
+      if (res.status !== 200 || !res) {
         setLoading(false);
+      } else {
+        props.history.push("/");
+        window.location.reload();
       }
-      props.history.push("/");
-      window.location.reload();
+     
     } else {
       setLoading(false);
     }
