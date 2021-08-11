@@ -42,7 +42,7 @@ const PlantForm = (props) => {
     const price = e.target.value;
     setPrice(price);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoading(true);
@@ -50,8 +50,8 @@ const PlantForm = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      const res =  createPlant({ image, name, category, price });
-      if (res.status !== 200 || !res) {
+      const res = await createPlant({ image, name, category, price });
+      if (res.status !== 201 || !res) {
         setLoading(false);
       } else {
         props.history.push("/");
