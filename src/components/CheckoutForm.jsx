@@ -19,7 +19,6 @@ export default function CheckoutForm() {
     // Create PaymentIntent as soon as the page loads
     window.onload = function() {
       createPaymentIntent({ item: 1 }).then(res => {
-        console.log('Res: ', res.data)
           setClientSecret(res.data.clientSecret);
       })
     };
