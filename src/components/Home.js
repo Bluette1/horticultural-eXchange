@@ -24,9 +24,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      <header className="jumbotron">
-        <h3>Plants</h3>
-      </header>
+
       <>
         {content && content.length ? (
           <div className="row d-flex">

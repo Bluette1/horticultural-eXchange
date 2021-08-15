@@ -1,27 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromcart } from "../actions/cart";
+import { addToCart, removeFromCart } from "../actions/cart";
 
 const ToggleButton = ({ name }) => {
   const cartItems = useSelector(state => state.cart);
   const item = cartItems.filter(item => item.name === name);
-  const isInCart = item.length === 0 ? true : false;
+  const isInCart = item.length === 0 ? false : true;
   const dispatch = useDispatch();
   const handleClick = () => {
     if (isInCart) {
-      dispatch(removeFromcart(name))
+      dispatch(removeFromCart(name))
     } else {
       dispatch(addToCart(name));
     }
   }
   return (
-    <div>
-      <Button
+      <button
+        className="toggle btn-primary"
         onClick={handleClick}
         data-testid={'action-button'}
       >
         {isInCart ? 'Remove from Cart' : 'Add to Cart'}
-      </Button>
-    </div>
+      </button>
   );
 }
 

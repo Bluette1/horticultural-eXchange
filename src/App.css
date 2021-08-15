@@ -187,3 +187,35 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.plant {
+  cursor: pointer;
+}
+
+.plant img:hover {
+  opacity: 0.4;
+  margin-top: -50px;
+}
+
+.plant .toggle {
+  position: relative;
+  display: none;
+  z-index: 200;
+  top: 170px;
+  left: 100px;
+  width: 50%;
+}
+
+.toggle:hover {
+  transition: none;
+  margin-bottom: -50px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.plant:hover .toggle {
+  display: block;
+}
