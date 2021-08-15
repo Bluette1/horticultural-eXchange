@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import StripeLoader from "./components/StripeLoader";
+import Cart from "./components/Cart";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
@@ -111,7 +112,7 @@ const App = () => {
             <div className="navbar-nav ml-auto">
               <li className="nav-item d-flex">
                 <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
+                  Logout
                 </a>
                 {message && (
                   <span className="alert alert-danger">
@@ -120,7 +121,7 @@ const App = () => {
                 )}
               </li>
               <li className="nav-item d-flex">
-              <Link to={"/payment"} className="nav-link">
+              <Link to={"/cart"} className="nav-link">
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               <span style={{
                 borderRadius: "40%", backgroundColor: "#9d9d9d", color: "white", fontSize: "8px",
@@ -153,6 +154,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/payment" component={StripeLoader} />
+            <Route exact path="/cart" component={Cart} />
             <Route exact path="/new-plant" component={PlantForm} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />

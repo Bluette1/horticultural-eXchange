@@ -39,6 +39,7 @@ export default function (state = initialState, action) {
         user: null,
       };
     case LOGOUT:
+      localStorage.removeItem('cartItems');
       return {
         ...state,
         isLoggedIn: false,

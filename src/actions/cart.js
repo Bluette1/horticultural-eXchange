@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   RESET_CART,
+  UPDATE_CART
 } from "./types";
 
 export const addToCart = (item) => ({
@@ -14,7 +15,11 @@ export const removeFromCart = (item) => ({
   payload: item,
 });
 
-export const resetCart = (item) => ({
+export const resetCart = () => ({
   type: RESET_CART,
 });
 
+export const updateCart = (item) => ({
+  type: UPDATE_CART,
+  payload: item,
+});
