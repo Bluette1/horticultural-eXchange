@@ -25,6 +25,8 @@ const App = () => {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
 
   const { user: currentUser } = useSelector((state) => state.auth);
+  const cartItems = useSelector(state => state.cart);
+
   const dispatch = useDispatch();
   const { message } = useSelector((state) => state.message);
 
@@ -119,7 +121,11 @@ const App = () => {
               </li>
               <li className="nav-item d-flex">
               <Link to={"/payment"} className="nav-link">
-                  Checkout
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <span style={{
+                borderRadius: "40%", backgroundColor: "#9d9d9d", color: "white", fontSize: "8px",
+                padding: "2px", marginRight: "3px",
+                }}>{cartItems.length}</span>
                 </Link>
               </li>
             </div>

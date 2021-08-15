@@ -4,7 +4,7 @@ import {
   RESET_CART,
 } from "../actions/types";
 
-const cartItems = JSON.parse(localStorage.getItem("items"));
+const cartItems = JSON.parse(localStorage.getItem("cartItems"));
 
 const initialState = cartItems
   ? cartItems
@@ -15,10 +15,15 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case ADD_TO_CART:
-      return [...state, payload]  
+      let items = [...state, payload]
+      localStorage.setItem('cartItems', JSON.stringify(items));
+      return items; 
     case REMOVE_FROM_CART:
-      return state.filter(item => item.name === payload.name);
+      items = state.filter(item => item.name === payload.name);
+      localStorage.setItem('cartItems', JSON.stringify(items));
+      return items;
     case RESET_CART:
+      localStorage.removeItem('cartItems');
       return [];
     default:
       return state;

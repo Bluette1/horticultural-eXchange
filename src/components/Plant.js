@@ -5,7 +5,7 @@ const Plant = ({ plant }) => {
   return (
     <div className="col-sm-6 col-md-4">
       <div className="plant d-flex justify-content center flex-column">
-        <ToggleBtn/>
+        <ToggleBtn plant={plant} />
         <img src={image_url} alt="plant image" />
       </div>
       <>
