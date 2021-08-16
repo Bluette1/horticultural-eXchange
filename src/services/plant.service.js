@@ -1,7 +1,8 @@
 import { fileChecksum } from "../utils/checksum";
 import { httpProtocol, host, port } from "../env.variables";
-const parser = require("fast-xml-parser");
+import authHeader from "./auth-header";
 
+const parser = require("fast-xml-parser");
 const BASE_URL = `${httpProtocol}://${host}:${port}`;
 const PLANTS_API_ENDPOINT = `${BASE_URL}/api/plants`;
 const PRESIGNED_URL_API_ENDPOINT = `${BASE_URL}/presigned_url`;
@@ -10,8 +11,9 @@ const createPresignedUrl = async (file, byte_size, checksum) => {
   let options = {
     method: "POST",
     headers: {
-      Accept: "application/json",
+      "Accept": "application/json",
       "Content-Type": "application/json",
+      ...authHeader()
     },
     body: JSON.stringify({
       file: {
@@ -64,8 +66,9 @@ export const createPlant = async (plantInfo) => {
   let plantsPostOptions = {
     method: "POST",
     headers: {
-      Accept: "application/json",
+      "Accept": "application/json",
       "Content-Type": "application/json",
+      ...authHeader()
     },
     body: JSON.stringify({
       plant: {
