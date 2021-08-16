@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+
 import {
   CardElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
-import createPaymentIntent from '../services/payment.service'
+import { useSelector } from "react-redux";
+import createPaymentIntent from '../services/payment.service';
 
 export default function CheckoutForm() {
+  const cartItems = useSelector((state) => state.cart);
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
@@ -18,11 +21,10 @@ export default function CheckoutForm() {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     window.onload = function() {
-      createPaymentIntent({ item: 1 }).then(res => {
+      createPaymentIntent(cartItems).then(res => {
           setClientSecret(res.data.clientSecret);
       })
-    };
-      
+    }; 
   }, []);
 
   const cardStyle = {
@@ -71,7 +73,7 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form mt-5" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}
