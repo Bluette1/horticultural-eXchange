@@ -73,8 +73,6 @@ export const createPlant = async (plantInfo) => {
         category,
         price,
         image_url: jsonObj.PostResponse.Location,
-        filename: image.name,
-        content_type: image.type,
       },
     }),
   };
