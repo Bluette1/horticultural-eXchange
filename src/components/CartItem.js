@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { updateCart } from "../actions/cart";
+import { updateCart, removeFromCart } from "../actions/cart";
 
 const CartItem = ({ item }) => {
   const { name, image_url, price, quantity } = item;
@@ -11,7 +11,11 @@ const CartItem = ({ item }) => {
   };
   const handleClickRemove = () => {
     item.quantity = quantity - 1;
-    dispatch(updateCart(item));
+    if (item.quantity === 0) {
+      dispatch(removeFromCart(item));
+    } else {
+      dispatch(updateCart(item));
+    }
   };
   return (
     <tr>
