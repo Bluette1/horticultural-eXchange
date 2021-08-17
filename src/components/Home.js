@@ -6,6 +6,7 @@ import uuid from "react-uuid";
 import UserService from "../services/user.service";
 import CategoryService from "../services/category.service";
 import Category from "./Category";
+import Filter from "./Filter";
 
 const Home = () => {
   const [errDisplay, setErrDisplay] = useState("");
@@ -17,13 +18,13 @@ const Home = () => {
       (prdct) => prdct.category.toLowerCase() === category.toLowerCase()
     );
   const getCategoryPrdct = (category) => {
-    const ctprdcts = categoryPrdcts(category);
+    const ctprdcts = category === 'All Plants' ? products: categoryPrdcts(category);
     const idx = randomInteger(0, ctprdcts.length - 1);
     return ctprdcts[idx];
   };
   const getCategories = (categories) => categories.map((item) => item.category);
   const products = useSelector((state) => state.product);
-  const categories = useSelector((state) => state.category);
+  const categories = [...useSelector((state) => state.category), "All Plants"];
 
   useEffect(() => {
     UserService.getPublicContent().then(
@@ -59,8 +60,9 @@ const Home = () => {
   }
 
   return (
-    <div className="container">
-      <>
+    <div className="container row d-flex">
+      <Filter />
+      <div className="col-md-9">
         {categories && categories.length > 0 ? (
           <div className="row d-flex">
             {" "}
@@ -75,7 +77,7 @@ const Home = () => {
         ) : (
           <></>
         )}
-      </>
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { changeFilter } from "../actions/filter";
 
 const Category = ({ plant, category }) => {
-  let history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const { image_url } = plant;

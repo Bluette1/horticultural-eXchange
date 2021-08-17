@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Plant from "./Plant";
 import uuid from "react-uuid";
+import Filter from "./Filter";
 
 const ProductList = () => {
   const { filter: category } = useSelector((state) => state.filter);
@@ -9,10 +10,11 @@ const ProductList = () => {
     products.filter(
       (prdct) => prdct.category.toLowerCase() === category.toLowerCase()
     );
-  const ctprdcts = categoryPrdcts(category);
+  const ctprdcts = category === 'All plants' ? products: categoryPrdcts(category);
 
   return (
-    <div className="container">
+    <div className="container d-flex">
+      <Filter />
       <>
         {ctprdcts && ctprdcts.length > 0 ? (
           <div className="row d-flex">
