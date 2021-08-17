@@ -11,8 +11,7 @@ const Plant = ({ plant }) => {
         <img src={image_url} alt="plant image" />
       </div>
       <>
-        <h4>{name}</h4>
-        <h4>{category}</h4>
+        <h4>{name.toUpperCase()}</h4>
         <h4>R {price}</h4>
       </>
     </div>

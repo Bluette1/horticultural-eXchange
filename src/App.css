@@ -188,7 +188,8 @@ label {
   border-radius: 50%;
 }
 
-.plant {
+.plant,
+.category {
   cursor: pointer;
 }
 

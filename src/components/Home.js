@@ -13,18 +13,18 @@ const Home = () => {
   const randomInteger = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
   const categoryPrdcts = (category) =>
-    products.filter((prdct) => prdct.category.toLowerCase() === category.toLowerCase());
+    products.filter(
+      (prdct) => prdct.category.toLowerCase() === category.toLowerCase()
+    );
   const getCategoryPrdct = (category) => {
     const ctprdcts = categoryPrdcts(category);
-    console.log("ctprdcts: ", ctprdcts);
     const idx = randomInteger(0, ctprdcts.length - 1);
     return ctprdcts[idx];
   };
   const getCategories = (categories) => categories.map((item) => item.category);
   const products = useSelector((state) => state.product);
   const categories = useSelector((state) => state.category);
-  console.log("categories: ", categories);
-  console.log("products: ", products);
+
   useEffect(() => {
     UserService.getPublicContent().then(
       (response) => {
@@ -66,16 +66,14 @@ const Home = () => {
             {" "}
             {categories.map((category) => (
               <Category
-                key={`plant-${uuid()}`}
+                key={`category-${uuid()}`}
                 plant={getCategoryPrdct(category)}
                 category={category}
               />
             ))}
           </div>
         ) : (
-          <>
-            <p className="no-plants">No categories were found</p>
-          </>
+          <></>
         )}
       </>
     </div>

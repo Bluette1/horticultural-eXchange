@@ -17,10 +17,18 @@ const CartItem = ({ item }) => {
       dispatch(updateCart(item));
     }
   };
+  const handleClickCancel = () => {
+    dispatch(removeFromCart(item));
+  };
+
   return (
     <tr>
       <td>
-        <i class="far fa-times-circle"></i>
+        <i
+          class="fa fa-times-circle"
+          aria-hidden="true"
+          onClick={handleClickCancel}
+        ></i>
       </td>
       <td>
         <img src={image_url} alt="image thumbnail" />

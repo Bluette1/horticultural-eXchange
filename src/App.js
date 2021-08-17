@@ -15,11 +15,11 @@ import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
 import PlantForm from './components/PlantForm';
 import CategoryForm from './components/CategoryForm';
-import Category from './components/Category';
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import { history } from "./helpers/history";
+import ProductList from "./components/ProductList";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -160,7 +160,7 @@ const App = () => {
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
-            <Route path="/category/" component={Category} />
+            <Route path="/product-category/" component={ProductList} />
           </Switch>
         </div>
       </div>
