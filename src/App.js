@@ -10,10 +10,11 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import StripeLoader from "./components/StripeLoader";
 import Cart from "./components/Cart";
+import Product from "./components/Product";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
-import PlantForm from './components/PlantForm';
+import PlantForm from './components/ProductForm';
 import CategoryForm from './components/CategoryForm';
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -160,7 +161,8 @@ const App = () => {
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
-            <Route path="/product-category/" component={ProductList} />
+            <Route path="/category-product/" component={ProductList} />
+            <Route path="/product/" component={Product} />
           </Switch>
         </div>
       </div>

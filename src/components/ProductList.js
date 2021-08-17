@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Plant from "./Plant";
+import Plant from "./ProductItem";
 import uuid from "react-uuid";
 import Filter from "./Filter";
 

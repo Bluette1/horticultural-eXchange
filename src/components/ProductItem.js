@@ -1,11 +1,20 @@
+import { useHistory } from "react-router-dom";
 import ToggleBtn from './ToggleBtn';
 import { useSelector } from "react-redux";
 
 const Plant = ({ plant }) => {
-  const { name, image_url, price, category } = plant;
+  const history = useHistory();
+  const { name, image_url, price } = plant;
   const { user: currentUser } = useSelector((state) => state.auth);
+  const handleClick = () => {
+    history.push({
+      pathname: `/product/${name.toLowerCase().replace(/ /g, '-')}`,
+      state: { plant }
+    })
+  }
+
   return (
-    <div className="col-sm-6 col-md-4">
+    <div className="col-sm-6 col-md-4" onClick={handleClick}>
       <div className="plant d-flex justify-content center flex-column">
         {currentUser && (<ToggleBtn plant={plant} />)}
         <img src={image_url} alt="plant image" />

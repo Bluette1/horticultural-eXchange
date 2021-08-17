@@ -56,7 +56,6 @@ const PlantForm = (props) => {
         props.history.push("/");
         window.location.reload();
       }
-     
     } else {
       setLoading(false);
     }

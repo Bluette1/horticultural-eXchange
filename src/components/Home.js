@@ -11,6 +11,8 @@ import Filter from "./Filter";
 const Home = () => {
   const [errDisplay, setErrDisplay] = useState("");
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.product);
+  const categories = [...useSelector((state) => state.category), "All Plants"];
   const randomInteger = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
   const categoryPrdcts = (category) =>
@@ -18,13 +20,11 @@ const Home = () => {
       (prdct) => prdct.category.toLowerCase() === category.toLowerCase()
     );
   const getCategoryPrdct = (category) => {
-    const ctprdcts = category === 'All Plants' ? products: categoryPrdcts(category);
+    const ctprdcts = category === 'All Plants' ? products : categoryPrdcts(category);
     const idx = randomInteger(0, ctprdcts.length - 1);
     return ctprdcts[idx];
   };
   const getCategories = (categories) => categories.map((item) => item.category);
-  const products = useSelector((state) => state.product);
-  const categories = [...useSelector((state) => state.category), "All Plants"];
 
   useEffect(() => {
     UserService.getPublicContent().then(
@@ -63,7 +63,7 @@ const Home = () => {
     <div className="container row d-flex">
       <Filter />
       <div className="col-md-9">
-        {categories && categories.length > 0 ? (
+        {categories && categories.length > 1 ? (
           <div className="row d-flex">
             {" "}
             {categories.map((category) => (

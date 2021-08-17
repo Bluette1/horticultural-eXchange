@@ -10,7 +10,7 @@ const Category = ({ plant, category }) => {
   const handleClick = () => {
     dispatch(changeFilter(category));
     history.push({
-      pathname: '/product-category',
+      pathname: '/category-product',
       search: `?category=${category}`,
   });
 
