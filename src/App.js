@@ -4,7 +4,6 @@ import { Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import logo from "./logo.png";
-
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
@@ -15,7 +14,8 @@ import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
 import PlantForm from './components/PlantForm';
-
+import CategoryForm from './components/CategoryForm';
+import Category from './components/Category';
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -156,9 +156,11 @@ const App = () => {
             <Route exact path="/payment" component={StripeLoader} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/new-plant" component={PlantForm} />
+            <Route exact path="/new-category" component={CategoryForm} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
+            <Route path="/category/" component={Category} />
           </Switch>
         </div>
       </div>

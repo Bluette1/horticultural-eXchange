@@ -19,7 +19,6 @@ const required = (value) => {
 const PlantForm = (props) => {
   const form = useRef();
   const checkBtn = useRef();
-
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
