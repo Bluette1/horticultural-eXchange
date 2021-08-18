@@ -16,6 +16,8 @@ import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
 import PlantForm from './components/ProductForm';
 import CategoryForm from './components/CategoryForm';
+import ProductFilter from './components/ProductFilter';
+import UpdatePrdctForm from './components/UpdatePrdctForm';
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -163,6 +165,8 @@ const App = () => {
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/category-product/" component={ProductList} />
             <Route path="/product/" component={Product} />
+            <Route exact path="/update-product/select" component={ProductFilter} />
+            <Route exact path="/update-product/form" component={UpdatePrdctForm} />
           </Switch>
         </div>
       </div>

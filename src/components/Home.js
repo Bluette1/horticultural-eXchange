@@ -6,7 +6,7 @@ import uuid from "react-uuid";
 import UserService from "../services/user.service";
 import CategoryService from "../services/category.service";
 import Category from "./Category";
-import Filter from "./Filter";
+import Filter from "./CategoryFilter";
 
 const Home = () => {
   const [errDisplay, setErrDisplay] = useState("");

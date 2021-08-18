@@ -11,9 +11,9 @@ const createPresignedUrl = async (file, byte_size, checksum) => {
   let options = {
     method: "POST",
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
-      ...authHeader()
+      ...authHeader(),
     },
     body: JSON.stringify({
       file: {
@@ -29,19 +29,14 @@ const createPresignedUrl = async (file, byte_size, checksum) => {
   return await res.json();
 };
 
-export const createPlant = async (plantInfo) => {
-  const { image, name, category, price } = plantInfo;
 
-  // To upload image file to S3, we need to do three steps:
-  // 1) request a pre-signed POST request (for S3) from the backend
-
+const uploadImage = async(image) => {
   const checksum = await fileChecksum(image);
   const presignedFileParams = await createPresignedUrl(
     image,
     image.size,
     checksum
   );
-  console.log("", presignedFileParams);
   // 2) send file to said POST request (to S3)
   const formData = new FormData();
 
@@ -57,29 +52,80 @@ export const createPlant = async (plantInfo) => {
   };
   const presigned_url = presignedFileParams.url;
   let awsRes = await fetch(presigned_url, s3PutOptions);
+  return awsRes;
+};
 
-  if (awsRes.status !== 201) return awsRes;
-  const body = await awsRes.text();
-  var jsonObj = parser.parse(body);
+export const createPlant = async (plantInfo) => {
+  const { image, name, category, price } = plantInfo;
+
+  // To upload image file to S3, we need to do three steps:
+  // 1) request a pre-signed POST request (for S3) from the backend
+  let image_url;
+  if (image) {
+    const awsRes = uploadImage(image);
+    if (awsRes.status !== 201) return awsRes;
+    const body = await awsRes.text();
+    const jsonObj = parser.parse(body);
+    image_url = jsonObj.PostResponse.Location;
+  }
 
   // 3) confirm & create plant with backend
   let plantsPostOptions = {
     method: "POST",
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
-      ...authHeader()
+      ...authHeader(),
     },
     body: JSON.stringify({
       plant: {
         name,
         category,
         price,
-        image_url: jsonObj.PostResponse.Location,
+        image_url,
       },
     }),
   };
   let res = await fetch(PLANTS_API_ENDPOINT, plantsPostOptions);
+  if (res.status !== 200) return res;
+  return await res.json();
+};
+
+export const updatePlant = async (id, plantInfo) => {
+  const { image, name, category, price, description, common_name, in_stock } = plantInfo;
+
+  // To upload image file to S3, we need to do three steps:
+  // 1) request a pre-signed POST request (for S3) from the backend
+  let image_url;
+  if (image) {
+    const awsRes = uploadImage(image);
+    if (awsRes.status !== 201) return awsRes;
+    const body = await awsRes.text();
+    const jsonObj = parser.parse(body);
+    image_url = jsonObj.PostResponse.Location;
+  }
+
+  // 3) confirm & create plant with backend
+  let plantsPostOptions = {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      ...authHeader(),
+    },
+    body: JSON.stringify({
+      plant: {
+        name,
+        category,
+        price,
+        description,
+        common_name,
+        in_stock,
+        image_url,
+      },
+    }),
+  };
+  let res = await fetch(`${PLANTS_API_ENDPOINT}/${id}`, plantsPostOptions);
   if (res.status !== 200) return res;
   return await res.json();
 };
