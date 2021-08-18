@@ -10,7 +10,7 @@ const ProductList = () => {
     products.filter(
       (prdct) => prdct.category.toLowerCase() === category.toLowerCase()
     );
-  const ctprdcts = category === 'All plants' ? products: categoryPrdcts(category);
+  const ctprdcts = category === 'All Plants' ? products: categoryPrdcts(category);
 
   return (
     <div className="container d-flex">

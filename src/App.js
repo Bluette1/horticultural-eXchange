@@ -14,10 +14,10 @@ import Product from "./components/Product";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
-import PlantForm from './components/ProductForm';
-import CategoryForm from './components/CategoryForm';
-import ProductFilter from './components/ProductFilter';
-import UpdatePrdctForm from './components/UpdatePrdctForm';
+import PlantForm from "./components/ProductForm";
+import CategoryForm from "./components/CategoryForm";
+import ProductFilter from "./components/ProductFilter";
+import UpdatePrdctForm from "./components/UpdatePrdctForm";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -29,7 +29,7 @@ const App = () => {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
 
   const { user: currentUser } = useSelector((state) => state.auth);
-  const cartItems = useSelector(state => state.cart);
+  const cartItems = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
   const { message } = useSelector((state) => state.message);
@@ -49,105 +49,112 @@ const App = () => {
 
   const logOut = (e) => {
     e.preventDefault();
-    dispatch(logout())
+    dispatch(logout());
   };
 
   return (
     <Router history={history}>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-around justify-content-lg-between">
-        <div>
-       
-          <div className="navbar-nav mr-auto">
-          <Link to={"/"} className="navbar-brand">
-            <img
-              style={{
-                marginRight: "2px",
-                width: "30px",
-                height: "30px",
-                borderRadius: 50,
-              }}
-              src={logo}
-              alt=""
-            />{" "}
-            XChange
-          </Link>
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
+          <div>
+            <div className="navbar-nav mr-auto">
+              <Link to={"/"} className="navbar-brand">
+                <img
+                  style={{
+                    marginRight: "2px",
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: 50,
+                  }}
+                  src={logo}
+                  alt=""
+                />{" "}
+                XChange
               </Link>
-            </li>
-
-            {showModeratorBoard && (
               <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
+                <Link to={"/home"} className="nav-link">
+                  Home
                 </Link>
               </li>
-            )}
 
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
+              {showModeratorBoard && (
+                <li className="nav-item">
+                  <Link to={"/mod"} className="nav-link">
+                    Moderator Board
+                  </Link>
+                </li>
+              )}
 
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  Browse Wishlist
-                </Link>
-              </li>
-              
-            )}
-            {currentUser && (<li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
-                {currentUser.email}
-              </Link>
-            </li>)}
-            
+              {showAdminBoard && (
+                <li className="nav-item">
+                  <Link to={"/admin"} className="nav-link">
+                    Admin Board
+                  </Link>
+                </li>
+              )}
+
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/user"} className="nav-link">
+                    Browse Wishlist
+                  </Link>
+                </li>
+              )}
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/profile"} className="nav-link">
+                    {currentUser.email}
+                  </Link>
+                </li>
+              )}
+            </div>
           </div>
-        </div>
 
-          <div>{currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item d-flex">
-                <a href="/login" className="nav-link" onClick={logOut}>
-                  Logout
-                </a>
-                {message && (
-                  <span className="alert alert-danger">
-                    {message}
-                  </span>
-                )}
-              </li>
-              <li className="nav-item d-flex">
-              <Link to={"/cart"} className="nav-link">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              <span style={{
-                borderRadius: "40%", backgroundColor: "#9d9d9d", color: "white", fontSize: "8px",
-                padding: "2px", marginRight: "3px",
-                }}>{cartItems.length}</span>
-                </Link>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
+          <div>
+            {currentUser ? (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item d-flex">
+                  <a href="/login" className="nav-link" onClick={logOut}>
+                    Logout
+                  </a>
+                  {message && (
+                    <span className="alert alert-danger">{message}</span>
+                  )}
+                </li>
+                <li className="nav-item d-flex">
+                  <Link to={"/cart"} className="nav-link">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span
+                      style={{
+                        borderRadius: "40%",
+                        backgroundColor: "#9d9d9d",
+                        color: "white",
+                        fontSize: "8px",
+                        padding: "2px",
+                        marginRight: "3px",
+                      }}
+                    >
+                      {cartItems.length}
+                    </span>
+                  </Link>
+                </li>
+              </div>
+            ) : (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to={"/login"} className="nav-link">
+                    Login
+                  </Link>
+                </li>
 
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}</div>
+                <li className="nav-item">
+                  <Link to={"/register"} className="nav-link">
+                    Sign Up
+                  </Link>
+                </li>
+              </div>
+            )}
+          </div>
         </nav>
 
         <div className="container mt-3">
@@ -165,8 +172,16 @@ const App = () => {
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/category-product/" component={ProductList} />
             <Route path="/product/" component={Product} />
-            <Route exact path="/update-product/select" component={ProductFilter} />
-            <Route exact path="/update-product/form" component={UpdatePrdctForm} />
+            <Route
+              exact
+              path="/update-product/select"
+              component={ProductFilter}
+            />
+            <Route
+              exact
+              path="/update-product/form"
+              component={UpdatePrdctForm}
+            />
           </Switch>
         </div>
       </div>
