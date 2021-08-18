@@ -226,3 +226,7 @@ img {
   color: rgb(255, 105, 113);
   font-weight: bold;
 }
+
+.fa.fa-heart {
+  color: rgb(255, 105, 113);
+}

@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import StripeLoader from "./components/StripeLoader";
 import Cart from "./components/Cart";
+import Wishlist from "./components/Wishlist";
 import Product from "./components/Product";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
@@ -95,7 +96,7 @@ const App = () => {
 
               {currentUser && (
                 <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
+                  <Link to={"/wishlist"} className="nav-link">
                     Browse Wishlist
                   </Link>
                 </li>
@@ -167,9 +168,9 @@ const App = () => {
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/new-plant" component={PlantForm} />
             <Route exact path="/new-category" component={CategoryForm} />
-            <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
+            <Route exact path="/wishlist" component={Wishlist} />
             <Route path="/category-product/" component={ProductList} />
             <Route path="/product/" component={Product} />
             <Route

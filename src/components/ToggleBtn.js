@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../actions/cart";
+import { removeFromWishlist } from "../actions/wishlist";
 
 const ToggleButton = ({ plant }) => {
   const { id } = plant;
@@ -7,12 +8,23 @@ const ToggleButton = ({ plant }) => {
   const item = cartItems.filter((item) => item.id === id);
   const isInCart = item.length === 0 ? false : true;
   const dispatch = useDispatch();
+  const wishlist = useSelector((state) => state.wishlist);
+  const isInWishlist = (id) => {
+   const product = wishlist.filter((item) => item.id === id)
+   if (product.length > 0) {
+     return true;
+   }
+   return false;
+  }
   const handleClick = () => {
     if (isInCart) {
       dispatch(removeFromCart(plant));
     } else {
       plant.quantity = 1;
-      dispatch(addToCart(plant));
+      if (isInWishlist(plant.id)) {
+        dispatch(removeFromWishlist(plant));
+      }
+      dispatch(addToCart(plant));  
     }
   };
   return (
