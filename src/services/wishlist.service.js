@@ -15,12 +15,12 @@ const addToWishlist = (user, product) => {
   return axios.post(API_URL, payload, { headers } );
 };
 
-const getWishlist = (user) => {
-  return axios.get(`${API_URL}/${user.id}`, { headers });
+const getWishlist = () => {
+  return axios.get(`${API_URL}/`, { headers });
 };
 
-const removeFromWishlist = (user) => {
-  return axios.delete(`${API_URL}/${user.id}`, { headers });
+const removeFromWishlist = (id) => {
+  return axios.delete(`${API_URL}/${id}`, { headers });
 };
 
 export default {

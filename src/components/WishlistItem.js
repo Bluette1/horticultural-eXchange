@@ -1,22 +1,19 @@
-import React, {useState} from "react";
-
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { removeFromWishlist } from "../actions/wishlist";
 import WishlistService from "../services/wishlist.service";
 import ToggleBtn from "./ToggleBtn";
 
-
 const WishlistItem = ({ item }) => {
-  const { name, image_url, price, in_stock, created_at } = item;
+  const { product, id } = item;
+  const { name, image_url, price, in_stock, created_at } = product;
   const dispatch = useDispatch();
   const [errDisplay, setErrDisplay] = useState("");
 
-  const { user: currentUser } = useSelector((state) => state.auth);
-
   const handleClickCancel = () => {
-    WishlistService.removeFromWishlist(currentUser, item).then(
+    WishlistService.removeFromWishlist(id).then(
       (res) => {
-        dispatch(removeFromWishlist(item));
+        dispatch(removeFromWishlist({ product, id }));
       },
       (err) => {
         const _errContent =
@@ -25,9 +22,10 @@ const WishlistItem = ({ item }) => {
         setErrDisplay(_errContent);
       }
     );
-    
-
   };
+  if (errDisplay !== "") {
+    return <p>{errDisplay}</p>;
+  }
 
   return (
     <tr>
@@ -39,14 +37,26 @@ const WishlistItem = ({ item }) => {
         ></i>
       </td>
       <td>
-        <img src={image_url} alt="image thumbnail" style={{
-          width: "80px", height: "80px"
-        }}/>
+        <img
+          src={image_url}
+          alt="image thumbnail"
+          style={{
+            width: "80px",
+            height: "80px",
+          }}
+        />
       </td>
       <td>{name}</td>
       <td>{price}</td>
-      <td>{in_stock ? 'In Stock' : 'Out of Stock'}</td>
-      {in_stock && (<td><ToggleBtn plant={item} /></td>)}
+      <td>{in_stock ? "In Stock" : "Out of Stock"}</td>
+      <td>
+        Added on: {created_at}
+        {in_stock && (
+          <span>
+            <ToggleBtn plant={item} />
+          </span>
+        )}
+      </td>
     </tr>
   );
 };
