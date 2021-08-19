@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+* {
+  border: 0 none;
+  list-style: none outside none;
+  margin: 0;
+  outline: 0 none;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, Solis, Arial, Helvetica, sans-serif;
+}
+
 form {
   width: 30vw;
   align-self: center;
@@ -202,7 +225,7 @@ label {
   position: relative;
   display: none;
   z-index: 200;
-  top: 170px;
+  top: 140px;
   left: 70px;
   width: 50%;
 }
@@ -229,4 +252,36 @@ img {
 
 .fa.fa-heart {
   color: rgb(255, 105, 113);
+}
+
+.btn-primary {
+  background-color: #008000;
+}
+
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: #008000;
+}
+
+.btn-primary:focus {
+  border-color: rgb(74, 146, 74);
+  outline: none !important;
+}
+
+.btn.btn-primary:focus,
+.btn.btn-primary:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.bg-navbar {
+  background-color: rgb(74, 146, 74);
+}
+
+form {
+  width: 25vw;
+  align-self: center;
+  box-shadow: none;
+  border-radius: 7px;
+  padding: 40px;
 }

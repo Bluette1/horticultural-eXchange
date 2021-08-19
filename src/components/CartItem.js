@@ -31,9 +31,14 @@ const CartItem = ({ item }) => {
         ></i>
       </td>
       <td>
-        <img src={image_url} alt="image thumbnail" style={{
-          width: "80px", height: "80px"
-        }}/>
+        <img
+          src={image_url}
+          alt="image thumbnail"
+          style={{
+            width: "80px",
+            height: "80px",
+          }}
+        />
       </td>
       <td>{name}</td>
       <td>{price}</td>

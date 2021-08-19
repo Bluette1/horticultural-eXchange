@@ -40,6 +40,7 @@ export default function (state = initialState, action) {
       };
     case LOGOUT:
       localStorage.removeItem('cartItems');
+      localStorage.removeItem('wishlist');
       return {
         ...state,
         isLoggedIn: false,

@@ -8,6 +8,13 @@ const Profile = () => {
     return <Redirect to="/login" />;
   }
 
+  const isGuestUser  = (user) => {
+    if (user.created_at === null || user.id === null) {
+      return true;
+    }
+    return false;
+  }
+
   return (
     <div className="container">
       <header className="jumbotron">
@@ -15,18 +22,18 @@ const Profile = () => {
           <strong>{currentUser.email}</strong> Profile
         </h3>
       </header>
-      <p>        <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
+      {!isGuestUser(currentUser) &&(<p>        <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
         {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-      </p>
-      <p>
+      </p>)}
+      {!isGuestUser(currentUser) &&(<p>
         <strong>Id:</strong> {currentUser.id}
-      </p>
+      </p>)}
       <p>
         <strong>Email:</strong> {currentUser.email}
       </p>
       <strong>Authorities:</strong>
       <ul>
-        {currentUser.user_role && <li>User</li>}
+        {currentUser.user_role && <li>{isGuestUser ? 'Guest User' : "User"}</li>}
         {currentUser.superadmin_role && <li>Admin</li>}
         {currentUser.supervisor_role && <li>Supervisor</li>}
       </ul>

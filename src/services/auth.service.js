@@ -22,8 +22,9 @@ const login = (email, password) => {
 
       if (response.headers.authorization) {
         user.accessToken = response.headers.authorization;
-        localStorage.setItem("user", JSON.stringify(user));
       }
+
+      localStorage.setItem("user", JSON.stringify(user));
 
       return user;
     });
@@ -32,6 +33,7 @@ const login = (email, password) => {
 const logout = () => {
   const headers = authHeader();
   localStorage.removeItem("user");
+  
   return axios
     .delete(API_URL + "sign_out", { headers });
 };

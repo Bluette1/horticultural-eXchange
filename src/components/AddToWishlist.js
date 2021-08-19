@@ -8,26 +8,36 @@ const AddToWishlist = ({ product }) => {
 
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const isGuestUser  = (user) => {
+    if (user.created_at === null || user.id === null) {
+      return true;
+    }
+    return false;
+  }
 
   const handleClick = () => {
-    WishlistService.addToWishlist(currentUser, product).then(
-      (res) => {
-        dispatch(addToWishlist(product));
-      },
-      (err) => {
-        const _errContent =
-          (err.response && err.response.data) || err.message || err.toString();
-
-        setErrDisplay(_errContent);
-      }
-    );
+    if (isGuestUser(currentUser)) {
+      dispatch(addToWishlist({product}));
+    } else {
+      WishlistService.addToWishlist(currentUser, product).then(
+        (res) => {
+          dispatch(addToWishlist(res.data));
+        },
+        (err) => {
+          const _errContent =
+            (err.response && err.response.data) || err.message || err.toString();
+  
+          setErrDisplay(_errContent);
+        }
+      );
+    }
   };
   if (errDisplay !== "") {
     return <p>{errDisplay}</p>;
   }
   return (
     <div className="pt-5 mt-5" style={{ cursor: "pointer" }}>
-      <i class="fa fa-heart" aria-hidden="true"></i>
+      <i class="fa fa-heart-o" aria-hidden="true"></i>
 
       <span
         className="text-weight-bold pt-5"

@@ -6,12 +6,12 @@ import { useSelector } from "react-redux";
 const Product = () => {
   const wishlist = useSelector((state) => state.wishlist);
   const isInWishlist = (id) => {
-   const product = wishlist.filter((item) => item.id === id)
-   if (product.length > 0) {
-     return true;
-   }
-   return false;
-  }
+    const product = wishlist.filter((item) => item.product.id === id);
+    if (product.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const { user: currentUser } = useSelector((state) => state.auth);
   const location = useLocation();
   const { plant } = location.state;
@@ -26,20 +26,28 @@ const Product = () => {
         <h4>{name.toUpperCase()}</h4>
         <h4>{care}</h4>
         <h4>R {price}</h4>
-        <div style={{width: "200px", paddingTop: "25px"}}>
-        {currentUser && in_stock && <ToggleBtn
-         plant={plant}
-         
-          />}
+        <div style={{ width: "200px", paddingTop: "25px" }}>
+          {currentUser && in_stock && <ToggleBtn plant={plant} />}
         </div>
-        
+
         {currentUser && !isInWishlist(id) && <AddToWishlist product={plant} />}
-        {currentUser && isInWishlist(id) && <Link 
-        to="/wishlist"
-        style={{marginTop: "30px", textDecoration: "None",}}
-        >
-          <span className="text-weight-bold pt-5" style={{textTransform: "uppercase"}}>Browse wishlist</span>
-        </Link>}
+        {currentUser && isInWishlist(id) && (
+          <Link
+            to="/wishlist"
+            style={{textDecoration: "None"}}
+          >
+            <div style={{ marginTop: "80px"}}>
+              <i class="fa fa-heart wish-icon" aria-hidden="true"></i>
+
+              <span
+                className="text-weight-bold pt-5"
+                style={{ textTransform: "uppercase",  marginLeft: "3.5px" }}
+              >
+                Browse wishlist
+              </span>
+            </div>
+          </Link>
+        )}
 
         <h4 className="mt-5 pt-5">CATEGORY: &nbsp; {category}</h4>
       </div>

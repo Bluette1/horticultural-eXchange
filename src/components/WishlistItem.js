@@ -1,27 +1,40 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist } from "../actions/wishlist";
 import WishlistService from "../services/wishlist.service";
 import ToggleBtn from "./ToggleBtn";
 
 const WishlistItem = ({ item }) => {
-  const { product, id } = item;
-  const { name, image_url, price, in_stock, created_at } = product;
+  const { product, id, created_at: createdAt } = item;
+  const { name, image_url, price, in_stock } = product;
   const dispatch = useDispatch();
   const [errDisplay, setErrDisplay] = useState("");
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const isGuestUser = (user) => {
+    if (user.created_at === null || user.id === null) {
+      return true;
+    }
+    return false;
+  };
 
   const handleClickCancel = () => {
-    WishlistService.removeFromWishlist(id).then(
-      (res) => {
-        dispatch(removeFromWishlist({ product, id }));
-      },
-      (err) => {
-        const _errContent =
-          (err.response && err.response.data) || err.message || err.toString();
+    if (isGuestUser(currentUser)) {
+      dispatch(removeFromWishlist(item));
+    } else {
+      WishlistService.removeFromWishlist(id).then(
+        () => {
+          dispatch(removeFromWishlist(item));
+        },
+        (err) => {
+          const _errContent =
+            (err.response && err.response.data) ||
+            err.message ||
+            err.toString();
 
-        setErrDisplay(_errContent);
-      }
-    );
+          setErrDisplay(_errContent);
+        }
+      );
+    }
   };
   if (errDisplay !== "") {
     return <p>{errDisplay}</p>;
@@ -50,11 +63,13 @@ const WishlistItem = ({ item }) => {
       <td>{price}</td>
       <td>{in_stock ? "In Stock" : "Out of Stock"}</td>
       <td>
-        Added on: {created_at}
+        {createdAt && (
+          <span>Added on: {new Date(createdAt).toDateString()}</span>
+        )}
         {in_stock && (
-          <span>
-            <ToggleBtn plant={item} />
-          </span>
+          <div style={{ width: "200px" }}>
+            <ToggleBtn plant={product} />
+          </div>
         )}
       </td>
     </tr>

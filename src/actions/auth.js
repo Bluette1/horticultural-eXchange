@@ -78,7 +78,14 @@ export const login = (email, password) => (dispatch) => {
   );
 };
 
-export const logout = () => (dispatch) => {
+export const logout = (user) => (dispatch) => {
+
+  if (user.created_at === null || user.id === null) {
+    dispatch({
+      type: LOGOUT,
+    });
+    return Promise.resolve();
+  }
   return AuthService.logout()
   .then((data) => {
     dispatch({

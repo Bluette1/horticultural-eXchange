@@ -10,9 +10,9 @@ const ToggleButton = ({ plant }) => {
   const dispatch = useDispatch();
   const wishlist = useSelector((state) => state.wishlist);
   const isInWishlist = (id) => {
-   const product = wishlist.filter((item) => item.id === id)
+   const product = wishlist.filter((item) => item.product.id === id)
    if (product.length > 0) {
-     return true;
+     return product[0];
    }
    return false;
   }
@@ -21,8 +21,9 @@ const ToggleButton = ({ plant }) => {
       dispatch(removeFromCart(plant));
     } else {
       plant.quantity = 1;
-      if (isInWishlist(plant.id)) {
-        dispatch(removeFromWishlist(plant));
+      const product = isInWishlist(plant.id);
+      if (product) {
+        dispatch(removeFromWishlist(product));
       }
       dispatch(addToCart(plant));  
     }

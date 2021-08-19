@@ -11,20 +11,28 @@ const Wishlist = () => {
   let wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const { user: currentUser } = useSelector((state) => state.auth);
+  const isGuestUser  = (user) => {
+    if (user.created_at === null || user.id === null) {
+      return true;
+    }
+    return false;
+  } 
 
   useEffect(() => {
-    WishlistService.getWishlist().then(
-      (res) => {
-        dispatch(registerWishlist(res.data));
-      },
-      (err) => {
-        const _errContent =
-          (err.response && err.response.data) || err.message || err.toString();
-
-        setErrDisplay(_errContent);
-      }
-    );
-  }, [currentUser]);
+    if (!isGuestUser) {
+      WishlistService.getWishlist().then(
+        (res) => {
+          dispatch(registerWishlist(res.data));
+        },
+        (err) => {
+          const _errContent =
+            (err.response && err.response.data) || err.message || err.toString();
+  
+          setErrDisplay(_errContent);
+        }
+      );
+    }
+  }, []);
 
   if (errDisplay !== "") {
     return <p>{errDisplay}</p>;

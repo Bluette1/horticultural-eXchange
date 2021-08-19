@@ -50,13 +50,13 @@ const App = () => {
 
   const logOut = (e) => {
     e.preventDefault();
-    dispatch(logout());
+    dispatch(logout(currentUser));
   };
 
   return (
     <Router history={history}>
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-around justify-content-lg-between">
+        <nav className="navbar navbar-expand navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between">
           <div>
             <div className="navbar-nav mr-auto">
               <Link to={"/"} className="navbar-brand">
@@ -127,11 +127,11 @@ const App = () => {
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     <span
                       style={{
-                        borderRadius: "40%",
-                        backgroundColor: "#9d9d9d",
+                        borderRadius: "45%",
+                        backgroundColor: "#008000",
                         color: "white",
                         fontSize: "8px",
-                        padding: "2px",
+                        padding: "3px",
                         marginRight: "3px",
                       }}
                     >
