@@ -61,9 +61,10 @@ const Home = () => {
 
   return (
     <div className="container row d-flex">
+      {categories && categories.length < 2 && (<h4>PRODUCT CATEGORIES:</h4>)}
       <Filter />
       <div className="col-md-9">
-        {categories && categories.length > 1 ? (
+        {categories && categories.length > 0 ? (
           <div className="row d-flex">
             {" "}
             {categories.map((category) => (

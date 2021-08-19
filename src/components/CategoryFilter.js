@@ -9,7 +9,9 @@ const Filter = () => {
   const history = useHistory();
   let categories = [...useSelector((state) => state.category), "All Plants"];
   if (category) {
-    categories = categories.filter((item) => item.toLowerCase() !== category.toLowerCase());
+    categories = categories.filter(
+      (item) => item.toLowerCase() !== category.toLowerCase()
+    );
   }
   const handleChange = (event) => {
     const {
@@ -24,18 +26,23 @@ const Filter = () => {
     }
   };
 
-  return (
+  return categories && categories.length > 0 ? (
     <div className="col-md-3">
       <label htmlFor="category-select">PRODUCT CATEGORIES:</label>
-      {categories && categories.length > 1 ? <select name="categories" id="category-select" onChange={handleChange}>
-        <option value={category ? category: ""}> {category ? category : 'Select a category'}</option>
+
+      <select name="categories" id="category-select" onChange={handleChange}>
+        <option value={category ? category : ""}>
+          {" "}
+          {category ? category : "Select a category"}
+        </option>
         {categories.map((item) => (
-          <option key={`category-${uuid()}`} value={item}>{item}</option>
+          <option key={`category-${uuid()}`} value={item}>
+            {item}
+          </option>
         ))}
-      </select> : null }
-      
+      </select>
     </div>
-  );
+  ) : null;
 };
 
 export default Filter;

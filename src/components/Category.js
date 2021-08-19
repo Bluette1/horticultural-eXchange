@@ -5,6 +5,9 @@ import { changeFilter } from "../actions/filter";
 const Category = ({ plant, category }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  if (!plant) {
+    return null;
+  }
 
   const { image_url } = plant;
   const handleClick = () => {
