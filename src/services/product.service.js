@@ -62,7 +62,7 @@ export const createPlant = async (plantInfo) => {
   // 1) request a pre-signed POST request (for S3) from the backend
   let image_url;
   if (image) {
-    const awsRes = uploadImage(image);
+    const awsRes = await uploadImage(image);
     if (awsRes.status !== 201) return awsRes;
     const body = await awsRes.text();
     const jsonObj = parser.parse(body);
@@ -98,7 +98,7 @@ export const updatePlant = async (id, plantInfo) => {
   // 1) request a pre-signed POST request (for S3) from the backend
   let image_url;
   if (image) {
-    const awsRes = uploadImage(image);
+    const awsRes = await uploadImage(image);
     if (awsRes.status !== 201) return awsRes;
     const body = await awsRes.text();
     const jsonObj = parser.parse(body);
