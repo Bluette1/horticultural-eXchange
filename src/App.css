@@ -226,7 +226,8 @@ label {
   display: none;
   z-index: 200;
   top: 140px;
-  left: 70px;
+  left: 50px;
+  font-size: 12px;
   width: 50%;
 }
 
@@ -284,4 +285,8 @@ form {
   box-shadow: none;
   border-radius: 7px;
   padding: 40px;
+}
+
+td {
+  padding-top: 7px;
 }

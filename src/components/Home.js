@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { registerCategories } from "../actions/category";
 import { registerProducts } from "../actions/product";
+import { registerWishlist } from "../actions/wishlist";
 import uuid from "react-uuid";
 import UserService from "../services/user.service";
 import CategoryService from "../services/category.service";
+import WishlistService from "../services/wishlist.service";
 import Category from "./Category";
 import Filter from "./CategoryFilter";
 
@@ -13,6 +15,15 @@ const Home = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product);
   const categories = [...useSelector((state) => state.category), "All Plants"];
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const isGuestUser  = (user) => {
+    if (user.created_at === null || user.id === null) {
+      return true;
+    }
+    return false;
+  } 
+
+  
   const randomInteger = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
   const categoryPrdcts = (category) =>
@@ -26,33 +37,34 @@ const Home = () => {
   };
   const getCategories = (categories) => categories.map((item) => item.category);
 
-  useEffect(() => {
-    UserService.getPublicContent().then(
-      (response) => {
-        dispatch(registerProducts(response.data));
-        CategoryService.getCategories().then(
-          (res) => {
-            dispatch(registerCategories(getCategories(res.data)));
-          },
-          (err) => {
-            const _errContent =
-              (err.response && err.response.data) ||
-              err.message ||
-              err.toString();
-
-            setErrDisplay(_errContent);
-          }
-        );
-      },
-      (error) => {
-        const _errorContent =
-          (error.response && error.response.data) ||
-          error.message ||
-          error.toString();
-
-        setErrDisplay(_errorContent);
+  useEffect(async () => {
+    try {
+      if (isGuestUser(currentUser)) {
+        const [productsResponse, categoriesResponse] = await Promise.all([
+          UserService.getPublicContent(),
+          CategoryService.getCategories(),
+        ]);
+        dispatch(registerProducts(productsResponse.data));
+        dispatch(registerCategories(getCategories(categoriesResponse.data)));
+      } else {
+        const [productsResponse, categoriesResponse, wishlistResponse] = await Promise.all([
+          UserService.getPublicContent(),
+          CategoryService.getCategories(),
+          WishlistService.getWishlist()
+        ]);
+        dispatch(registerProducts(productsResponse.data));
+        dispatch(registerCategories(getCategories(categoriesResponse.data)));
+        dispatch(registerWishlist(wishlistResponse.data));
       }
-    );
+      
+    } catch (error) {
+      const _errorContent =
+      (error.response && error.response.data) ||
+      error.message ||
+      error.toString();
+
+      setErrDisplay(_errorContent);
+    }
   }, []);
 
   if (errDisplay !== "") {
@@ -75,9 +87,7 @@ const Home = () => {
               />
             ))}
           </div>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </div>
     </div>
   );
