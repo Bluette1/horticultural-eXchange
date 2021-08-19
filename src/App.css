@@ -255,13 +255,17 @@ img {
   color: rgb(255, 105, 113);
 }
 
-.btn-primary {
-  background-color: #008000;
+.btn-primary,
+.btn,
+button {
+  background-color: #008000 !important;
 }
 
 .btn-primary:focus,
+.btn.btn-primary:active,
+.btn-primary::selection,
 .btn-primary:hover {
-  background-color: #008000;
+  background-color: #008000 !important;
 }
 
 .btn-primary:focus {
@@ -289,4 +293,63 @@ form {
 
 td {
   padding-top: 7px;
+}
+
+.btn-outline-primary {
+  width: 220px;
+  background: #476d0a!important;
+  border: none;
+  color: white;
+  font-weight: 450;
+}
+
+.btn-outline-primary:hover {
+  background: #476d0a!important;
+  outline: none;
+  box-shadow: none!important;
+}
+
+.btn-outline-primary:focus {
+  background: #476d0a!important;
+  outline: none;
+  box-shadow: none !important;
+}
+
+.btn-outline-primary:active {
+  background: #476d0a!important;
+  outline: none;
+  box-shadow: none !important;
+}
+
+.btn-primary {
+  width: 220px;
+  background-color: #476d0a;
+  border: none;
+  color: white;
+  font-weight: 450;
+}
+
+.btn-primary:hover {
+  background-color: #476d0a;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-primary:focus {
+  background-color: #476d0a;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-primary:active {
+  background-color: #476d0a!important;
+  outline: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-primary:active:focus {
+  background-color: #476d0a!important;
+  outline: none;
+  box-shadow: none!important;
 }

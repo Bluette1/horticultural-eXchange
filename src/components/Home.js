@@ -39,7 +39,7 @@ const Home = () => {
 
   useEffect(async () => {
     try {
-      if (isGuestUser(currentUser)) {
+      if (currentUser && isGuestUser(currentUser)) {
         const [productsResponse, categoriesResponse] = await Promise.all([
           UserService.getPublicContent(),
           CategoryService.getCategories(),
