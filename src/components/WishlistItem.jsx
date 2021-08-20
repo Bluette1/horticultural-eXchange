@@ -68,7 +68,7 @@ const WishlistItem = ({ item }) => {
         )}
         {inStock && (
           <div style={{ width: '200px' }}>
-            <ToggleBtn plant={product} />
+            <ToggleBtn prdct={product} />
           </div>
         )}
       </td>

@@ -20,6 +20,7 @@ const findAndUpdateItem = (crtItems, updatedItem) => {
 const updateCart = (state, payload) => {
   const updatedItems = findAndUpdateItem(state, payload);
   localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+  return updatedItems;
 };
 
 const initialState = cartItems || [];

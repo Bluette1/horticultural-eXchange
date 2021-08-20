@@ -21,7 +21,7 @@ const Plant = ({ plant }) => {
     <div className="col-sm-6 col-md-4" role="presentation" onKeyDown={handleClick} onClick={handleClick}>
       <div className="plant d-flex justify-content center flex-column">
         {!inStock && (<OutOfStock />)}
-        {currentUser && inStock && (<ToggleBtn plant={plant} />)}
+        {currentUser && inStock && (<ToggleBtn prdct={plant} />)}
         <img src={imageUrl} alt="plant" />
       </div>
       <>

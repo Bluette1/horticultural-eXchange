@@ -10,11 +10,11 @@ import history from './helpers/history';
 import Login from './components/Login';
 import Register from './components/Register';
 import Deregister from './components/Deregister';
-import Home from './components/Home';
+import Home from './containers/Home';
 import Profile from './components/Profile';
-import StripeLoader from './components/StripeLoader';
-import Cart from './components/Cart';
-import Wishlist from './components/Wishlist';
+import StripeLoader from './containers/StripeLoader';
+import Cart from './containers/Cart';
+import Wishlist from './containers/Wishlist';
 import Product from './components/Product';
 import BoardModerator from './components/BoardModerator';
 import BoardAdmin from './components/BoardAdmin';
@@ -24,10 +24,9 @@ import ProductFilter from './components/ProductFilter';
 import UpdatePrdctForm from './components/UpdatePrdctForm';
 import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
-import ProductList from './components/ProductList';
+import ProductList from './containers/ProductList';
 
 const App = () => {
-  // const history = useHistory();
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
 

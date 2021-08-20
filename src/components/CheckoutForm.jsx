@@ -73,7 +73,7 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form mt-5" onSubmit={handleSubmit}>
+    <form id="payment-form pt-5 mt-5" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}

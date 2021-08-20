@@ -105,7 +105,7 @@ const Login = (props) => {
             <button
               className="btn btn-primary btn-block"
               disabled={loading}
-              type="button"
+              type="submit"
             >
               {loading && <span className="spinner-border spinner-border-sm" />}
               <span>Login</span>

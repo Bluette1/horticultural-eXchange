@@ -34,10 +34,12 @@ const Category = ({ plant, category }) => {
     </div>
   );
 };
-
+Category.defaultProps = {
+  plant: null,
+};
 Category.propTypes = {
-  plant: PropTypes.objectOf(PropTypes.any).isRequired,
-  category: PropTypes.objectOf(PropTypes.string).isRequired,
+  plant: PropTypes.objectOf(PropTypes.any),
+  category: PropTypes.string.isRequired,
 };
 
 export default Category;

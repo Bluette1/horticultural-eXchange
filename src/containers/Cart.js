@@ -37,7 +37,7 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {crtItems.map((item) => <CartItem key={`item-${uuid()}`} item={item} />)}
+            {crtItems.map((item) => <CartItem key={`item-${uuid()}`} cartItem={item} />)}
           </tbody>
           <tfoot>
             <tr>
