@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-
 html {
   box-sizing: border-box;
 }
@@ -79,9 +78,6 @@ input {
   margin-bottom: 32px;
 }
 
-
-/* Buttons and links */
-
 button {
   background: #5469d4;
   font-family: Arial, sans-serif;
@@ -107,9 +103,6 @@ button:disabled {
   cursor: default;
 }
 
-
-/* spinner/processing state, errors */
-
 .spinner,
 .spinner::before,
 .spinner::after {
@@ -133,7 +126,7 @@ button:disabled {
 .spinner::before,
 .spinner::after {
   position: absolute;
-  content: "";
+  content: '';
 }
 
 .spinner::before {
@@ -167,7 +160,6 @@ button:disabled {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
