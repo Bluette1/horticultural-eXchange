@@ -26,7 +26,6 @@ const Home = () => {
   const getCategoryPrdct = (category) => {
     const ctprdcts = category === 'All Plants' ? products : categoryPrdcts(category);
     const idx = randomInteger(0, ctprdcts.length - 1);
-    console.log('ctprdcts[idx]: ', ctprdcts[idx]);
     return ctprdcts[idx];
   };
   const getCategories = (categories) => categories.map((item) => item.category);
