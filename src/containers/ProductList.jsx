@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import uuid from 'react-uuid';
-import Plant from './ProductItem';
-import Filter from './CategoryFilter';
+import Plant from '../components/ProductItem';
+import Filter from '../components/CategoryFilter';
 
 const ProductList = () => {
   const { filter: category } = useSelector((state) => state.filter);

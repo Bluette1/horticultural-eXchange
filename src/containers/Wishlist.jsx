@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import uuid from 'react-uuid';
-import WishlistItem from './WishlistItem';
+import WishlistItem from '../components/WishlistItem';
 
 const Wishlist = () => {
   const wishlist = useSelector((state) => state.wishlist);

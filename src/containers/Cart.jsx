@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import uuid from 'react-uuid';
-import CartItem from './CartItem';
+import CartItem from '../components/CartItem';
 
 const Cart = () => {
   const crtItems = useSelector((state) => state.cart);

@@ -7,8 +7,8 @@ import { registerWishlist } from '../actions/wishlist';
 import UserService from '../services/user.service';
 import CategoryService from '../services/category.service';
 import WishlistService from '../services/wishlist.service';
-import Category from './Category';
-import Filter from './CategoryFilter';
+import Category from '../components/Category';
+import Filter from '../components/CategoryFilter';
 
 import isGuestUser from '../helpers/isGuestUser';
 
