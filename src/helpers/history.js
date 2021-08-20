@@ -1,4 +1,4 @@
-import { createBrowserHistory } from 'history'; // eslint-disable-line import/no-extraneous-dependencies
+import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();
 

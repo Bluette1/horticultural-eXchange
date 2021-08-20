@@ -37,7 +37,7 @@ const CategoryForm = (props) => {
 
     form.current.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) { // eslint-disable-line no-underscore-dangle
+    if (checkBtn.current.context._errors.length === 0) {
       const res = await CategoryService.createCategory({ category: name });
       if (res.status !== 201 || !res) {
         setLoading(false);

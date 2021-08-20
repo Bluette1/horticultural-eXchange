@@ -49,7 +49,7 @@ const Login = (props) => {
 
     form.current.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) { // eslint-disable-line no-underscore-dangle
+    if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(email, password))
         .then(() => {
           props.history.push('/profile');

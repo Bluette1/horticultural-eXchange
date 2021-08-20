@@ -50,7 +50,7 @@ const ProductForm = (props) => {
 
     form.current.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) { // eslint-disable-line no-underscore-dangle
+    if (checkBtn.current.context._errors.length === 0) {
       const res = await createPlant({
         image,
         name,

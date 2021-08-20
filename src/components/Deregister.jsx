@@ -48,7 +48,7 @@ const Deregister = (props) => {
 
     form.current.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) { // eslint-disable-line no-underscore-dangle
+    if (checkBtn.current.context._errors.length === 0) {
       AuthService.deregister({ username, email, password })
         .then(() => {
           props.history.push('/');
