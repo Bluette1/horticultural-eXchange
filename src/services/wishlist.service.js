@@ -1,5 +1,5 @@
-import axios from "axios";
-import authHeader from "./auth-header";
+import axios from 'axios';
+import authHeader from './auth-header';
 import { httpProtocol, host, port } from '../env.variables';
 
 const API_URL = `${httpProtocol}://${host}:${port}/wishes`;
@@ -9,20 +9,16 @@ const addToWishlist = (user, product) => {
   const payload = {
     wish: {
       user_id: user.id,
-      plant_id: product.id
-    }
+      plant_id: product.id,
+    },
   };
-  return axios.post(API_URL, payload, { headers } );
+  return axios.post(API_URL, payload, { headers });
 };
 
-const getWishlist = () => {
-  return axios.get(`${API_URL}/`, { headers });
-};
+const getWishlist = () => axios.get(`${API_URL}/`, { headers });
 
-const removeFromWishlist = (id) => {
-  return axios.delete(`${API_URL}/${id}`, { headers });
-};
+const removeFromWishlist = (id) => axios.delete(`${API_URL}/${id}`, { headers });
 
 export default {
-  addToWishlist, getWishlist, removeFromWishlist
+  addToWishlist, getWishlist, removeFromWishlist,
 };

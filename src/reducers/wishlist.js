@@ -1,11 +1,15 @@
-import { ADD_TO_WISHLIST, REGISTER_WISHLIST, REMOVE_FROM_WISHLIST } from "../actions/types";
-const wishlist = JSON.parse(localStorage.getItem("wishlist"));
+import { ADD_TO_WISHLIST, REGISTER_WISHLIST, REMOVE_FROM_WISHLIST } from '../actions/types';
 
-const initialState = wishlist
-  ? wishlist
-  : [];
+const removeFromWishlist = (id, state) => {
+  const itemsUpdated = state.filter((item) => item.id !== id);
+  localStorage.setItem('wishlist', JSON.stringify(itemsUpdated));
+  return itemsUpdated;
+};
+const wishlist = JSON.parse(localStorage.getItem('wishlist'));
 
-export default function (state = initialState, action) {
+const initialState = wishlist || [];
+
+const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -13,16 +17,15 @@ export default function (state = initialState, action) {
       if (!payload.id) {
         payload.id = state.length;
       }
-      const items = [...state, payload]
-      localStorage.setItem('wishlist', JSON.stringify(items));
-      return items;
+      localStorage.setItem('wishlist', JSON.stringify([...state, payload]));
+      return [...state, payload];
     case REMOVE_FROM_WISHLIST:
-      const itemsUpdated =state.filter((item) => item.id !== payload.id);
-      localStorage.setItem('wishlist', JSON.stringify(itemsUpdated));
-      return itemsUpdated;    
+      return removeFromWishlist(payload.id, state);
     case REGISTER_WISHLIST:
-      return payload; 
+      return payload;
     default:
       return state;
   }
-}
+};
+
+export default reducer;

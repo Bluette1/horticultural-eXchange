@@ -1,6 +1,8 @@
-import { REGISTER_CATEGORIES } from "./types";
+import { REGISTER_CATEGORIES } from './types';
 
-export const registerCategories = categories => ({
+const registerCategories = (categories) => ({
   type: REGISTER_CATEGORIES,
   payload: categories,
 });
+
+export default registerCategories;

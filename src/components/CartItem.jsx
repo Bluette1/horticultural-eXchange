@@ -1,9 +1,13 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { updateCart, removeFromCart } from "../actions/cart";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { updateCart, removeFromCart } from '../actions/cart';
 
-const CartItem = ({ item }) => {
-  const { name, image_url, price, quantity } = item;
+const CartItem = ({ cartItem }) => {
+  const item = cartItem;
+  const {
+    name, image_url: imageUrl, price, quantity,
+  } = item;
   const dispatch = useDispatch();
   const handleClickAdd = () => {
     item.quantity = quantity + 1;
@@ -25,18 +29,18 @@ const CartItem = ({ item }) => {
     <tr>
       <td>
         <i
-          class="fa fa-times-circle"
+          className="fa fa-times-circle"
           aria-hidden="true"
           onClick={handleClickCancel}
-        ></i>
+        />
       </td>
       <td>
         <img
-          src={image_url}
-          alt="image thumbnail"
+          src={imageUrl}
+          alt=""
           style={{
-            width: "80px",
-            height: "80px",
+            width: '80px',
+            height: '80px',
           }}
         />
       </td>
@@ -44,20 +48,24 @@ const CartItem = ({ item }) => {
       <td>{price}</td>
       <td>
         <i
-          class="fa fa-minus-circle"
+          className="fa fa-minus-circle"
           aria-hidden="true"
           onClick={handleClickRemove}
-        ></i>
+        />
         {quantity}
         <i
-          class="fa fa-plus-circle"
+          className="fa fa-plus-circle"
           aria-hidden="true"
           onClick={handleClickAdd}
-        ></i>
+        />
       </td>
       <td>{quantity * price}</td>
     </tr>
   );
+};
+
+CartItem.propTypes = {
+  cartItem: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default CartItem;

@@ -1,21 +1,12 @@
-import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { updatePlant } from "../services/product.service";
+import React, { useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import CheckButton from 'react-validation/build/button';
 import queryString from 'query-string';
-
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
+import { updatePlant } from '../services/product.service';
 
 const PlantForm = (props) => {
   const location = useLocation();
@@ -24,11 +15,11 @@ const PlantForm = (props) => {
   const form = useRef();
   const checkBtn = useRef();
   const [name, setName] = useState(product.name);
-  const [commonName, setCommonName] = useState(product.common_name || "");
+  const [commonName, setCommonName] = useState(product.common_name || '');
   const [inStock, setInStock] = useState(product.in_stock);
   const [category, setCategory] = useState(product.category);
   const [price, setPrice] = useState(product.price);
-  const [description, setDescription] = useState(product.description || "");
+  const [description, setDescription] = useState(product.description || '');
   const [image, setImage] = useState(null);
   const { message } = useSelector((state) => state.message);
   const [imageSelected, setImageSelected] = useState(false);
@@ -68,20 +59,20 @@ const PlantForm = (props) => {
 
     form.current.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) {
+    if (checkBtn.current.context._errors.length === 0) { // eslint-disable-line no-underscore-dangle
       const res = await updatePlant(id, {
         image,
         name,
         category,
         price,
-        common_name: commonName,
-        in_stock: inStock,
-        description
+        commonName,
+        inStock,
+        description,
       });
-      if ( res.status && res.status !== 200) {
+      if (res.status && res.status !== 200) {
         setLoading(false);
       } else {
-        props.history.push("/");
+        props.history.push('/');
         window.location.reload();
       }
     } else {
@@ -98,7 +89,7 @@ const PlantForm = (props) => {
     <div className="col-md-12">
       <Form onSubmit={handleSubmit} ref={form}>
         <div className="form-group">
-          <label htmlFor="name">name</label>
+          <p>name</p>
           <Input
             type="text"
             className="form-control"
@@ -110,7 +101,7 @@ const PlantForm = (props) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="category">Category</label>
+          <p>Category</p>
           <Input
             className="form-control"
             name="category"
@@ -122,19 +113,19 @@ const PlantForm = (props) => {
         <div className="form-group">
           <h4>Is product out of stock?</h4>
           <div className=" row d-flex flex-row">
-          <label htmlFor="category">Yes</label>
-          <Input
-          className ="col-1"
-            type="checkbox"
-            name="in-stock"
-            value={inStock}
-            onChange={onChangeInStock}
-          />
+            <p>Yes</p>
+            <Input
+              className="col-1"
+              type="checkbox"
+              name="in-stock"
+              value={inStock}
+              onChange={onChangeInStock}
+            />
           </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="price">Price</label>
+          <p>Price</p>
           <Input
             className="form-control"
             name="price"
@@ -144,7 +135,8 @@ const PlantForm = (props) => {
           />
         </div>
         <div className="form-group">
-          <input type="file" name="image" onChange={handleChangeImage} />{" "}
+          <input type="file" name="image" onChange={handleChangeImage} />
+          {' '}
           {imageSelected ? (
             <span>
               <p>
@@ -160,7 +152,8 @@ const PlantForm = (props) => {
                 {image.size}
               </p>
               <p>
-                lastModifiedDate: {image.lastModifiedDate.toLocaleDateString()}
+                lastModifiedDate:
+                {image.lastModifiedDate.toLocaleDateString()}
               </p>
             </span>
           ) : (
@@ -168,7 +161,7 @@ const PlantForm = (props) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="">Description</label>
+          <p>Description</p>
           <textarea
             id="description"
             name="description"
@@ -181,7 +174,7 @@ const PlantForm = (props) => {
           </textarea>
         </div>
         <div className="form-group">
-          <label htmlFor="category">Common name</label>
+          <p>Common name</p>
           <Input
             className="form-control"
             name="common-name"
@@ -190,10 +183,12 @@ const PlantForm = (props) => {
           />
         </div>
         <div className="form-group ">
-          <button className="btn btn-primary btn-block" disabled={loading}>
-            {loading && (
-              <span className="spinner-border spinner-border-sm"></span>
-            )}
+          <button
+            className="btn btn-primary btn-block"
+            disabled={loading}
+            type="submit"
+          >
+            {loading && <span className="spinner-border spinner-border-sm" />}
             <span>Update Product</span>
           </button>
         </div>
@@ -205,10 +200,13 @@ const PlantForm = (props) => {
             </div>
           </div>
         )}
-        <CheckButton style={{ display: "none" }} ref={checkBtn} />
+        <CheckButton style={{ display: 'none' }} ref={checkBtn} />
       </Form>
     </div>
   );
 };
 
+PlantForm.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 export default PlantForm;

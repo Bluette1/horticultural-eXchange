@@ -1,6 +1,8 @@
-import { REGISTER_PRODUCTS } from "./types";
+import { REGISTER_PRODUCTS } from './types';
 
-export const registerProducts = products => ({
+const registerProducts = (products) => ({
   type: REGISTER_PRODUCTS,
   payload: products,
 });
+
+export default registerProducts;

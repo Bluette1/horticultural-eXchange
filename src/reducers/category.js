@@ -1,4 +1,4 @@
-import { REGISTER_CATEGORIES } from "../actions/types";
+import { REGISTER_CATEGORIES } from '../actions/types';
 
 const initialState = [];
 

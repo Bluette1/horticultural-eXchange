@@ -1,12 +1,11 @@
-import React, { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import CheckButton from 'react-validation/build/button';
+import { isEmail } from 'validator';
 
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
-
-import { register } from "../actions/auth";
+import { register } from '../actions/auth';
 
 const required = (value) => {
   if (!value) {
@@ -16,6 +15,7 @@ const required = (value) => {
       </div>
     );
   }
+  return null;
 };
 
 const validEmail = (value) => {
@@ -26,6 +26,7 @@ const validEmail = (value) => {
       </div>
     );
   }
+  return null;
 };
 
 const vusername = (value) => {
@@ -36,6 +37,7 @@ const vusername = (value) => {
       </div>
     );
   }
+  return null;
 };
 
 const vpassword = (value) => {
@@ -46,18 +48,19 @@ const vpassword = (value) => {
       </div>
     );
   }
+  return null;
 };
 
 const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [successful, setSuccessful] = useState(false);
 
-  const { message } = useSelector(state => state.message);
+  const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
   const onChangeUsername = (e) => {
@@ -82,7 +85,7 @@ const Register = () => {
 
     form.current.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) {
+    if (checkBtn.current.context._errors.length === 0) { // eslint-disable-line no-underscore-dangle
       dispatch(register(username, email, password))
         .then(() => {
           setSuccessful(true);
@@ -106,7 +109,7 @@ const Register = () => {
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <p>Username</p>
                 <Input
                   type="text"
                   className="form-control"
@@ -118,7 +121,7 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <p>Email</p>
                 <Input
                   type="text"
                   className="form-control"
@@ -130,7 +133,7 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <p>Password</p>
                 <Input
                   type="password"
                   className="form-control"
@@ -142,19 +145,26 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className="btn btn-primary btn-block" type="button">
+                  Sign Up
+                </button>
               </div>
             </div>
           )}
 
           {message && (
             <div className="form-group">
-              <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+              <div
+                className={
+                  successful ? 'alert alert-success' : 'alert alert-danger'
+                }
+                role="alert"
+              >
                 {message}
               </div>
             </div>
           )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          <CheckButton style={{ display: 'none' }} ref={checkBtn} />
         </Form>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { REGISTER_PRODUCTS } from "../actions/types";
+import { REGISTER_PRODUCTS } from '../actions/types';
 
 const initialState = [];
 

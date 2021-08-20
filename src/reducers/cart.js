@@ -2,39 +2,42 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   RESET_CART,
-  UPDATE_CART
-} from "../actions/types";
+  UPDATE_CART,
+} from '../actions/types';
 
-const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+const removeFromCart = (id, state) => {
+  const itemsUpdated = state.filter((item) => item.id !== id);
+  localStorage.setItem('wishlist', JSON.stringify(itemsUpdated));
+  return itemsUpdated;
+};
+const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 
 const findAndUpdateItem = (crtItems, updatedItem) => {
-  const index = crtItems.findIndex(item => item.id === updatedItem.id);
+  const index = crtItems.findIndex((item) => item.id === updatedItem.id);
   return [...crtItems.slice(0, index), updatedItem, ...crtItems.slice(index + 1)];
 };
 
-const initialState = cartItems
-  ? cartItems
-  : [];
+const updateCart = (state, payload) => {
+  const updatedItems = findAndUpdateItem(state, payload);
+  localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+};
+
+const initialState = cartItems || [];
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
     case ADD_TO_CART:
-      const items = [...state, payload]
-      localStorage.setItem('cartItems', JSON.stringify(items));
-      return items; 
+      localStorage.setItem('cartItems', JSON.stringify([...state, payload]));
+      return [...state, payload];
     case REMOVE_FROM_CART:
-      const itemsUpdated = state.filter(item => item.id !== payload.id);
-      localStorage.setItem('cartItems', JSON.stringify(itemsUpdated));
-      return itemsUpdated; ;
+      return removeFromCart(payload.id, state);
     case RESET_CART:
       localStorage.removeItem('cartItems');
       return [];
     case UPDATE_CART:
-      const updatedItems = findAndUpdateItem(state, payload);
-      localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-      return updatedItems;
+      return updateCart(state, payload);
     default:
       return state;
   }
