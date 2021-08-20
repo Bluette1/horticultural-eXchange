@@ -7,7 +7,7 @@ const BoardModerator = () => (
     </header>
     <div className="d-flex flex-column">
       <Link to="/register">Add User</Link>
-      <Link to="/de-register">Remove User</Link>
+      <Link to="/deregister">Remove User</Link>
     </div>
   </div>
 );

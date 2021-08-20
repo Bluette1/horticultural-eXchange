@@ -20,25 +20,14 @@ const required = (value) => {
 const Deregister = (props) => {
   const form = useRef();
   const checkBtn = useRef();
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { message } = useSelector((state) => state.message);
-
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
+  const { user: currentUser } = useSelector((state) => state.auth);
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
   };
 
   const handleDeregister = (e) => {
@@ -49,9 +38,9 @@ const Deregister = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.deregister({ username, email, password })
+      AuthService.deregister(email, currentUser.id)
         .then(() => {
-          props.history.push('/');
+          props.history.push('/mod');
           window.location.reload();
         })
         .catch(() => {
@@ -72,17 +61,6 @@ const Deregister = (props) => {
 
         <Form onSubmit={handleDeregister} ref={form}>
           <div className="form-group">
-            <p>username</p>
-            <Input
-              type="text"
-              className="form-control"
-              name="username"
-              value={username}
-              onChange={onChangeUsername}
-              validations={[required]}
-            />
-          </div>
-          <div className="form-group">
             <p>email</p>
             <Input
               type="text"
@@ -90,18 +68,6 @@ const Deregister = (props) => {
               name="email"
               value={email}
               onChange={onChangeEmail}
-              validations={[required]}
-            />
-          </div>
-
-          <div className="form-group">
-            <p>Password</p>
-            <Input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
               validations={[required]}
             />
           </div>

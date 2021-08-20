@@ -8,6 +8,7 @@ const Profile = () => {
   if (!currentUser) {
     return <Redirect to="/login" />;
   }
+  const userValue = isGuestUser(currentUser) ? 'Guest User' : 'User';
 
   return (
     <div className="container">
@@ -44,9 +45,9 @@ const Profile = () => {
       </p>
       <strong>Authorities:</strong>
       <ul>
-        {currentUser.user_role && <li>{isGuestUser ? 'Guest User' : 'User'}</li>}
+        {currentUser.user_role && <li>{userValue}</li>}
         {currentUser.superadmin_role && <li>Admin</li>}
-        {currentUser.supervisor_role && <li>Supervisor</li>}
+        {currentUser.supervisor_role && <li>Moderator</li>}
       </ul>
     </div>
   );

@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail } from 'validator';
-
+import AuthService from '../services/auth.service';
 import { register } from '../actions/auth';
 
 const required = (value) => {
@@ -55,6 +56,9 @@ const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { user: currentUser } = useSelector((state) => state.auth);
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,6 +66,7 @@ const Register = () => {
 
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -86,15 +91,29 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(username, email, password))
+      let addUser;
+      if (isLoggedIn) {
+        addUser = AuthService.registerUser(
+          {
+            user: { email, password },
+          },
+          currentUser.id,
+        );
+      } else {
+        addUser = dispatch(register(username, email, password));
+      }
+      addUser
         .then(() => {
           setSuccessful(true);
+          history.push('/mod');
         })
         .catch(() => {
           setSuccessful(false);
         });
     }
   };
+
+  const btnLabel = isLoggedIn ? 'Add User' : 'Sign Up';
 
   return (
     <div className="col-md-12">
@@ -145,8 +164,8 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block" type="button">
-                  Sign Up
+                <button className="btn btn-primary btn-block" type="submit">
+                  {btnLabel}
                 </button>
               </div>
             </div>
