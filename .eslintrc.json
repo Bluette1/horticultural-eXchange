@@ -20,7 +20,8 @@
     "import/no-unresolved": "off",
     "no-shadow": "off",
     "import/no-extraneous-dependencies": 1,
-    "no-underscore-dangle":  1
+    "no-underscore-dangle":  1,
+    "no-unused-expressions": 1
   },
   "ignorePatterns": [
     "dist/",

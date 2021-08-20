@@ -5,7 +5,7 @@ import {
 import { Provider } from 'react-redux';
 import axios from 'axios';
 import App from './App';
-import store  from './store';
+import store from './store';
 import { httpProtocol, host, port } from './env.variables';
 
 jest.mock('axios');
@@ -20,11 +20,11 @@ const AppWithStore = () => (
   </Provider>
 );
 test('renders the app', async () => {
-  axios.get.mockImplementation(url => {
+  axios.get.mockImplementation((url) => {
     switch (url) {
       case `${httpProtocol}://${host}:${port}/categories`:
         return Promise.resolve({ data: [] });
-        case `${httpProtocol}://${host}:${port}/plants`:
+      case `${httpProtocol}://${host}:${port}/plants`:
         return Promise.resolve({ data: [] });
       default:
         return Promise.resolve({ data: [] });
