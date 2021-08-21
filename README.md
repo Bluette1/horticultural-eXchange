@@ -103,7 +103,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 #### Heroku Deployment with Docker
 - Instructions can be found [here]( 
  https://betterprogramming.pub/how-to-containerize-and-deploy-apps-with-docker-and-heroku-b1c49e5bc070).
-
+- You may have to [disable the eslint plugin](https://stackoverflow.com/questions/67364108/react-app-failed-to-load-config-airbnb-in-deploying-to-heroku).
 
 ### Integration with Amazon Web Services(AWS) S3 Storage
 - Open an account on [Amazon Web Services](https://signin.aws.amazon.com/)
