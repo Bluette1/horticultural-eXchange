@@ -12,11 +12,11 @@ const ProductList = () => {
   const ctprdcts = category === 'All Plants' ? products : categoryPrdcts(category);
 
   return (
-    <div className="container d-flex">
+    <div className="container d-lg-flex">
       <Filter />
       <>
         {ctprdcts && ctprdcts.length > 0 ? (
-          <div className="row d-flex">
+          <div className="row d-flex pt-lg-0 pt-3">
             {' '}
             {ctprdcts.map((product) => (
               <Plant key={`plant-${uuid()}`} plant={product} />

@@ -25,6 +25,7 @@ import UpdatePrdctForm from './components/UpdatePrdctForm';
 import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
 import ProductList from './containers/ProductList';
+import 'bootstrap/js/src/collapse.js'; // eslint-disable-line import/extensions
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -57,9 +58,23 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between">
           <div>
-            <div className="navbar-nav mr-auto">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarTogglerDemo03"
+              aria-controls="navbarTogglerDemo03"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            <div
+              className="navbar-nav mr-auto collapse navbar-collapse"
+              id="navbarTogglerDemo03"
+            >
               <Link to="/" className="navbar-brand">
                 <img
                   style={{
@@ -114,8 +129,19 @@ const App = () => {
           </div>
 
           <div>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarTogglerDemo04"
+              aria-controls="navbarTogglerDemo04"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
             {currentUser ? (
-              <div className="navbar-nav ml-auto">
+              <div className="navbar-nav ml-auto collapse navbar-collapse" id="navbarTogglerDemo04">
                 <li className="nav-item d-flex">
                   <a href="/login" className="nav-link" onClick={logOut}>
                     Logout
