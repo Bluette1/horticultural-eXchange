@@ -1,15 +1,21 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import uuid from 'react-uuid';
 import CartItem from '../components/CartItem';
 
 const Cart = () => {
+  const history = useHistory();
   const crtItems = useSelector((state) => state.cart);
   const { user: currentUser } = useSelector((state) => state.auth);
   if (!currentUser) {
     return <Redirect to="/login" />;
   }
+
+  const handleClick = () => {
+    history.push('/payment');
+    window.location.reload();
+  };
 
   const total = () => {
     let sum = 0;
@@ -38,7 +44,9 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {crtItems.map((item) => <CartItem key={`item-${uuid()}`} cartItem={item} />)}
+          {crtItems.map((item) => (
+            <CartItem key={`item-${uuid()}`} cartItem={item} />
+          ))}
         </tbody>
         <tfoot>
           <tr>
@@ -51,7 +59,9 @@ const Cart = () => {
         </tfoot>
       </table>
       <div className="pt-5 mt-5 d-flex justify-content-center">
-        <Link className="checkout btn btn-primary" to="/payment">Checkout</Link>
+        <button type="submit" className="checkout btn btn-primary" onClick={handleClick}>
+          Checkout
+        </button>
       </div>
     </div>
   );
