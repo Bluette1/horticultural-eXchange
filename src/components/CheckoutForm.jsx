@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
 import {
   CardElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { useSelector } from 'react-redux';
+import { resetCart } from '../actions/cart';
 import createPaymentIntent from '../services/payment.service';
 
 export default function CheckoutForm() {
@@ -17,6 +17,7 @@ export default function CheckoutForm() {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -69,6 +70,7 @@ export default function CheckoutForm() {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+      dispatch(resetCart());
     }
   };
 
