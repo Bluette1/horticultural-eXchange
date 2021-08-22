@@ -334,3 +334,9 @@ td {
   color: #008000;
   font-weight: bold;
 }
+
+.toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1em;
+}
