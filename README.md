@@ -44,7 +44,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Login
 The user can login via the following roles:
- - Admin: Can manage the stock(create and edit products on sale and categories)
+ - Admin: Can manage the stock(create and edit products on sale and categories), as well as users
  - Moderator: Can manage the users
  - User: Can view, add and remove items from wishlist and cart and purchase items in the shop.
  - Guest user: Can view, add and remove items from wishlist and cart and purchase items in the shop. Guest user's session information is not persisted when the user logs out.
