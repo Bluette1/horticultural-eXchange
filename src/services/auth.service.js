@@ -15,11 +15,16 @@ const register = (username, email, password) => axios.post(
 const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
 
 const registerUser = (payload, currentUser) => axios
-  .post(`${API_URL}/${namespace(currentUser)}/users/${currentUser.id}/create-user`, payload, { headers });
+  .post(`${API_URL}/${namespace(currentUser)}/users`, payload, { headers });
 
-const deregister = (email, currentUser) => axios.post(
-  `${API_URL}/${namespace(currentUser)}/users/${currentUser.id}/delete-user`, { user: { email } }, { headers },
-);
+const deregister = (email, currentUser) => axios
+  .get(`${API_URL}/${namespace(currentUser)}/users?email=${email}`, {
+    headers,
+  })
+  .then((res) => axios.delete(
+    `${API_URL}/${namespace(currentUser)}/users/${res.data.id}`,
+    { headers },
+  ));
 
 const login = (email, password) => axios
   .post(`${API_URL}/users/sign_in`, {
