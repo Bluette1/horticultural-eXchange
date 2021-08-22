@@ -12,13 +12,13 @@ const register = (username, email, password) => axios.post(
     password,
   },
 );
+const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
 
-const registerUser = (payload, currentUserId) => axios.post(
-  `${API_URL}/mod/users/${currentUserId}/create-user`, payload, { headers },
-);
+const registerUser = (payload, currentUser) => axios
+  .post(`${API_URL}/${namespace(currentUser)}/users/${currentUser.id}/create-user`, payload, { headers });
 
-const deregister = (email, currentUserId) => axios.post(
-  `${API_URL}/mod/users/${currentUserId}/delete-user`, { user: { email } }, { headers },
+const deregister = (email, currentUser) => axios.post(
+  `${API_URL}/${namespace(currentUser)}/users/${currentUser.id}/delete-user`, { user: { email } }, { headers },
 );
 
 const login = (email, password) => axios

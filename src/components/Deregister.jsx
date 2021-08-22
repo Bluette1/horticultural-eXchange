@@ -24,6 +24,7 @@ const Deregister = (props) => {
   const [loading, setLoading] = useState(false);
   const { message } = useSelector((state) => state.message);
   const { user: currentUser } = useSelector((state) => state.auth);
+  const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -38,9 +39,9 @@ const Deregister = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.deregister(email, currentUser.id)
+      AuthService.deregister(email, currentUser)
         .then(() => {
-          props.history.push('/mod');
+          props.history.push(`/${namespace(currentUser)}`);
           window.location.reload();
         })
         .catch(() => {

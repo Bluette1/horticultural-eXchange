@@ -35,6 +35,16 @@ const BoardAdmin = () => {
         <div className="d-flex flex-column admin">
           <span className="d-flex justify-content-between">
             <i className="fa fa-plus-circle" aria-hidden="true" />
+            <Link to="/register">Add User</Link>
+            <i className="fa fa-user-circle-o" aria-hidden="true" />
+          </span>
+          <span className="d-flex justify-content-between">
+            <i className="fa fa-minus-circle" aria-hidden="true" />
+            <Link to="/deregister">Remove User</Link>
+            <i className="fa fa-user-circle-o" aria-hidden="true" />
+          </span>
+          <span className="d-flex justify-content-between">
+            <i className="fa fa-plus-circle" aria-hidden="true" />
             <Link to="/new-plant">Add a product item</Link>
             <i className="fa fa-leaf" aria-hidden="true" />
           </span>

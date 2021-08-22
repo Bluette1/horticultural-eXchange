@@ -8,6 +8,8 @@ import { isEmail } from 'validator';
 import AuthService from '../services/auth.service';
 import { register } from '../actions/auth';
 
+const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
+
 const required = (value) => {
   if (!value) {
     return (
@@ -97,7 +99,7 @@ const Register = () => {
           {
             user: { email, password },
           },
-          currentUser.id,
+          currentUser,
         );
       } else {
         addUser = dispatch(register(username, email, password));
@@ -105,7 +107,7 @@ const Register = () => {
       addUser
         .then(() => {
           setSuccessful(true);
-          history.push('/mod');
+          history.push(`/${namespace(currentUser)}`);
         })
         .catch(() => {
           setSuccessful(false);
