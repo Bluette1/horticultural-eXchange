@@ -25,6 +25,7 @@ import UpdatePrdctForm from './components/UpdatePrdctForm';
 import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
 import ProductList from './containers/ProductList';
+import '../node_modules/bootstrap/dist/js/bootstrap.min';
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
