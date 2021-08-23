@@ -33,6 +33,7 @@ const Product = () => {
         </h4>
         <div style={{ width: '200px', paddingTop: '25px' }}>
           {currentUser && inStock && <ToggleBtn prdct={plant} />}
+          {!inStock && <p style={{ textDecoration: 'underline' }}>Out of stock</p>}
         </div>
 
         {currentUser && !isInWishlist(id) && <AddToWishlist product={plant} />}

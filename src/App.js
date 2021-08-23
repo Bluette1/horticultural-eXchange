@@ -145,7 +145,7 @@ const App = () => {
               id="navbarToggler04"
             >
               {currentUser ? (
-                <div>
+                <div className="d-lg-flex">
                   <li className="nav-item d-flex">
                     <a href="/login" className="nav-link" onClick={logOut}>
                       Logout
@@ -173,7 +173,7 @@ const App = () => {
                   </li>
                 </div>
               ) : (
-                <div>
+                <div className="d-lg-flex">
                   <li className="nav-item">
                     <Link to="/login" className="nav-link">
                       Login

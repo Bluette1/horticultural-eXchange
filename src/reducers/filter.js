@@ -1,6 +1,6 @@
 import { CHANGE_FILTER } from '../actions/types';
 
-const initialState = { filter: 'All Plants' };
+const initialState = { filter: '' };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;

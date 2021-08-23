@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
   CardElement,
   useStripe,
@@ -10,6 +11,7 @@ import createPaymentIntent from '../services/payment.service';
 
 export default function CheckoutForm() {
   const cartItems = useSelector((state) => state.cart);
+  const { user: currentUser } = useSelector((state) => state.auth);
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
@@ -73,6 +75,9 @@ export default function CheckoutForm() {
       dispatch(resetCart());
     }
   };
+  if (!currentUser) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <form id="payment-form pt-5 mt-5" onSubmit={handleSubmit}>
