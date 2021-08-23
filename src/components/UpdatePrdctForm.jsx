@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import uuid from 'react-uuid';
 import PropTypes from 'prop-types';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import Select from 'react-validation/build/select';
 import CheckButton from 'react-validation/build/button';
 import queryString from 'query-string';
 import { updatePlant } from '../services/product.service';
@@ -22,6 +24,7 @@ const PlantForm = (props) => {
   const [description, setDescription] = useState(product.description || '');
   const [image, setImage] = useState(null);
   const { message } = useSelector((state) => state.message);
+  const categories = useSelector((state) => state.category);
   const [imageSelected, setImageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -101,14 +104,24 @@ const PlantForm = (props) => {
         </div>
 
         <div className="form-group">
-          <p>Category</p>
-          <Input
-            className="form-control"
-            name="category"
-            placeholder={product.category}
-            value={category}
-            onChange={onChangeCategory}
-          />
+          <label htmlFor="category-select">
+            Choose a category:
+            <Select
+              name="category-select"
+              id="categories-select"
+              onChange={onChangeCategory}
+            >
+              <option value={category}>{category}</option>
+              {categories.map((item) => (
+                <option
+                  value={item}
+                  key={`category-${uuid()}`}
+                >
+                  {item}
+                </option>
+              ))}
+            </Select>
+          </label>
         </div>
         <div className="form-group">
           <h4>Is product out of stock?</h4>
