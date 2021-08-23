@@ -25,7 +25,7 @@ import UpdatePrdctForm from './components/UpdatePrdctForm';
 import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
 import ProductList from './containers/ProductList';
-import 'bootstrap/js/src/collapse.js'; // eslint-disable-line import/extensions
+import 'bootstrap/js/src/collapse';
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
