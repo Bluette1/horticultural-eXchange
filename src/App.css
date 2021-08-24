@@ -329,3 +329,16 @@ td {
   outline: none;
   box-shadow: none !important;
 }
+
+.mod a,
+.admin a {
+  text-decoration: none;
+  color: #008000;
+  font-weight: bold;
+}
+
+.toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1em;
+}

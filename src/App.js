@@ -25,6 +25,7 @@ import UpdatePrdctForm from './components/UpdatePrdctForm';
 import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
 import ProductList from './containers/ProductList';
+import '../node_modules/bootstrap/dist/js/bootstrap.min';
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -57,9 +58,23 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between">
           <div>
-            <div className="navbar-nav mr-auto">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarToggler03"
+              aria-controls="navbarToggler03"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            <div
+              className="navbar-nav mr-auto collapse navbar-collapse"
+              id="navbarToggler03"
+            >
               <Link to="/" className="navbar-brand">
                 <img
                   style={{
@@ -114,49 +129,65 @@ const App = () => {
           </div>
 
           <div>
-            {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item d-flex">
-                  <a href="/login" className="nav-link" onClick={logOut}>
-                    Logout
-                  </a>
-                  {message && (
-                    <span className="alert alert-danger">{message}</span>
-                  )}
-                </li>
-                <li className="nav-item d-flex">
-                  <Link to="/cart" className="nav-link">
-                    <i className="fa fa-shopping-cart" aria-hidden="true" />
-                    <span
-                      style={{
-                        borderRadius: '45%',
-                        backgroundColor: '#008000',
-                        color: 'white',
-                        fontSize: '8px',
-                        padding: '3px',
-                        marginRight: '3px',
-                      }}
-                    >
-                      {cartItems.length}
-                    </span>
-                  </Link>
-                </li>
-              </div>
-            ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to="/login" className="nav-link">
-                    Login
-                  </Link>
-                </li>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarToggler04"
+              aria-controls="navbarToggler04"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i className="fa fa-user toggler-icon" aria-hidden="true" />
+            </button>
+            <div
+              className="navbar-nav ml-auto collapse navbar-collapse"
+              id="navbarToggler04"
+            >
+              {currentUser ? (
+                <div className="d-lg-flex">
+                  <li className="nav-item d-flex">
+                    <a href="/login" className="nav-link" onClick={logOut}>
+                      Logout
+                    </a>
+                    {message && (
+                      <span className="alert alert-danger">{message}</span>
+                    )}
+                  </li>
+                  <li className="nav-item d-flex">
+                    <Link to="/cart" className="nav-link">
+                      <i className="fa fa-shopping-cart" aria-hidden="true" />
+                      <span
+                        style={{
+                          borderRadius: '45%',
+                          backgroundColor: '#008000',
+                          color: 'white',
+                          fontSize: '8px',
+                          padding: '3px',
+                          marginRight: '3px',
+                        }}
+                      >
+                        {cartItems.length}
+                      </span>
+                    </Link>
+                  </li>
+                </div>
+              ) : (
+                <div className="d-lg-flex">
+                  <li className="nav-item">
+                    <Link to="/login" className="nav-link">
+                      Login
+                    </Link>
+                  </li>
 
-                <li className="nav-item">
-                  <Link to="/register" className="nav-link">
-                    Sign Up
-                  </Link>
-                </li>
-              </div>
-            )}
+                  <li className="nav-item">
+                    <Link to="/register" className="nav-link">
+                      Sign Up
+                    </Link>
+                  </li>
+                </div>
+              )}
+            </div>
           </div>
         </nav>
 

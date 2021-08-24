@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import uuid from 'react-uuid';
 import PropTypes from 'prop-types';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import Select from 'react-validation/build/select';
 import CheckButton from 'react-validation/build/button';
-
 import { createPlant } from '../services/product.service';
 
 const required = (value) => {
@@ -26,6 +27,7 @@ const ProductForm = (props) => {
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
   const { message } = useSelector((state) => state.message);
+  const categories = useSelector((state) => state.category);
   const [imageSelected, setImageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -89,14 +91,25 @@ const ProductForm = (props) => {
         </div>
 
         <div className="form-group">
-          <p>Category</p>
-          <Input
-            className="form-control"
-            name="category"
-            value={category}
-            onChange={onChangeCategory}
-            validations={[required]}
-          />
+          <label htmlFor="category-select">
+            Choose a category:
+            <Select
+              name="category-select"
+              id="categories-select"
+              onChange={onChangeCategory}
+            >
+              <option value="">--Please choose a category--</option>
+              {categories.map((item) => (
+                <option
+                  value={item}
+                  key={`category-${uuid()}`}
+                  validations={[required]}
+                >
+                  {item}
+                </option>
+              ))}
+            </Select>
+          </label>
         </div>
 
         <div className="form-group">

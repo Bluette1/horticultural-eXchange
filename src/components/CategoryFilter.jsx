@@ -4,9 +4,13 @@ import uuid from 'react-uuid';
 import changeFilter from '../actions/filter';
 
 const Filter = () => {
-  const { filter: category } = useSelector((state) => state.filter);
+  let { filter: category } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
   const history = useHistory();
+  const { location: { pathname } } = window;
+  if (pathname === '/home' || pathname === '/') {
+    category = '';
+  }
   let categories = [...useSelector((state) => state.category), 'All Plants'];
   if (category) {
     categories = categories.filter(
