@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-
 html {
   box-sizing: border-box;
 }
@@ -161,7 +160,6 @@ button:disabled {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -227,7 +225,7 @@ img {
   display: none;
   z-index: 200;
   top: 140px;
-  left: 50px;
+  left: 75px;
   font-size: 12px;
   width: 50%;
 }
