@@ -75,6 +75,8 @@ export const login = (email, password) => (dispatch) => AuthService.login(email,
 
 export const logout = (user) => (dispatch) => {
   if (user.created_at === undefined || user.id === undefined) {
+    localStorage.removeItem('user');
+
     dispatch({
       type: LOGOUT,
     });
@@ -82,6 +84,8 @@ export const logout = (user) => (dispatch) => {
   }
   return AuthService.logout().then(
     () => {
+      localStorage.removeItem('user');
+
       dispatch({
         type: LOGOUT,
       });

@@ -74,7 +74,7 @@ const Login = (props) => {
   }
 
   if (guest) {
-    return <GuestLogin props={props} />;
+    return <GuestLogin history={props.history} />;
   }
 
   return (

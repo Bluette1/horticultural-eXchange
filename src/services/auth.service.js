@@ -41,12 +41,7 @@ const login = (email, password) => axios
     return user;
   });
 
-const logout = () => {
-  localStorage.removeItem('user');
-
-  return axios
-    .delete(`${API_URL}/users/sign_out`, { headers });
-};
+const logout = () => axios.delete(`${API_URL}/users/sign_out`, { headers });
 
 export default {
   register,
