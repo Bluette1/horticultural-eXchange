@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AddToWishlist from './AddToWishlist';
 import ToggleBtn from './ToggleBtn';
@@ -14,6 +14,11 @@ const Product = () => {
   };
   const { user: currentUser } = useSelector((state) => state.auth);
   const location = useLocation();
+  const history = useHistory();
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push('/');
+  };
   const { plant } = location.state;
   const {
     name, image_url: imageUrl, price, category, care, in_stock: inStock, id,
@@ -59,6 +64,15 @@ const Product = () => {
           CATEGORY: &nbsp;
           {category}
         </h4>
+      </div>
+      <div className="col-md-6 pt-5 mt-5 pb-5 mb-5">
+        <button
+          onClick={handleClick}
+          type="button"
+          className="btn btn-primary"
+        >
+          Back
+        </button>
       </div>
     </div>
   );
