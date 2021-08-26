@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import {
-  CardElement,
-  useStripe,
-  useElements,
-} from '@stripe/react-stripe-js';
+import { Redirect, useHistory } from 'react-router-dom';
+import uuid from 'react-uuid';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { resetCart } from '../actions/cart';
 import createPaymentIntent from '../services/payment.service';
+import logo from '../logo.png';
+import CheckoutCartItem from './CheckoutCartItem';
 
 export default function CheckoutForm() {
   const cartItems = useSelector((state) => state.cart);
@@ -20,7 +19,7 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
-
+  const history = useHistory();
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     window.onload = function () {
@@ -36,7 +35,6 @@ export default function CheckoutForm() {
         color: '#32325d',
         fontFamily: 'Arial, sans-serif',
         fontSmoothing: 'antialiased',
-        fontSize: '16px',
         '::placeholder': {
           color: '#32325d',
         },
@@ -46,6 +44,15 @@ export default function CheckoutForm() {
         iconColor: '#fa755a',
       },
     },
+  };
+
+  const total = () => {
+    let sum = 0;
+    for (let index = 0; index < cartItems.length; index += 1) {
+      const item = cartItems[index];
+      sum += item.quantity * item.price;
+    }
+    return sum;
   };
 
   const handleChange = async (event) => {
@@ -71,6 +78,7 @@ export default function CheckoutForm() {
     } else {
       setError(null);
       setProcessing(false);
+      alert('Payment succeeded, you will be contacted shortly with the details of your delivery. Redirecting to home page');
       setSucceeded(true);
       dispatch(resetCart());
     }
@@ -79,40 +87,143 @@ export default function CheckoutForm() {
     return <Redirect to="/login" />;
   }
 
+  if (succeeded) {
+    setTimeout(() => {
+      history.push('/');
+    }, 5000);
+  }
+
   return (
-    <form id="payment-form pt-5 mt-5" onSubmit={handleSubmit}>
-      <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-      <button
-        disabled={processing || disabled || succeeded}
-        id="submit"
-        type="submit"
-      >
-        <span id="button-text">
-          {processing ? (
-            <div className="spinner" id="spinner" />
-          ) : (
-            'Pay now'
-          )}
-        </span>
-      </button>
-      {/* Show any error that happens when processing the payment */}
-      {error && (
-        <div className="card-error" role="alert">
-          {error}
+    <div className="d-flex justify-content-md-center mt-5 pt-5">
+      <div>
+        <div>
+          Thank you for supporting &nbsp;
+          <img
+            style={{
+              marginRight: '2px',
+              width: '50px',
+              height: '50px',
+              borderRadius: 500,
+              backgroundColor: 'white',
+            }}
+            src={logo}
+            alt="logo"
+          />
+          <span style={{ color: '#008000', fontWeight: 'bold' }}>iGrow</span>
+          &nbsp;!
         </div>
-      )}
-      {/* Show a success message upon completion */}
-      <p className={succeeded ? 'result-message' : 'result-message hidden'}>
-        Payment succeeded, see the result in your
-        <a
-          href="https://dashboard.stripe.com/test/payments"
-        >
-          {' '}
-          Stripe dashboard.
-        </a>
-        {' '}
-        Refresh the page to pay again.
-      </p>
-    </form>
+        <div className="mt-5 pt-5">
+          <header className="jumbotron mb-5">
+            <h4 className="font-weight-bold text-uppercase">Your Order</h4>
+          </header>
+          <table>
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>SUBTOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item) => (
+                <CheckoutCartItem key={`item-${uuid()}`} cartItem={item} />
+              ))}
+              <tr>
+                <td>SubTotal</td>
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td>{`R ${total()}`}</td>
+              </tr>
+              <tr>
+                <td>Shipping</td>
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td>R 60</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Total</td>
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td />
+                <td>{total() + 60}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <h6 className="mt-5">Please enter your credit card details below:</h6>
+        <form id="payment-form pt-5 mt-5" onSubmit={handleSubmit}>
+          <CardElement
+            id="card-element"
+            options={cardStyle}
+            onChange={handleChange}
+          />
+          <button
+            disabled={processing || disabled || succeeded}
+            id="submit"
+            type="submit"
+          >
+            <span id="button-text">
+              {processing ? <div className="spinner" id="spinner" /> : 'Pay now'}
+            </span>
+          </button>
+          {/* Show any error that happens when processing the payment */}
+          {error && (
+            <div className="card-error" role="alert">
+              {error}
+            </div>
+          )}
+          {/* Show a success message upon completion */}
+          <p style={{ marginLeft: -40 }} className={succeeded ? 'result-message' : 'result-message hidden'}>
+            Payment succeeded, you will be contacted shortly
+            with the details of your delivery.
+            {' '}
+            You will be redirected to the home page shortly.
+            Thank you once again.
+          </p>
+        </form>
+      </div>
+    </div>
   );
 }

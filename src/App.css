@@ -36,9 +36,19 @@ input {
   border: 1px solid rgba(50, 50, 93, 0.1);
   max-height: 44px;
   font-size: 16px;
+  /* font-size: 10px; */
   width: 100%;
   background: white;
   box-sizing: border-box;
+}
+
+.ElementsApp,
+.ElementsApp .InputElement {
+  color: #32325d;
+  font-family: Arial, sans-serif;
+  font-size: 1px !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .result-message {
@@ -72,6 +82,11 @@ input {
   width: 100%;
   background: white;
   box-sizing: border-box;
+  margin-left: -40px;
+}
+
+button#submit {
+  margin-left: -40px;
 }
 
 #payment-request-button {
@@ -339,4 +354,22 @@ td {
   display: inline-block;
   width: 1.5em;
   height: 1em;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1.2rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.6rem;
+  }
 }
