@@ -32,8 +32,8 @@ test('renders the app', async () => {
   });
   const app = render(<AppWithStore />);
   await waitFor(() => {
-    const xChangeTitle = screen.getByText(/XChange/i);
-    expect(xChangeTitle).toBeInTheDocument;
+    const iGrowTitle = screen.getByText(/iGrow/i);
+    expect(iGrowTitle).toBeInTheDocument;
     expect(app).toMatchSnapshot();
   });
 });

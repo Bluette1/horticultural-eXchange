@@ -87,7 +87,7 @@ const App = () => {
                   alt="logo"
                 />
                 {' '}
-                XChange
+                iGrow
               </Link>
               <li className="nav-item">
                 <Link to="/home" className="nav-link">
