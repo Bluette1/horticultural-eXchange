@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
 html {
   box-sizing: border-box;
 }
@@ -36,6 +37,7 @@ input {
   border: 1px solid rgba(50, 50, 93, 0.1);
   max-height: 44px;
   font-size: 16px;
+
   /* font-size: 10px; */
   width: 100%;
   background: white;
@@ -175,6 +177,7 @@ button:disabled {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
