@@ -10,9 +10,7 @@ import {
 
 import AuthService from '../services/auth.service';
 
-export const register = (
-  username, email, password,
-) => (dispatch) => AuthService
+export const register = (username, email, password) => (dispatch) => AuthService
   .register(username, email, password)
   .then(
     (response) => {
@@ -29,8 +27,8 @@ export const register = (
     },
     (error) => {
       const message = (error.response
-          && error.response.data
-          && error.response.data.message)
+        && error.response.data
+        && error.response.data.message)
         || error.message
         || error.toString();
 
@@ -47,8 +45,8 @@ export const register = (
     },
   );
 
-export const login = (email, password) => (dispatch) => AuthService.login(email, password).then(
-  (data) => {
+export const login = (email, password) => (dispatch) => AuthService.login(email, password)
+  .then((data) => {
     dispatch({
       type: LOGIN_SUCCESS,
       payload: { user: data },
@@ -58,10 +56,10 @@ export const login = (email, password) => (dispatch) => AuthService.login(email,
   },
   (error) => {
     const message = (error.response
-          && error.response.data
-          && error.response.data.message)
-        || error.message
-        || error.toString();
+      && error.response.data
+      && error.response.data.message)
+      || error.message
+      || error.toString();
 
     dispatch({
       type: LOGIN_FAIL,
@@ -73,18 +71,17 @@ export const login = (email, password) => (dispatch) => AuthService.login(email,
     });
 
     return Promise.reject();
-  },
-);
+  });
 
 export const logout = (user) => (dispatch) => {
-  if (user.created_at === null || user.id === null) {
+  if (user.created_at === undefined || user.id === undefined) {
     dispatch({
       type: LOGOUT,
     });
     return Promise.resolve();
   }
-  return AuthService.logout()
-    .then(() => {
+  return AuthService.logout().then(
+    () => {
       dispatch({
         type: LOGOUT,
       });
@@ -94,8 +91,8 @@ export const logout = (user) => (dispatch) => {
       const message = (error.response
         && error.response.data
         && error.response.data.message)
-      || error.message
-      || error.toString();
+        || error.message
+        || error.toString();
 
       dispatch({
         type: LOGOUT_FAIL,
@@ -106,5 +103,11 @@ export const logout = (user) => (dispatch) => {
         payload: message,
       });
       return Promise.reject(error);
-    });
+    },
+  );
 };
+
+export const guestLogin = (data) => ({
+  type: LOGIN_SUCCESS,
+  payload: { user: data },
+});

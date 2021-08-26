@@ -8,44 +8,43 @@ const Profile = () => {
   if (!currentUser) {
     return <Redirect to="/login" />;
   }
-  const userValue = isGuestUser(currentUser) ? 'Guest User' : 'User';
 
   return (
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{currentUser.email}</strong>
-          {' '}
+          {currentUser.user_role && <strong>{currentUser.email}</strong>}
+          {currentUser.name && <strong>{currentUser.name}</strong>}
+          &nbsp;
           Profile
         </h3>
       </header>
       {!isGuestUser(currentUser) && (
-      <p>
-        {' '}
-        <strong>Token:</strong>
-        {' '}
-        {currentUser.accessToken.substring(0, 20)}
-        {' '}
-        ...
-        {' '}
-        {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-      </p>
+        <p>
+          {' '}
+          <strong>Token:</strong>
+          {currentUser.accessToken.substring(0, 20)}
+          ...
+          {' '}
+          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+        </p>
       )}
       {!isGuestUser(currentUser) && (
-      <p>
-        <strong>Id:</strong>
-        {' '}
-        {currentUser.id}
-      </p>
+        <p>
+          <strong>Id:</strong>
+          {currentUser.id}
+        </p>
       )}
-      <p>
-        <strong>Email:</strong>
-        {' '}
-        {currentUser.email}
-      </p>
+      {currentUser.user_role && (
+        <p>
+          <strong>Email:</strong>
+          {currentUser.email}
+        </p>
+      )}
       <strong>Authorities:</strong>
       <ul>
-        {currentUser.user_role && <li>{userValue}</li>}
+        {isGuestUser(currentUser) && <li>Guest User</li>}
+        {currentUser.user_role && <li>User</li>}
         {currentUser.superadmin_role && <li>Admin</li>}
         {currentUser.supervisor_role && <li>Moderator</li>}
       </ul>

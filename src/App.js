@@ -121,7 +121,8 @@ const App = () => {
               {currentUser && (
                 <li className="nav-item">
                   <Link to="/profile" className="nav-link">
-                    {currentUser.email}
+                    {currentUser.email && (currentUser.email)}
+                    {currentUser.name && (currentUser.name)}
                   </Link>
                 </li>
               )}
