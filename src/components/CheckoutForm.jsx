@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import swal from 'sweetalert';
 import { resetCart } from '../actions/cart';
 import createPaymentIntent from '../services/payment.service';
 import logo from '../logo.png';
@@ -78,7 +79,7 @@ export default function CheckoutForm() {
     } else {
       setError(null);
       setProcessing(false);
-      alert('Payment succeeded, you will be contacted shortly with the details of your delivery. Redirecting to home page');
+      swal('Payment succeeded, you will be contacted shortly with the details of your delivery. Redirecting to home page');
       setSucceeded(true);
       dispatch(resetCart());
     }

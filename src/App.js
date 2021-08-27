@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Router, Switch, Route, Link,
 } from 'react-router-dom';
+import swal from 'sweetalert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import logo from './logo.png';
@@ -52,7 +53,9 @@ const App = () => {
 
   const logOut = (e) => {
     e.preventDefault();
-    dispatch(logout(currentUser));
+    dispatch(logout(currentUser)).then(
+      swal('You have successfully logged out. It was happy to have you. Hope to see you again!'),
+    );
   };
 
   return (

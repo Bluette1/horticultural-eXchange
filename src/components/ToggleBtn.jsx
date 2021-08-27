@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 import { addToCart, removeFromCart } from '../actions/cart';
 import { removeFromWishlist } from '../actions/wishlist';
 
@@ -21,6 +22,7 @@ const ToggleButton = ({ prdct }) => {
   const handleClick = () => {
     if (isInCart) {
       dispatch(removeFromCart(plant));
+      swal('The item has been removed from the cart.');
     } else {
       plant.quantity = 1;
       const product = isInWishlist(plant.id);
@@ -28,6 +30,7 @@ const ToggleButton = ({ prdct }) => {
         dispatch(removeFromWishlist(product));
       }
       dispatch(addToCart(plant));
+      swal('The item has been added to the cart.');
     }
   };
   return (
