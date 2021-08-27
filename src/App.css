@@ -235,11 +235,26 @@ img {
   margin-top: -50px;
 }
 
+.plant-toggle img:hover {
+  opacity: 0.4;
+  margin-top: -90px;
+}
+
 .plant .toggle {
   position: relative;
   display: none;
   z-index: 200;
   top: 140px;
+  left: 75px;
+  font-size: 12px;
+  width: 50%;
+}
+
+.plant .view {
+  position: relative;
+  display: none;
+  z-index: 200;
+  top: 110px;
   left: 75px;
   font-size: 12px;
   width: 50%;
@@ -251,6 +266,10 @@ img {
 }
 
 .plant:hover .toggle {
+  display: block;
+}
+
+.plant:hover .view {
   display: block;
 }
 

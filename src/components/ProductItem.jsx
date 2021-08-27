@@ -17,11 +17,26 @@ const Plant = ({ plant }) => {
     });
   };
 
+  const classPlantDiv = currentUser && inStock ? 'plant-toggle plant d-flex justify-content center flex-column' : 'plant d-flex justify-content center flex-column';
+
   return (
-    <div className="col-sm-6 col-md-4" role="presentation" onKeyDown={handleClick} onClick={handleClick}>
-      <div className="plant d-flex justify-content center flex-column">
-        {!inStock && (<OutOfStock />)}
-        {currentUser && inStock && (<ToggleBtn prdct={plant} />)}
+    <div
+      className="col-sm-6 col-md-4"
+      role="presentation"
+      onKeyDown={handleClick}
+      onClick={handleClick}
+    >
+      <div className={classPlantDiv}>
+        {!inStock && <OutOfStock />}
+        <button
+          className="view btn-primary mb-2"
+          onClick={handleClick}
+          data-testid="action-button"
+          type="button"
+        >
+          View item
+        </button>
+        {currentUser && inStock && <ToggleBtn prdct={plant} />}
         <img src={imageUrl} alt="plant" />
       </div>
       <>
