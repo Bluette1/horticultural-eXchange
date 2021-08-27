@@ -12,7 +12,11 @@ const Cart = () => {
     return <Redirect to="/login" />;
   }
 
-  const handleClick = () => {
+  const handleClickBack = (e) => {
+    e.preventDefault();
+    history.push('/');
+  };
+  const handleClickPay = () => {
     history.push('/payment');
     window.location.reload();
   };
@@ -59,8 +63,17 @@ const Cart = () => {
         </tfoot>
       </table>
       <div className="pt-5 mt-5 d-flex justify-content-center">
-        <button type="submit" className="checkout btn btn-primary" onClick={handleClick}>
+        <button type="submit" className="checkout btn btn-primary" onClick={handleClickPay}>
           Checkout
+        </button>
+      </div>
+      <div className="pt-5 mt-5 pb-5 mb-5 d-flex justify-content-center">
+        <button
+          onClick={handleClickBack}
+          type="button"
+          className="btn btn-primary"
+        >
+          Back
         </button>
       </div>
     </div>

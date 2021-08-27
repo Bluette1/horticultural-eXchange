@@ -22,6 +22,7 @@ const PlantForm = (props) => {
   const [category, setCategory] = useState(product.category);
   const [price, setPrice] = useState(product.price);
   const [description, setDescription] = useState(product.description || '');
+  const [care, setCare] = useState(product.care || '');
   const [image, setImage] = useState(null);
   const { message } = useSelector((state) => state.message);
   const categories = useSelector((state) => state.category);
@@ -45,6 +46,10 @@ const PlantForm = (props) => {
   const onChangeDescription = (e) => {
     const description = e.target.value;
     setDescription(description);
+  };
+  const onChangeCare = (e) => {
+    const care = e.target.value;
+    setCare(care);
   };
   const onChangeInStock = (e) => {
     const inStock = !e.target.value;
@@ -71,6 +76,7 @@ const PlantForm = (props) => {
         commonName,
         inStock,
         description,
+        care,
       });
       if (res.status && res.status !== 200) {
         setLoading(false);
@@ -184,6 +190,19 @@ const PlantForm = (props) => {
             onChange={onChangeDescription}
           >
             Enter description
+          </textarea>
+        </div>
+        <div className="form-group">
+          <p>Care</p>
+          <textarea
+            id="care"
+            name="care"
+            rows="4"
+            cols="50"
+            value={care}
+            onChange={onChangeCare}
+          >
+            Enter care
           </textarea>
         </div>
         <div className="form-group">

@@ -32,17 +32,6 @@ const validEmail = (value) => {
   return null;
 };
 
-const vusername = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
-      </div>
-    );
-  }
-  return null;
-};
-
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
@@ -60,8 +49,6 @@ const Register = () => {
 
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { user: currentUser } = useSelector((state) => state.auth);
-
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [successful, setSuccessful] = useState(false);
@@ -69,11 +56,6 @@ const Register = () => {
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -102,12 +84,17 @@ const Register = () => {
           currentUser,
         );
       } else {
-        addUser = dispatch(register(username, email, password));
+        addUser = dispatch(register(email, password));
       }
       addUser
         .then(() => {
           setSuccessful(true);
-          history.push(`/${namespace(currentUser)}`);
+          if (isLoggedIn) {
+            history.push(`/${namespace(currentUser)}`);
+          } else {
+            history.push('/login');
+          }
+          window.location.reload();
         })
         .catch(() => {
           setSuccessful(false);
@@ -129,18 +116,6 @@ const Register = () => {
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
-              <div className="form-group">
-                <p>Username</p>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
-                />
-              </div>
-
               <div className="form-group">
                 <p>Email</p>
                 <Input

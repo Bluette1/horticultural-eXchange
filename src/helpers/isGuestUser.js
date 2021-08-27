@@ -1,5 +1,5 @@
 const isGuestUser = (user) => {
-  if (user.created_at === null || user.id === null) {
+  if (user.created_at === undefined || user.id === undefined) {
     return true;
   }
   return false;

@@ -5,9 +5,8 @@ import { httpProtocol, host, port } from '../env.variables';
 const API_URL = `${httpProtocol}://${host}:${port}`;
 const headers = authHeader();
 
-const register = (username, email, password) => axios.post(
+const register = (email, password) => axios.post(
   `${API_URL}/users/`, {
-    username,
     email,
     password,
   },
@@ -42,12 +41,7 @@ const login = (email, password) => axios
     return user;
   });
 
-const logout = () => {
-  localStorage.removeItem('user');
-
-  return axios
-    .delete(`${API_URL}/users/sign_out`, { headers });
-};
+const logout = () => axios.delete(`${API_URL}/users/sign_out`, { headers });
 
 export default {
   register,

@@ -5,28 +5,14 @@ import PropTypes from 'prop-types';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
-import GuestLogin from './GuestLogin';
 
-import { login } from '../actions/auth';
+import { guestLogin } from '../actions/auth';
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-  return null;
-};
-
-const Login = (props) => {
+const GuestLogin = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [guest, setGuest] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -34,18 +20,9 @@ const Login = (props) => {
 
   const dispatch = useDispatch();
 
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-  const handleGuestLogin = (e) => {
-    e.preventDefault();
-    setGuest(true);
+  const onChangeName = (e) => {
+    const name = e.target.value;
+    setName(name);
   };
 
   const handleLogin = (e) => {
@@ -56,14 +33,12 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(login(email, password))
-        .then(() => {
-          props.history.push('/');
-          window.location.reload();
-        })
-        .catch(() => {
-          setLoading(false);
-        });
+      localStorage.setItem('user', JSON.stringify({ name }));
+
+      dispatch(guestLogin({ name }));
+      props.history.push('/');
+      window.location.reload();
+      setLoading(false);
     } else {
       setLoading(false);
     }
@@ -73,13 +48,10 @@ const Login = (props) => {
     return <Redirect to="/profile" />;
   }
 
-  if (guest) {
-    return <GuestLogin history={props.history} />;
-  }
-
   return (
     <div className="col-md-12">
       <div className="card card-container">
+        <h4 style={{ textAlign: 'center' }}>Guest User</h4>
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
@@ -88,26 +60,13 @@ const Login = (props) => {
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
-            <p>email</p>
+            <p>name(optional)</p>
             <Input
               type="text"
               className="form-control"
-              name="email"
-              value={email}
-              onChange={onChangeEmail}
-              validations={[required]}
-            />
-          </div>
-
-          <div className="form-group">
-            <p>Password</p>
-            <Input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
+              name="name"
+              value={name}
+              onChange={onChangeName}
             />
           </div>
 
@@ -132,30 +91,11 @@ const Login = (props) => {
           <CheckButton style={{ display: 'none' }} ref={checkBtn} />
         </Form>
       </div>
-      <div className="d-flex justify-content-end">
-        <div className="col-md-4">
-          <span
-            style={{
-              color: '#008000',
-              fontWeight: 'bold',
-              padding: '5px',
-              border: '1px solid',
-              cursor: 'pointer',
-            }}
-            role="presentation"
-            onKeyDown={handleGuestLogin}
-            onClick={handleGuestLogin}
-          >
-            Guest Login
-          </span>
-        </div>
-      </div>
     </div>
   );
 };
-
-Login.propTypes = {
+GuestLogin.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default Login;
+export default GuestLogin;
