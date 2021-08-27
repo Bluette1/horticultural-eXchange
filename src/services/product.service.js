@@ -97,7 +97,7 @@ export const createPlant = async (plantInfo) => {
 
 export const updatePlant = async (id, plantInfo) => {
   const {
-    image, name, category, price, description, commonName, inStock,
+    image, name, category, price, description, commonName, inStock, care,
   } = plantInfo;
 
   // To upload image file to S3, we need to do three steps:
@@ -125,6 +125,7 @@ export const updatePlant = async (id, plantInfo) => {
         category,
         price,
         description,
+        care,
         common_name: commonName,
         in_stock: inStock,
         image_url: imageUrl,
