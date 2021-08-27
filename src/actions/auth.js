@@ -55,12 +55,14 @@ export const login = (email, password) => (dispatch) => AuthService.login(email,
     return Promise.resolve();
   },
   (error) => {
-    const message = (error.response
+    let message = (error.response
       && error.response.data
       && error.response.data.message)
       || error.message
       || error.toString();
-
+    if (message.indexOf('Request failed with status code 401') !== -1) {
+      message = 'Invalid email or password. Signup if unregistered or use guest login';
+    }
     dispatch({
       type: LOGIN_FAIL,
     });
