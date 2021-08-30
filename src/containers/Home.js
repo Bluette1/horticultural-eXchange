@@ -4,9 +4,11 @@ import uuid from 'react-uuid';
 import registerCategories from '../actions/category';
 import registerProducts from '../actions/product';
 import { registerWishlist } from '../actions/wishlist';
+import { registerCartItems } from '../actions/cart';
 import UserService from '../services/user.service';
 import CategoryService from '../services/category.service';
 import WishlistService from '../services/wishlist.service';
+import CartItemsService from '../services/cartitem.service';
 import Category from '../components/Category';
 import Filter from '../components/CategoryFilter';
 
@@ -32,7 +34,7 @@ const Home = () => {
 
   useEffect(async () => {
     try {
-      if (currentUser && isGuestUser(currentUser)) {
+      if ((currentUser && isGuestUser(currentUser)) || (!currentUser)) {
         const [productsResponse, categoriesResponse] = await Promise.all([
           UserService.getPublicContent(),
           CategoryService.getCategories(),
@@ -40,21 +42,24 @@ const Home = () => {
         dispatch(registerProducts(productsResponse.data));
         dispatch(registerCategories(getCategories(categoriesResponse.data)));
       } else {
-        const [productsResponse, categoriesResponse, wishlistResponse] = await Promise.all([
-          UserService.getPublicContent(),
-          CategoryService.getCategories(),
-          WishlistService.getWishlist(),
-        ]);
+        const [productsResponse, categoriesResponse, wishlistResponse, cartResponse] = await Promise
+          .all([
+            UserService.getPublicContent(),
+            CategoryService.getCategories(),
+            WishlistService.getWishlist(),
+            CartItemsService.getCartItems(),
+          ]);
         dispatch(registerProducts(productsResponse.data));
         dispatch(registerCategories(getCategories(categoriesResponse.data)));
         dispatch(registerWishlist(wishlistResponse.data));
+        dispatch(registerCartItems(cartResponse.data));
       }
     } catch (error) {
       const errorContent = (error.response && error.response.data)
       || error.message
       || error.toString();
 
-      setErrDisplay(errorContent);
+      setErrDisplay(JSON.stringify(errorContent));
     }
   }, []);
 

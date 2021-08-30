@@ -5,9 +5,10 @@ import { updateCart, removeFromCart } from '../actions/cart';
 
 const CartItem = ({ cartItem }) => {
   const item = cartItem;
+  const { product, quantity } = item;
   const {
-    name, image_url: imageUrl, price, quantity,
-  } = item;
+    name, image_url: imageUrl, price,
+  } = product;
   const dispatch = useDispatch();
   const handleClickAdd = () => {
     item.quantity = quantity + 1;
@@ -45,7 +46,7 @@ const CartItem = ({ cartItem }) => {
         />
       </td>
       <td>{name}</td>
-      <td>{price}</td>
+      <td>{`R ${price}`}</td>
       <td>
         <i
           className="fa fa-minus-circle"

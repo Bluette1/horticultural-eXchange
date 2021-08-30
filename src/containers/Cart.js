@@ -25,7 +25,7 @@ const Cart = () => {
     let sum = 0;
     for (let index = 0; index < crtItems.length; index += 1) {
       const item = crtItems[index];
-      sum += item.quantity * item.price;
+      sum += item.quantity * item.product.price;
     }
     return sum;
   };
@@ -58,7 +58,7 @@ const Cart = () => {
             <td />
             <td />
             <td>Sum</td>
-            <td>{total()}</td>
+            <td>{`R ${total()}`}</td>
           </tr>
         </tfoot>
       </table>

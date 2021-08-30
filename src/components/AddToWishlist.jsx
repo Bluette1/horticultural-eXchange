@@ -15,14 +15,14 @@ const AddToWishlist = ({ product }) => {
     if (isGuestUser(currentUser)) {
       dispatch(addToWishlist({ product }));
     } else {
-      WishlistService.addToWishlist(currentUser, product).then(
+      WishlistService.addToWishlist(product.id).then(
         (res) => {
           dispatch(addToWishlist(res.data));
         },
         (err) => {
           const errContent = (err.response && err.response.data) || err.message || err.toString();
 
-          setErrDisplay(errContent);
+          setErrDisplay(JSON.stringify(errContent));
         },
       );
     }

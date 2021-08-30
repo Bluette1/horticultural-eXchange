@@ -188,7 +188,7 @@ export default function CheckoutForm() {
                 <td />
                 <td />
                 <td />
-                <td>{total() + 60}</td>
+                <td>{`R ${total() + 60}`}</td>
               </tr>
             </tfoot>
           </table>
