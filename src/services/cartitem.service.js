@@ -12,6 +12,10 @@ const getCartItems = () => axios.get(`${API_URL}/cart_items`, { headers });
 
 const removeFromCartItems = (id) => axios.delete(`${API_URL}/cart_items/${id}`, { headers });
 
+const updateCartItem = (cartItemId, payload) => axios.put(`${API_URL}/cart_items/${cartItemId}`, payload, { headers });
+
+const deleteCartItems = () => axios.delete(`${API_URL}/cart_items/`, { headers });
+
 export default {
-  addToCartItems, getCartItems, removeFromCartItems,
+  addToCartItems, getCartItems, removeFromCartItems, updateCartItem, deleteCartItems,
 };

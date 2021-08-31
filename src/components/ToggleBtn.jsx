@@ -88,7 +88,6 @@ const ToggleButton = ({ prdct }) => {
           );
         }
       } else if (isGuestUser(currentUser)) {
-        console.log('here################');
         dispatch(addToCart({ product: plant, quantity: 1 }));
       } else {
         CartItemsService.addToCartItems(plant.id).then(
