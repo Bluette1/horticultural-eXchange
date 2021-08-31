@@ -37,7 +37,7 @@ const ToggleButton = ({ prdct }) => {
       if (isGuestUser(currentUser)) {
         dispatch(removeFromCart(product));
       } else {
-        CartItemsService.removeFromCartItems(plant.id).then(
+        CartItemsService.removeFromCartItems(product.id).then(
           () => {
             dispatch(removeFromCart(product));
           },

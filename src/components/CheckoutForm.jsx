@@ -51,7 +51,7 @@ export default function CheckoutForm() {
     let sum = 0;
     for (let index = 0; index < cartItems.length; index += 1) {
       const item = cartItems[index];
-      sum += item.quantity * item.price;
+      sum += item.quantity * item.product.price;
     }
     return sum;
   };
@@ -140,22 +140,6 @@ export default function CheckoutForm() {
               {cartItems.map((item) => (
                 <CheckoutCartItem key={`item-${uuid()}`} cartItem={item} />
               ))}
-              <tr>
-                <td>SubTotal</td>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td>{`R ${total()}`}</td>
-              </tr>
               <tr>
                 <td>Shipping</td>
                 <td />
