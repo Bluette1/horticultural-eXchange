@@ -8,7 +8,7 @@ import {
 
 const removeFromCart = (id, state) => {
   const itemsUpdated = state.filter((item) => item.id !== id);
-  localStorage.setItem('wishlist', JSON.stringify(itemsUpdated));
+  localStorage.setItem('cartItems', JSON.stringify(itemsUpdated));
   return itemsUpdated;
 };
 const cartItems = JSON.parse(localStorage.getItem('cartItems'));
