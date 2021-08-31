@@ -1,29 +1,75 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateCart, removeFromCart } from '../actions/cart';
+import isGuestUser from '../helpers/isGuestUser';
+import CartItemsService from '../services/cartitem.service';
 
 const CartItem = ({ cartItem }) => {
   const item = cartItem;
+  const { product, quantity } = item;
   const {
-    name, image_url: imageUrl, price, quantity,
-  } = item;
+    name, image_url: imageUrl, price,
+  } = product;
+
   const dispatch = useDispatch();
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const [errDisplay, setErrDisplay] = useState('');
+  const removeItem = () => {
+    if (isGuestUser(currentUser)) {
+      dispatch(removeFromCart(item));
+    } else {
+      CartItemsService.removeFromCartItems(item.id).then(
+        () => {
+          dispatch(removeFromCart(item));
+        },
+        (err) => {
+          const errContent = (err.response && err.response.data)
+            || err.message
+            || err.toString();
+          setErrDisplay(JSON.stringify(errContent));
+        },
+      );
+    }
+  };
+
+  const updateItem = () => {
+    if (isGuestUser(currentUser)) {
+      dispatch(updateCart(item));
+    } else {
+      CartItemsService.updateCartItem(item.id, { quantity: item.quantity }).then(
+        () => {
+          dispatch(updateCart(item));
+        },
+        (err) => {
+          const errContent = (err.response && err.response.data)
+            || err.message
+            || err.toString();
+          setErrDisplay(JSON.stringify(errContent));
+        },
+      );
+    }
+  };
+
   const handleClickAdd = () => {
     item.quantity = quantity + 1;
-    dispatch(updateCart(item));
+    updateItem();
   };
   const handleClickRemove = () => {
     item.quantity = quantity - 1;
     if (item.quantity === 0) {
-      dispatch(removeFromCart(item));
+      removeItem();
     } else {
-      dispatch(updateCart(item));
+      updateItem();
     }
   };
   const handleClickCancel = () => {
-    dispatch(removeFromCart(item));
+    removeItem();
   };
+
+  if (errDisplay !== '') {
+    return <p>{errDisplay}</p>;
+  }
 
   return (
     <tr>
@@ -45,7 +91,7 @@ const CartItem = ({ cartItem }) => {
         />
       </td>
       <td>{name}</td>
-      <td>{price}</td>
+      <td>{`R ${price}`}</td>
       <td>
         <i
           className="fa fa-minus-circle"

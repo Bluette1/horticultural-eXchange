@@ -1,26 +1,33 @@
 import PropTypes from 'prop-types';
+import SubTotal from './SubTotal';
 
 const CheckoutCartItem = ({ cartItem }) => {
   const item = cartItem;
-  const { name, price, quantity } = item;
+  const {
+    product: { name, price },
+    quantity,
+  } = item;
 
   return (
-    <tr>
-      <td>{`${name} x ${quantity}`}</td>
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
-      <td>{`R ${price}`}</td>
-    </tr>
+    <>
+      <tr>
+        <td>{`${name} x ${quantity}`}</td>
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td>{`R ${price}`}</td>
+      </tr>
+      <SubTotal price={price} quantity={quantity} />
+    </>
   );
 };
 

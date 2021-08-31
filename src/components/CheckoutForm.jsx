@@ -8,6 +8,8 @@ import { resetCart } from '../actions/cart';
 import createPaymentIntent from '../services/payment.service';
 import logo from '../logo.png';
 import CheckoutCartItem from './CheckoutCartItem';
+import CartItemsService from '../services/cartitem.service';
+import isGuestUser from '../helpers/isGuestUser';
 
 export default function CheckoutForm() {
   const cartItems = useSelector((state) => state.cart);
@@ -17,10 +19,28 @@ export default function CheckoutForm() {
   const [processing, setProcessing] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState('');
+  const [errDisplay, setErrDisplay] = useState('');
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
   const history = useHistory();
+  const emptyCart = () => {
+    if (isGuestUser(currentUser)) {
+      dispatch(resetCart());
+    } else {
+      CartItemsService.deleteCartItems().then(
+        () => {
+          dispatch(resetCart());
+        },
+        (err) => {
+          const errContent = (err.response && err.response.data)
+            || err.message
+            || err.toString();
+          setErrDisplay(JSON.stringify(errContent));
+        },
+      );
+    }
+  };
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     window.onload = function () {
@@ -51,7 +71,7 @@ export default function CheckoutForm() {
     let sum = 0;
     for (let index = 0; index < cartItems.length; index += 1) {
       const item = cartItems[index];
-      sum += item.quantity * item.price;
+      sum += item.quantity * item.product.price;
     }
     return sum;
   };
@@ -81,11 +101,16 @@ export default function CheckoutForm() {
       setProcessing(false);
       swal('Payment succeeded, you will be contacted shortly with the details of your delivery. Redirecting to home page');
       setSucceeded(true);
-      dispatch(resetCart());
+
+      emptyCart();
     }
   };
   if (!currentUser) {
     return <Redirect to="/login" />;
+  }
+
+  if (errDisplay !== '') {
+    return <p>{errDisplay}</p>;
   }
 
   if (succeeded) {
@@ -141,22 +166,6 @@ export default function CheckoutForm() {
                 <CheckoutCartItem key={`item-${uuid()}`} cartItem={item} />
               ))}
               <tr>
-                <td>SubTotal</td>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td>{`R ${total()}`}</td>
-              </tr>
-              <tr>
                 <td>Shipping</td>
                 <td />
                 <td />
@@ -188,7 +197,7 @@ export default function CheckoutForm() {
                 <td />
                 <td />
                 <td />
-                <td>{total() + 60}</td>
+                <td>{`R ${total() + 60}`}</td>
               </tr>
             </tfoot>
           </table>

@@ -3,6 +3,7 @@ import {
   REMOVE_FROM_CART,
   RESET_CART,
   UPDATE_CART,
+  REGISTER_CARTITEMS,
 } from './types';
 
 export const addToCart = (item) => ({
@@ -22,4 +23,9 @@ export const resetCart = () => ({
 export const updateCart = (item) => ({
   type: UPDATE_CART,
   payload: item,
+});
+
+export const registerCartItems = (cartItems) => ({
+  type: REGISTER_CARTITEMS,
+  payload: cartItems,
 });

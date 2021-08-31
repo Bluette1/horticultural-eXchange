@@ -57,7 +57,7 @@ const WishlistItem = ({ item }) => {
         />
       </td>
       <td>{name}</td>
-      <td>{price}</td>
+      <td>{`R ${price}`}</td>
       <td>{inStock ? 'In Stock' : 'Out of Stock'}</td>
       <td>
         {createdAt && (

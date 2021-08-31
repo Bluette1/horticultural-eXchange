@@ -3,11 +3,12 @@ import {
   REMOVE_FROM_CART,
   RESET_CART,
   UPDATE_CART,
+  REGISTER_CARTITEMS,
 } from '../actions/types';
 
 const removeFromCart = (id, state) => {
   const itemsUpdated = state.filter((item) => item.id !== id);
-  localStorage.setItem('wishlist', JSON.stringify(itemsUpdated));
+  localStorage.setItem('cartItems', JSON.stringify(itemsUpdated));
   return itemsUpdated;
 };
 const cartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -30,6 +31,9 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case ADD_TO_CART:
+      if (!payload.id) {
+        payload.id = state.length;
+      }
       localStorage.setItem('cartItems', JSON.stringify([...state, payload]));
       return [...state, payload];
     case REMOVE_FROM_CART:
@@ -39,6 +43,8 @@ export default function (state = initialState, action) {
       return [];
     case UPDATE_CART:
       return updateCart(state, payload);
+    case REGISTER_CARTITEMS:
+      return payload;
     default:
       return state;
   }
