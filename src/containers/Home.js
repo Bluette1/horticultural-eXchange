@@ -31,36 +31,38 @@ const Home = () => {
     return ctprdcts[idx];
   };
   const getCategories = (categories) => categories.map((item) => item.category);
-
-  useEffect(async () => {
-    try {
-      if ((currentUser && isGuestUser(currentUser)) || (!currentUser)) {
-        const [productsResponse, categoriesResponse] = await Promise.all([
-          UserService.getPublicContent(),
-          CategoryService.getCategories(),
-        ]);
-        dispatch(registerProducts(productsResponse.data));
-        dispatch(registerCategories(getCategories(categoriesResponse.data)));
-      } else {
-        const [productsResponse, categoriesResponse, wishlistResponse, cartResponse] = await Promise
-          .all([
+  useEffect(() => {
+    window.onload = async function () {
+      try {
+        if ((!currentUser) || (currentUser && isGuestUser(currentUser))) {
+          const [productsResponse, categoriesResponse] = await Promise.all([
             UserService.getPublicContent(),
             CategoryService.getCategories(),
-            WishlistService.getWishlist(),
-            CartItemsService.getCartItems(),
           ]);
-        dispatch(registerProducts(productsResponse.data));
-        dispatch(registerCategories(getCategories(categoriesResponse.data)));
-        dispatch(registerWishlist(wishlistResponse.data));
-        dispatch(registerCartItems(cartResponse.data));
+          dispatch(registerProducts(productsResponse.data));
+          dispatch(registerCategories(getCategories(categoriesResponse.data)));
+        } else {
+          const [
+            productsResponse, categoriesResponse, wishlistResponse, cartResponse,
+          ] = await Promise
+            .all([
+              UserService.getPublicContent(),
+              CategoryService.getCategories(),
+              WishlistService.getWishlist(),
+              CartItemsService.getCartItems(),
+            ]);
+          dispatch(registerProducts(productsResponse.data));
+          dispatch(registerCategories(getCategories(categoriesResponse.data)));
+          dispatch(registerWishlist(wishlistResponse.data));
+          dispatch(registerCartItems(cartResponse.data));
+        }
+      } catch (error) {
+        const errorContent = (error.response && error.response.data)
+        || error.message
+        || error.toString();
+        setErrDisplay(JSON.stringify(errorContent));
       }
-    } catch (error) {
-      const errorContent = (error.response && error.response.data)
-      || error.message
-      || error.toString();
-
-      setErrDisplay(JSON.stringify(errorContent));
-    }
+    };
   }, []);
 
   if (errDisplay !== '') {
