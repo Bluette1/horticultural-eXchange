@@ -1,338 +1,143 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders the app 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
+exports[`renders the app - navbar links are displayed correctly 1`] = `
+<div>
+  <div>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between"
+    >
       <div>
-        <nav
-          class="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between"
+        <button
+          aria-controls="navbarToggler03"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          data-bs-target="#navbarToggler03"
+          data-bs-toggle="collapse"
+          type="button"
         >
-          <div>
-            <button
-              aria-controls="navbarToggler03"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              class="navbar-toggler"
-              data-bs-target="#navbarToggler03"
-              data-bs-toggle="collapse"
-              type="button"
-            >
-              <span
-                class="navbar-toggler-icon"
-              />
-            </button>
-            <div
-              class="navbar-nav mr-auto collapse navbar-collapse"
-              id="navbarToggler03"
-            >
-              <a
-                class="navbar-brand"
-                href="/"
-              >
-                <img
-                  alt="logo"
-                  src="logo.png"
-                  style="margin-right: 2px; width: 30px; height: 30px; border-radius: 50px;"
-                />
-                 
-                iGrow
-              </a>
-              <li
-                class="nav-item"
-              >
-                <a
-                  class="nav-link"
-                  href="/home"
-                >
-                  Home
-                </a>
-              </li>
-            </div>
-          </div>
-          <div>
-            <button
-              aria-controls="navbarToggler04"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              class="navbar-toggler"
-              data-bs-target="#navbarToggler04"
-              data-bs-toggle="collapse"
-              type="button"
-            >
-              <i
-                aria-hidden="true"
-                class="fa fa-user toggler-icon"
-              />
-            </button>
-            <div
-              class="navbar-nav ml-auto collapse navbar-collapse"
-              id="navbarToggler04"
-            >
-              <div
-                class="d-lg-flex"
-              >
-                <li
-                  class="nav-item"
-                >
-                  <a
-                    class="nav-link"
-                    href="/login"
-                  >
-                    Login
-                  </a>
-                </li>
-                <li
-                  class="nav-item"
-                >
-                  <a
-                    class="nav-link"
-                    href="/register"
-                  >
-                    Sign Up
-                  </a>
-                </li>
-              </div>
-            </div>
-          </div>
-        </nav>
+          <span
+            class="navbar-toggler-icon"
+          />
+        </button>
         <div
-          class="container mt-3"
+          class="navbar-nav mr-auto collapse navbar-collapse"
+          id="navbarToggler03"
         >
-          <div
-            class="container row d-flex"
+          <a
+            class="navbar-brand"
+            href="/"
           >
-            <h4>
-              PRODUCT CATEGORIES:
-            </h4>
-            <div
-              class="col-md-3"
-            >
-              <label
-                for="category-select"
-              >
-                PRODUCT CATEGORIES:
-                <select
-                  id="category-select"
-                  name="categories"
-                >
-                  <option
-                    value=""
-                  >
-                     Select a category
-                  </option>
-                  <option
-                    value="All Plants"
-                  >
-                    All Plants
-                  </option>
-                </select>
-              </label>
-            </div>
-            <div
-              class="col-md-9"
-            >
-              <div
-                class="row d-flex"
-              >
-                 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div>
-      <nav
-        class="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between"
-      >
-        <div>
-          <button
-            aria-controls="navbarToggler03"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            class="navbar-toggler"
-            data-bs-target="#navbarToggler03"
-            data-bs-toggle="collapse"
-            type="button"
-          >
-            <span
-              class="navbar-toggler-icon"
+            <img
+              alt="logo"
+              src="logo.png"
+              style="margin-right: 2px; width: 30px; height: 30px; border-radius: 50px;"
             />
-          </button>
-          <div
-            class="navbar-nav mr-auto collapse navbar-collapse"
-            id="navbarToggler03"
+             
+            iGrow
+          </a>
+          <li
+            class="nav-item"
           >
             <a
-              class="navbar-brand"
-              href="/"
+              class="nav-link"
+              href="/home"
             >
-              <img
-                alt="logo"
-                src="logo.png"
-                style="margin-right: 2px; width: 30px; height: 30px; border-radius: 50px;"
-              />
-               
-              iGrow
+              Home
             </a>
+          </li>
+        </div>
+      </div>
+      <div>
+        <button
+          aria-controls="navbarToggler04"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          data-bs-target="#navbarToggler04"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <i
+            aria-hidden="true"
+            class="fa fa-user toggler-icon"
+          />
+        </button>
+        <div
+          class="navbar-nav ml-auto collapse navbar-collapse"
+          id="navbarToggler04"
+        >
+          <div
+            class="d-lg-flex"
+          >
             <li
               class="nav-item"
             >
               <a
                 class="nav-link"
-                href="/home"
+                href="/login"
               >
-                Home
+                Login
+              </a>
+            </li>
+            <li
+              class="nav-item"
+            >
+              <a
+                class="nav-link"
+                href="/register"
+              >
+                Sign Up
               </a>
             </li>
           </div>
         </div>
-        <div>
-          <button
-            aria-controls="navbarToggler04"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            class="navbar-toggler"
-            data-bs-target="#navbarToggler04"
-            data-bs-toggle="collapse"
-            type="button"
-          >
-            <i
-              aria-hidden="true"
-              class="fa fa-user toggler-icon"
-            />
-          </button>
-          <div
-            class="navbar-nav ml-auto collapse navbar-collapse"
-            id="navbarToggler04"
-          >
-            <div
-              class="d-lg-flex"
-            >
-              <li
-                class="nav-item"
-              >
-                <a
-                  class="nav-link"
-                  href="/login"
-                >
-                  Login
-                </a>
-              </li>
-              <li
-                class="nav-item"
-              >
-                <a
-                  class="nav-link"
-                  href="/register"
-                >
-                  Sign Up
-                </a>
-              </li>
-            </div>
-          </div>
-        </div>
-      </nav>
+      </div>
+    </nav>
+    <div
+      class="container mt-3"
+    >
       <div
-        class="container mt-3"
+        class="container row d-flex"
       >
+        <h4>
+          PRODUCT CATEGORIES:
+        </h4>
         <div
-          class="container row d-flex"
+          class="col-md-3"
         >
-          <h4>
+          <label
+            for="category-select"
+          >
             PRODUCT CATEGORIES:
-          </h4>
-          <div
-            class="col-md-3"
-          >
-            <label
-              for="category-select"
+            <select
+              id="category-select"
+              name="categories"
             >
-              PRODUCT CATEGORIES:
-              <select
-                id="category-select"
-                name="categories"
+              <option
+                value=""
               >
-                <option
-                  value=""
-                >
-                   Select a category
-                </option>
-                <option
-                  value="All Plants"
-                >
-                  All Plants
-                </option>
-              </select>
-            </label>
-          </div>
+                 Select a category
+              </option>
+              <option
+                value="All Plants"
+              >
+                All Plants
+              </option>
+            </select>
+          </label>
+        </div>
+        <div
+          class="col-md-9"
+        >
           <div
-            class="col-md-9"
+            class="row d-flex"
           >
-            <div
-              class="row d-flex"
-            >
-               
-            </div>
+             
           </div>
         </div>
       </div>
     </div>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
+  </div>
+</div>
 `;
