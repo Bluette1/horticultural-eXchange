@@ -1,21 +1,19 @@
 import React from 'react';
 import {
-  render, within, cleanup, waitFor,
+  render, within, cleanup, waitFor, screen, act
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Provider } from 'react-redux';
 import axios from 'axios';
 import App from '../App';
-import store from '../store';
+import configureStore from '../store';
 import { httpProtocol, host, port } from '../env.variables';
-import Login from '../components/Login';
-
 jest.mock('axios');
 
 afterEach(cleanup);
 
 const AppWithStore = () => (
-  <Provider store={store}>
+  <Provider store={configureStore()}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
@@ -34,9 +32,14 @@ test('renders the app - navbar links are displayed correctly', async () => {
   });
   const { container } = render(<AppWithStore />);
   await waitFor(() => {
-    // const navBar = container.querySelector('.navbar');
-    const navBar = container.firstChild.firstChild;
-    expect(navBar).toHaveClass('navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between');
+    expect(container.firstChild.children).toHaveLength(2);
+    const navContainer = screen.getByTestId('nav-container');
+    expect(container.firstChild).toContainElement(navContainer);
+    const mainContainer = screen.getByTestId('main-container');
+    expect(within(mainContainer).getAllByText(/product categories/i)).toHaveLength(2);
+    expect(container.firstChild).toContainElement(mainContainer);
+    const navBar = navContainer.querySelector('.navbar');
+
     const logoImg = within(navBar).getByAltText("logo");
     expect(logoImg).toBeInTheDocument();
     expect(logoImg).toHaveAttribute('src', 'logo.png');

@@ -2,7 +2,9 @@
 
 exports[`renders the app - navbar links are displayed correctly 1`] = `
 <div>
-  <div>
+  <div
+    data-testid="nav-container"
+  >
     <nav
       class="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between"
     >
@@ -96,6 +98,7 @@ exports[`renders the app - navbar links are displayed correctly 1`] = `
     </nav>
     <div
       class="container mt-3"
+      data-testid="main-container"
     >
       <div
         class="container row d-flex"

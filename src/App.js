@@ -60,7 +60,7 @@ const App = () => {
 
   return (
     <Router history={history}>
-      <div>
+      <div data-testid="nav-container">
         <nav className="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between">
           <div>
             <button
@@ -195,7 +195,7 @@ const App = () => {
           </div>
         </nav>
 
-        <div className="container mt-3">
+        <div data-testid="main-container" className="container mt-3">
           <Switch>
             <Route exact path={['/', '/home']} component={Home} />
             <Route exact path="/login" component={Login} />

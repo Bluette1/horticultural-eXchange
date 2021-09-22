@@ -5,9 +5,13 @@ import rootReducer from './reducers';
 
 const middleware = [thunk];
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(...middleware)),
-);
+const configureStore = (preloadedState) => {
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    composeWithDevTools(applyMiddleware(...middleware)),
+  );
+  return store;
+};
 
-export default store;
+export default configureStore;
