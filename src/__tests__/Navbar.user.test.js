@@ -1,46 +1,45 @@
 import React from 'react';
 import {
   render,
+  within,
   waitFor,
   screen,
-  fireEvent,
 } from '@testing-library/react';
+import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
 import axios from 'axios';
 import history from '../helpers/history';
 import App from '../App';
-
 import configureStore from '../store';
 import { httpProtocol, host, port } from '../env.variables';
 
 jest.mock('axios');
 
-test('when a user is logged in relevant information is displayed', async () => {
-  const configuredStore = configureStore({
-    auth: {
-      user: {
-        id: 1,
-        email: 'test@example.com',
-        created_at: '2021-07-22 14:30:15.903533000 +0000',
-        updated_at: '2021-07-22 14:30:15.903533000 +0000',
-        superadmin_role: false,
-        supervisor_role: false,
-        user_role: true,
-        accessToken: 'Bearer 345664456777777777',
-      },
+const configuredStore = configureStore({
+  auth: {
+    user: {
+      id: 1,
+      email: 'test@example.com',
+      created_at: '2021-07-22 14:30:15.903533000 +0000',
+      updated_at: '2021-07-22 14:30:15.903533000 +0000',
+      superadmin_role: false,
+      supervisor_role: false,
+      user_role: true,
+      accessToken: 'Bearer 345664456777777777',
     },
-  });
-  const AppWithStore = () => (
-    <Provider store={configuredStore}>
-      <React.StrictMode>
-        <Router history={history}>
-          <App />
-        </Router>
-      </React.StrictMode>
-    </Provider>
-  );
+  },
+});
+const AppWithStore = () => (
+  <Provider store={configuredStore}>
+    <React.StrictMode>
+      <Router history={history}>
+        <App />
+      </Router>
+    </React.StrictMode>
+  </Provider>
+);
+test('renders the app - navbar links are displayed correctly', async () => {
   const categories = [
     {
       id: 1,
@@ -183,16 +182,56 @@ test('when a user is logged in relevant information is displayed', async () => {
     }
   });
 
-  render(<AppWithStore />);
-
-  await waitFor(async () => {
-    const categoryContainer = screen.getAllByTestId('category-container');
-    fireEvent.click(categoryContainer[2]);
-  });
-
+  const { container } = render(<AppWithStore />);
   await waitFor(() => {
-    expect(screen.getByText(/protea/i)).toBeInTheDocument();
-    expect(screen.getByText(/view item/i)).toBeInTheDocument();
-    expect(screen).toMatchSnapshot();
+    expect(container.firstChild.children).toHaveLength(2);
+    const navContainer = screen.getByTestId('nav-container');
+    expect(container.firstChild).toContainElement(navContainer);
+    const mainContainer = screen.getByTestId('main-container');
+    expect(
+      within(mainContainer).getAllByText(/product categories/i),
+    ).toHaveLength(1);
+    expect(container.firstChild).toContainElement(mainContainer);
+    const navBar = navContainer.querySelector('.navbar');
+
+    const logoImg = within(navBar).getByAltText('logo');
+    expect(logoImg).toBeInTheDocument();
+    expect(logoImg).toHaveAttribute('src', 'logo.png');
+    expect(within(navBar).getByText(/iGrow/)).toBeInTheDocument();
+
+    expect(navBar).toBeTruthy();
+    expect(navBar.children).toHaveLength(2);
+
+    expect(container).toMatchSnapshot();
+
+    const navItems = navBar.querySelectorAll('.nav-item');
+    expect(navItems).toHaveLength(5);
+
+    const home = navItems[0].firstChild;
+    expect(within(home).getByText('Home')).toBeInTheDocument();
+    expect(home).toContainHTML('<a class="nav-link" href="/home">Home</a>');
+
+    const browse = navItems[1].firstChild;
+    expect(within(browse).getByText('Browse Wishlist')).toBeInTheDocument();
+    expect(browse).toContainHTML('<a class="nav-link" href="/wishlist">Browse Wishlist</a>');
+
+    const profile = navItems[2].firstChild;
+    expect(within(profile).getByText('test@example.com')).toBeInTheDocument();
+    expect(profile).toContainHTML(
+      '<a class="nav-link" href="/profile">test@example.com</a>',
+    );
+    const logout = navItems[3].firstChild;
+    expect(within(logout).getByText('Logout')).toBeInTheDocument();
+    expect(logout).toHaveAttribute('href', '/login');
+    expect(logout).toHaveClass('nav-link');
+
+    const cart = navItems[4].firstChild;
+
+    expect(cart.firstChild).toContainHTML('<i aria-hidden="true" class="fa fa-shopping-cart" />');
+    expect(cart).toHaveAttribute('href', '/cart');
+    expect(cart).toHaveClass('nav-link');
+    expect(cart.firstChild).toHaveAttribute('aria-hidden', 'true');
+    expect(cart.firstChild).toHaveClass('fa fa-shopping-cart');
+    expect(cart.children[1]).toContainHTML('<span style="border-radius: 45%; background-color: rgb(0, 128, 0); color: white; font-size: 8px; padding: 3px; margin-right: 3px;">1</span>');
   });
 });

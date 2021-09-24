@@ -160,7 +160,7 @@ const App = () => {
                   </li>
                   <li className="nav-item d-flex">
                     <Link to="/cart" className="nav-link">
-                      <i className="fa fa-shopping-cart" aria-hidden="true" />
+                      <i aria-hidden="true" className="fa fa-shopping-cart" />
                       <span
                         style={{
                           borderRadius: '45%',

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   render,
   within,
-  cleanup,
   waitFor,
   screen,
 } from '@testing-library/react';
@@ -16,8 +15,6 @@ import configureStore from '../store';
 import { httpProtocol, host, port } from '../env.variables';
 
 jest.mock('axios');
-
-afterEach(cleanup);
 
 const HomeWithStore = () => (
   <Provider store={configureStore()}>

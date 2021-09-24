@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the app - navbar links are displayed correctly 1`] = `
+<div>
+  <div
+    data-testid="nav-container"
+  >
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-navbar d-flex justify-content-around justify-content-lg-between"
+    >
+      <div>
+        <button
+          aria-controls="navbarToggler03"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          data-bs-target="#navbarToggler03"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <span
+            class="navbar-toggler-icon"
+          />
+        </button>
+        <div
+          class="navbar-nav mr-auto collapse navbar-collapse"
+          id="navbarToggler03"
+        >
+          <a
+            class="navbar-brand"
+            href="/"
+          >
+            <img
+              alt="logo"
+              src="logo.png"
+              style="margin-right: 2px; width: 30px; height: 30px; border-radius: 50px;"
+            />
+             
+            iGrow
+          </a>
+          <li
+            class="nav-item"
+          >
+            <a
+              class="nav-link"
+              href="/home"
+            >
+              Home
+            </a>
+          </li>
+        </div>
+      </div>
+      <div>
+        <button
+          aria-controls="navbarToggler04"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          data-bs-target="#navbarToggler04"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <i
+            aria-hidden="true"
+            class="fa fa-user toggler-icon"
+          />
+        </button>
+        <div
+          class="navbar-nav ml-auto collapse navbar-collapse"
+          id="navbarToggler04"
+        >
+          <div
+            class="d-lg-flex"
+          >
+            <li
+              class="nav-item"
+            >
+              <a
+                class="nav-link"
+                href="/login"
+              >
+                Login
+              </a>
+            </li>
+            <li
+              class="nav-item"
+            >
+              <a
+                class="nav-link"
+                href="/register"
+              >
+                Sign Up
+              </a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="container mt-3"
+      data-testid="main-container"
+    >
+      <div
+        class="container row d-flex"
+      >
+        <h4>
+          PRODUCT CATEGORIES:
+        </h4>
+        <div
+          class="col-md-3"
+        >
+          <label
+            for="category-select"
+          >
+            PRODUCT CATEGORIES:
+            <select
+              id="category-select"
+              name="categories"
+            >
+              <option
+                value=""
+              >
+                 Select a category
+              </option>
+              <option
+                value="All Plants"
+              >
+                All Plants
+              </option>
+            </select>
+          </label>
+        </div>
+        <div
+          class="col-md-9"
+        >
+          <div
+            class="row d-flex"
+          >
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
