@@ -16,30 +16,58 @@ import { httpProtocol, host, port } from '../env.variables';
 
 jest.mock('axios');
 
-const configuredStore = configureStore({
-  auth: {
-    user: {
-      id: 1,
-      email: 'test@example.com',
-      created_at: '2021-07-22 14:30:15.903533000 +0000',
-      updated_at: '2021-07-22 14:30:15.903533000 +0000',
-      superadmin_role: false,
-      supervisor_role: false,
-      user_role: true,
-      accessToken: 'Bearer 345664456777777777',
-    },
-  },
+test('Category-filter is displayed correctly', async () => {
+  const AppWithStore = () => (
+    <Provider store={configureStore()}>
+      <React.StrictMode>
+        <Router history={history}>
+          <App />
+        </Router>
+      </React.StrictMode>
+    </Provider>
+  );
+  axios.get.mockImplementation((url) => {
+    switch (url) {
+      case `${httpProtocol}://${host}:${port}/categories`:
+        return Promise.resolve({ data: [] });
+      case `${httpProtocol}://${host}:${port}/plants`:
+        return Promise.resolve({ data: [] });
+      default:
+        return Promise.resolve({ data: [] });
+    }
+  });
+  render(<AppWithStore />);
+  await waitFor(() => {
+    const categoryFilter = screen.getByTestId('category-filter');
+    expect(categoryFilter.firstChild.firstChild.textContent).toMatch('PRODUCT CATEGORIES:');
+    expect(categoryFilter.innerHTML).toBe('<label for=\"category-select\">PRODUCT CATEGORIES:<select name=\"categories\" id=\"category-select\"><option value=\"\"> Select a category</option><option value=\"All Plants\">All Plants</option></select></label>');
+  });
 });
-const AppWithStore = () => (
-  <Provider store={configuredStore}>
-    <React.StrictMode>
-      <Router history={history}>
-        <App />
-      </Router>
-    </React.StrictMode>
-  </Provider>
-);
-test('renders the app - navbar links are displayed correctly', async () => {
+
+test('Category-filter when user is logged in is displayed correctly', async () => {
+  const configuredStore = configureStore({
+    auth: {
+      user: {
+        id: 1,
+        email: 'test@example.com',
+        created_at: '2021-07-22 14:30:15.903533000 +0000',
+        updated_at: '2021-07-22 14:30:15.903533000 +0000',
+        superadmin_role: false,
+        supervisor_role: false,
+        user_role: true,
+        accessToken: 'Bearer 345664456777777777',
+      },
+    },
+  });
+  const AppWithStore = () => (
+    <Provider store={configuredStore}>
+      <React.StrictMode>
+        <Router history={history}>
+          <App />
+        </Router>
+      </React.StrictMode>
+    </Provider>
+  );
   const categories = [
     {
       id: 1,
@@ -181,57 +209,11 @@ test('renders the app - navbar links are displayed correctly', async () => {
         return Promise.resolve({ data: [] });
     }
   });
-
-  const { container } = render(<AppWithStore />);
+  render(<AppWithStore />);
   await waitFor(() => {
-    expect(container.firstChild.children).toHaveLength(2);
-    const navContainer = screen.getByTestId('nav-container');
-    expect(container.firstChild).toContainElement(navContainer);
-    const mainContainer = screen.getByTestId('main-container');
-    expect(
-      within(mainContainer).getAllByText(/product categories/i),
-    ).toHaveLength(1);
-    expect(container.firstChild).toContainElement(mainContainer);
-    const navBar = navContainer.querySelector('.navbar');
-
-    const logoImg = within(navBar).getByAltText('logo');
-    expect(logoImg).toBeInTheDocument();
-    expect(logoImg).toHaveAttribute('src', 'logo.png');
-    expect(within(navBar).getByText(/iGrow/)).toBeInTheDocument();
-
-    expect(navBar).toBeTruthy();
-    expect(navBar.children).toHaveLength(2);
-
-    expect(container).toMatchSnapshot();
-
-    const navItems = navBar.querySelectorAll('.nav-item');
-    expect(navItems).toHaveLength(5);
-
-    const home = navItems[0].firstChild;
-    expect(within(home).getByText('Home')).toBeInTheDocument();
-    expect(home).toContainHTML('<a class="nav-link" href="/home">Home</a>');
-
-    const browse = navItems[1].firstChild;
-    expect(within(browse).getByText('Browse Wishlist')).toBeInTheDocument();
-    expect(browse).toContainHTML('<a class="nav-link" href="/wishlist">Browse Wishlist</a>');
-
-    const profile = navItems[2].firstChild;
-    expect(within(profile).getByText('test@example.com')).toBeInTheDocument();
-    expect(profile).toContainHTML(
-      '<a class="nav-link" href="/profile">test@example.com</a>',
-    );
-    const logout = navItems[3].firstChild;
-    expect(within(logout).getByText('Logout')).toBeInTheDocument();
-    expect(logout).toHaveAttribute('href', '/login');
-    expect(logout).toHaveClass('nav-link');
-
-    const cart = navItems[4].firstChild;
-
-    expect(cart.firstChild).toContainHTML('<i aria-hidden="true" class="fa fa-shopping-cart" />');
-    expect(cart).toHaveAttribute('href', '/cart');
-    expect(cart).toHaveClass('nav-link');
-    expect(cart.firstChild).toHaveAttribute('aria-hidden', 'true');
-    expect(cart.firstChild).toHaveClass('fa fa-shopping-cart');
-    expect(cart.children[1]).toContainHTML('<span style="border-radius: 45%; background-color: rgb(0, 128, 0); color: white; font-size: 8px; padding: 3px; margin-right: 3px;">1</span>');
+    const categoryFilter = screen.getByTestId('category-filter');
+    expect(categoryFilter.firstChild.firstChild.textContent).toMatch('PRODUCT CATEGORIES:');
+    expect(categoryFilter.innerHTML).toBe('<label for=\"category-select\">PRODUCT CATEGORIES:<select name=\"categories\" id=\"category-select\"><option value=\"\"> Select a category</option><option value=\"Full Sun Plants\">Full Sun Plants</option><option value=\"Clearance Sale\">Clearance Sale</option><option value=\"Fynbos\">Fynbos</option><option value=\"Outdoor Garden Plants\">Outdoor Garden Plants</option><option value=\"Coniferous Shrubs\">Coniferous Shrubs</option><option value=\"All Plants\">All Plants</option></select></label>');
   });
 });
+

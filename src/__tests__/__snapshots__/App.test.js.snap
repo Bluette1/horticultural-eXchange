@@ -108,6 +108,7 @@ exports[`renders the app - navbar links are displayed correctly 1`] = `
         </h4>
         <div
           class="col-md-3"
+          data-testid="category-filter"
         >
           <label
             for="category-select"
