@@ -3,7 +3,7 @@ import {
   render,
   waitFor,
   screen,
-  fireEvent
+  fireEvent,
 } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
@@ -32,7 +32,7 @@ const product = {
 const wish = {
   created_at: '2021-08-31T15:56:57.182Z',
   id: 67,
-  product
+  product,
 };
 const authState = {
   auth: {
@@ -72,16 +72,15 @@ test('`addToWishlist` component displays and functions correctly', async () => {
     const addToWishlistBtn = screen.getByText(/add to your wish list/i);
     expect(screen).toMatchSnapshot();
     expect(addToWishlistBtn).toBeInTheDocument();
-    fireEvent.click(addToWishlistBtn);
   });
   await waitFor(() => {
-    const dispatchSpy = store.dispatch;  
+    const dispatchSpy = store.dispatch;
     fireEvent.click(screen.getByText(/add to your wish list/i));
     expect(dispatchSpy).toHaveBeenCalled();
     const action = {
       payload: wish,
       type: 'ADD_TO_WISHLIST',
-    }
+    };
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 });

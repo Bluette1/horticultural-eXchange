@@ -216,4 +216,3 @@ test('Category-filter when user is logged in is displayed correctly', async () =
     expect(categoryFilter.innerHTML).toBe('<label for=\"category-select\">PRODUCT CATEGORIES:<select name=\"categories\" id=\"category-select\"><option value=\"\"> Select a category</option><option value=\"Full Sun Plants\">Full Sun Plants</option><option value=\"Clearance Sale\">Clearance Sale</option><option value=\"Fynbos\">Fynbos</option><option value=\"Outdoor Garden Plants\">Outdoor Garden Plants</option><option value=\"Coniferous Shrubs\">Coniferous Shrubs</option><option value=\"All Plants\">All Plants</option></select></label>');
   });
 });
-

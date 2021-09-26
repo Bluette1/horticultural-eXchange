@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 const BoardModerator = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   if (!currentUser) {
+    alert('Unauthorized action! You need to be logged in as admin or supervisor.');
     return <Redirect to="/login" />;
   }
   if (currentUser && !currentUser.supervisor_role && !currentUser.superadmin_role) {

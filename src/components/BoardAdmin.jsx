@@ -5,15 +5,17 @@ const BoardAdmin = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
 
   if (!currentUser) {
+    alert(
+      'Unauthorized action! You need to be logged in as admin.',
+    );
     return <Redirect to="/login" />;
   }
   if (
     currentUser
-    && !currentUser.supervisor_role
     && !currentUser.superadmin_role
   ) {
     alert(
-      'Unauthorized action! You need to be logged in as admin or supervisor.',
+      'Unauthorized action! You need to be logged in as admin.',
     );
     return <Redirect to="/profile" />;
   }

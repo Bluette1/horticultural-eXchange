@@ -78,30 +78,29 @@ test('renders the app - navbar links are displayed correctly', async () => {
 });
 
 test('when the user is logged in: renders the app - navbar links are displayed correctly', async () => {
-  
-const configuredStore = configureStore({
-  auth: {
-    user: {
-      id: 1,
-      email: 'test@example.com',
-      created_at: '2021-07-22 14:30:15.903533000 +0000',
-      updated_at: '2021-07-22 14:30:15.903533000 +0000',
-      superadmin_role: false,
-      supervisor_role: false,
-      user_role: true,
-      accessToken: 'Bearer 345664456777777777',
+  const configuredStore = configureStore({
+    auth: {
+      user: {
+        id: 1,
+        email: 'test@example.com',
+        created_at: '2021-07-22 14:30:15.903533000 +0000',
+        updated_at: '2021-07-22 14:30:15.903533000 +0000',
+        superadmin_role: false,
+        supervisor_role: false,
+        user_role: true,
+        accessToken: 'Bearer 345664456777777777',
+      },
     },
-  },
-});
-const AppWithStore = () => (
-  <Provider store={configuredStore}>
-    <React.StrictMode>
-      <Router history={history}>
-        <App />
-      </Router>
-    </React.StrictMode>
-  </Provider>
-);
+  });
+  const AppWithStore = () => (
+    <Provider store={configuredStore}>
+      <React.StrictMode>
+        <Router history={history}>
+          <App />
+        </Router>
+      </React.StrictMode>
+    </Provider>
+  );
   const categories = [
     {
       id: 1,

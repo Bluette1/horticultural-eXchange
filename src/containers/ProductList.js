@@ -12,7 +12,7 @@ const ProductList = () => {
   const ctprdcts = category === 'All Plants' ? products : categoryPrdcts(category);
 
   return (
-    <div className="container d-lg-flex">
+    <div className="container d-lg-flex" data-testid="productlist-container">
       <Filter />
       <>
         {ctprdcts && ctprdcts.length > 0 ? (

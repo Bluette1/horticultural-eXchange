@@ -37,7 +37,7 @@ const Cart = () => {
       </header>
       <table style={{ width: '100%' }}>
         <thead>
-          {' '}
+          {/* {' '} */}
           <tr>
             <th className="product-remove">&nbsp;</th>
             <th className="product-thumbnail">&nbsp;</th>

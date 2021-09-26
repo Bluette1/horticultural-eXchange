@@ -1,10 +1,9 @@
 import configureStore from '../store';
 
 const configureTestStore = (params) => {
-  const store=configureStore(params)
-  const initialDispatch = store.dispatch;
-  store.dispatch = jest.fn(initialDispatch)
+  const store = configureStore(params);
+  store.dispatch = jest.fn(store.dispatch);
   return store;
-}
+};
 
 export default configureTestStore;

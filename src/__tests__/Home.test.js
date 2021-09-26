@@ -134,26 +134,25 @@ test('renders home: categories and category filter are displayed correctly', asy
 });
 
 test('when a user is logged in relevant information is displayed', async () => {
-  
-const store = configureTestStore({
-  auth: {
-    id: 1,
-    email: 'test@example.com',
-    created_at: '2021-07-22 14:30:15.903533000 +0000',
-    updated_at: '2021-07-22 14:30:15.903533000 +0000',
-    superadmin_role: false,
-    supervisor_role: false,
-    user_role: true,
-    accessToken: 'Bearer 345664456777777777',
-  },
-});
-const HomeWithStore = () => (
-  <Provider store={store}>
-    <React.StrictMode>
-      <Home />
-    </React.StrictMode>
-  </Provider>
-);
+  const store = configureTestStore({
+    auth: {
+      id: 1,
+      email: 'test@example.com',
+      created_at: '2021-07-22 14:30:15.903533000 +0000',
+      updated_at: '2021-07-22 14:30:15.903533000 +0000',
+      superadmin_role: false,
+      supervisor_role: false,
+      user_role: true,
+      accessToken: 'Bearer 345664456777777777',
+    },
+  });
+  const HomeWithStore = () => (
+    <Provider store={store}>
+      <React.StrictMode>
+        <Home />
+      </React.StrictMode>
+    </Provider>
+  );
   const categories = [
     {
       id: 1,
