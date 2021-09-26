@@ -32,7 +32,7 @@ const BoardAdmin = () => {
             Admin Board
           </h3>
         </header>
-        <div className="d-flex flex-column admin">
+        <div className="d-flex flex-column admin" data-testid="actions-container">
           <span className="d-flex justify-content-between">
             <i className="fa fa-plus-circle" aria-hidden="true" />
             <Link to="/register">Add User</Link>

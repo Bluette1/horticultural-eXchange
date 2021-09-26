@@ -16,7 +16,7 @@ const BoardModerator = () => {
         <header className="jumbotron">
           <h3 style={{ textTransform: 'uppercase', paddingBottom: '30px' }}>Moderator Board</h3>
         </header>
-        <div className="d-flex flex-column mod">
+        <div className="d-flex flex-column mod" data-testid="actions-container">
           <span className="d-flex justify-content-between">
             <i className="fa fa-plus-circle" aria-hidden="true" />
             <Link to="/register">Add User</Link>

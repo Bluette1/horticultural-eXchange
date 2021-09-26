@@ -70,6 +70,7 @@ test('`addToWishlist` component displays and functions correctly', async () => {
   render(<AddToWishlistWithStore />);
   await waitFor(() => {
     const addToWishlistBtn = screen.getByText(/add to your wish list/i);
+    expect(screen).toMatchSnapshot();
     expect(addToWishlistBtn).toBeInTheDocument();
     fireEvent.click(addToWishlistBtn);
   });
