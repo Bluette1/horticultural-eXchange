@@ -11,14 +11,13 @@ import { Router } from 'react-router-dom';
 import axios from 'axios';
 import history from '../helpers/history';
 import App from '../App';
-
-import configureStore from '../store';
+import configureTestStore from '../testutils/ConfigureStore';
 import { httpProtocol, host, port } from '../env.variables';
 
 jest.mock('axios');
 
 test('when a user is logged in relevant information is displayed', async () => {
-  const configuredStore = configureStore({
+  const store = configureTestStore({
     auth: {
       user: {
         id: 1,
@@ -33,7 +32,7 @@ test('when a user is logged in relevant information is displayed', async () => {
     },
   });
   const AppWithStore = () => (
-    <Provider store={configuredStore}>
+    <Provider store={store}>
       <React.StrictMode>
         <Router history={history}>
           <App />

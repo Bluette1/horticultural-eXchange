@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   render,
-  within,
   waitFor,
   screen,
 } from '@testing-library/react';
@@ -11,14 +10,15 @@ import { Provider } from 'react-redux';
 import axios from 'axios';
 import history from '../helpers/history';
 import App from '../App';
-import configureStore from '../store';
 import { httpProtocol, host, port } from '../env.variables';
+import configureTestStore from '../testutils/ConfigureStore';
 
 jest.mock('axios');
 
 test('Category-filter is displayed correctly', async () => {
+  const store = configureTestStore();
   const AppWithStore = () => (
-    <Provider store={configureStore()}>
+    <Provider store={store}>
       <React.StrictMode>
         <Router history={history}>
           <App />
@@ -45,7 +45,7 @@ test('Category-filter is displayed correctly', async () => {
 });
 
 test('Category-filter when user is logged in is displayed correctly', async () => {
-  const configuredStore = configureStore({
+  const store = configureTestStore({
     auth: {
       user: {
         id: 1,
@@ -60,7 +60,7 @@ test('Category-filter when user is logged in is displayed correctly', async () =
     },
   });
   const AppWithStore = () => (
-    <Provider store={configuredStore}>
+    <Provider store={store}>
       <React.StrictMode>
         <Router history={history}>
           <App />

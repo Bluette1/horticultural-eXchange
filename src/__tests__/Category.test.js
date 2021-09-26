@@ -11,15 +11,15 @@ import { Router } from 'react-router-dom';
 import axios from 'axios';
 import history from '../helpers/history';
 import App from '../App';
-
-import configureStore from '../store';
+import configureTestStore from '../testutils/ConfigureStore';
 import { httpProtocol, host, port } from '../env.variables';
 
 jest.mock('axios');
 
 test('when a user is not logged in relevant information is displayed', async () => {
+  const store = configureTestStore();
   const AppWithStore = () => (
-    <Provider store={configureStore()}>
+    <Provider store={store}>
       <React.StrictMode>
         <Router history={history}>
           <App />
