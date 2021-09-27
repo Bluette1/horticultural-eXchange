@@ -18,7 +18,7 @@ const Wishlist = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container" data-testid="wishlist-container">
       <header className="jumbotron">
         <h3>Items in Wishlist</h3>
       </header>

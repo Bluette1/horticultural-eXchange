@@ -68,9 +68,9 @@ const CartWithStore = () => (
 test('`Cart` component displays and `Back` button functions correctly', async () => {
   render(<CartWithStore />);
   await waitFor(() => {
-    const checkoutBtn = screen.getByText(/Back/i);
+    const backBtn = screen.getByText(/Back/i);
     expect(screen).toMatchSnapshot();
-    expect(checkoutBtn).toBeInTheDocument();
+    expect(backBtn).toBeInTheDocument();
   });
   await waitFor(() => {
     const historySpy = history.push;
