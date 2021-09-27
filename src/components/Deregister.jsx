@@ -17,7 +17,7 @@ const required = (value) => {
   return null;
 };
 
-const Deregister = (props) => {
+const Deregister = ({ history }) => {
   const form = useRef();
   const checkBtn = useRef();
   const [email, setEmail] = useState('');
@@ -41,7 +41,7 @@ const Deregister = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.deregister(email, currentUser)
         .then(() => {
-          props.history.push(`/${namespace(currentUser)}`);
+          history.push(`/${namespace(currentUser)}`);
           window.location.reload();
         })
         .catch(() => {
@@ -52,7 +52,7 @@ const Deregister = (props) => {
     }
   };
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" data-testid="deregister-container">
       <div className="card card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -78,6 +78,7 @@ const Deregister = (props) => {
               className="btn btn-primary btn-block"
               type="submit"
               disabled={loading}
+              data-testid="submit-btn"
             >
               {loading && <span className="spinner-border spinner-border-sm" />}
               <span>Deregister User</span>

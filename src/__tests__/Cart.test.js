@@ -13,7 +13,7 @@ const realLocation = window.location;
 beforeAll(() => {
   delete window.location;
   window.location = { reload: jest.fn() };
-  history.push = jest.fn(history.push);
+  history.push = jest.fn();
 });
 
 afterAll(() => {

@@ -10,7 +10,7 @@ import configureTestStore from '../testutils/ConfigureStore';
 import Wishlist from '../containers/Wishlist';
 
 beforeAll(() => {
-  history.push = jest.fn(history.push);
+  history.push = jest.fn();
 });
 
 const state = {
