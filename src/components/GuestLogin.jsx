@@ -8,7 +8,7 @@ import CheckButton from 'react-validation/build/button';
 
 import { guestLogin } from '../actions/auth';
 
-const GuestLogin = (props) => {
+const GuestLogin = ({ history }) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -36,7 +36,7 @@ const GuestLogin = (props) => {
       localStorage.setItem('user', JSON.stringify({ name }));
 
       dispatch(guestLogin({ name }));
-      props.history.push('/');
+      history.push('/');
       window.location.reload();
       setLoading(false);
     } else {

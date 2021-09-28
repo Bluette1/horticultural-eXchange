@@ -20,7 +20,7 @@ const required = (value) => {
   return null;
 };
 
-const Login = (props) => {
+const Login = ({ history }) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -58,7 +58,7 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(email, password))
         .then(() => {
-          props.history.push('/');
+          history.push('/');
           window.location.reload();
         })
         .catch(() => {
@@ -74,7 +74,7 @@ const Login = (props) => {
   }
 
   if (guest) {
-    return <GuestLogin history={props.history} />;
+    return <GuestLogin history={history} />;
   }
 
   return (
@@ -116,6 +116,7 @@ const Login = (props) => {
               className="btn btn-primary btn-block"
               disabled={loading}
               type="submit"
+              data-testid="submit-btn"
             >
               {loading && <span className="spinner-border spinner-border-sm" />}
               <span>Login</span>

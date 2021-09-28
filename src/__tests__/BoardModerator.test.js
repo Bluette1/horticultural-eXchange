@@ -5,11 +5,13 @@ import {
   waitFor,
   screen,
 } from '@testing-library/react';
-import { Router } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { Provider } from 'react-redux';
 import history from '../helpers/history';
 import BoardModerator from '../components/BoardModerator';
+import Login from '../components/Login';
+import Profile from '../components/Profile';
 import configureTestStore from '../testutils/ConfigureStore';
 
 const realAlert = window.alert;
@@ -123,6 +125,14 @@ test('renders the BoardModerator component - when the user is neither superadmin
       <React.StrictMode>
         <Router history={history}>
           <BoardModerator />
+          <Switch>
+            <Route path="/login">
+              <Login history={history} />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
         </Router>
       </React.StrictMode>
     </Provider>
@@ -130,6 +140,7 @@ test('renders the BoardModerator component - when the user is neither superadmin
   render(<BoardWithStore />);
   await waitFor(() => {
     expect(window.alert).toHaveBeenCalledWith('Unauthorized action! You need to be logged in as admin or supervisor.');
+    expect(screen.getByText('Profile')).toBeInTheDocument();
     expect(screen).toMatchSnapshot();
   });
 });
@@ -141,6 +152,14 @@ test('renders the BoardModerator component - when the user is not logged in', as
       <React.StrictMode>
         <Router history={history}>
           <BoardModerator />
+          <Switch>
+            <Route path="/login">
+              <Login history={history} />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
         </Router>
       </React.StrictMode>
     </Provider>
@@ -148,6 +167,7 @@ test('renders the BoardModerator component - when the user is not logged in', as
   render(<BoardWithStore />);
   await waitFor(() => {
     expect(window.alert).toHaveBeenCalledWith('Unauthorized action! You need to be logged in as admin or supervisor.');
+    expect(screen.getByText('Login')).toBeInTheDocument();
     expect(screen).toMatchSnapshot();
   });
 });
