@@ -105,7 +105,7 @@ const Register = () => {
   const btnLabel = isLoggedIn ? 'Add User' : 'Sign Up';
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" data-testid="register-container">
       <div className="card card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"

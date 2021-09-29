@@ -28,18 +28,18 @@ const deregister = (email, currentUser) => axios
 const login = (email, password) => axios
   .post(`${API_URL}/users/sign_in`, {
     user: { email, password },
-  })
-  .then((response) => {
-    const user = response.data;
-
-    if (response.headers.authorization) {
-      user.accessToken = response.headers.authorization;
-    }
-
-    localStorage.setItem('user', JSON.stringify(user));
-
-    return user;
   });
+  // .then((response) => {
+  //   const user = response.data;
+
+//   if (response.headers.authorization) {
+//     user.accessToken = response.headers.authorization;
+//   }
+
+//   window.localStorage.setItem('user', JSON.stringify(user));
+
+//   return user;
+// });
 
 const logout = () => axios.delete(`${API_URL}/users/sign_out`, { headers });
 

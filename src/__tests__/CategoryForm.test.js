@@ -55,7 +55,6 @@ test('renders the CategoryForm and functions correctly', async () => {
     const input = categoryFormContainer.querySelector('.form-control');
     input.value = 'Some New Category';
     ReactTestUtils.Simulate.change(input);
-    ReactTestUtils.Simulate.keyDown(input, { key: 'Enter', keyCode: 13, which: 13 });
     fireEvent.click(screen.getByTestId('submit-btn'));
     const historySpy = history.push;
     expect(historySpy).toHaveBeenCalled();

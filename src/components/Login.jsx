@@ -6,8 +6,8 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import GuestLogin from './GuestLogin';
-
-import { login } from '../actions/auth';
+import AuthService from '../services/auth.service';
+import { loginSuccess, loginFail, setMessage } from '../actions/auth';
 
 const required = (value) => {
   if (!value) {
@@ -56,12 +56,31 @@ const Login = ({ history }) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(login(email, password))
-        .then(() => {
+      AuthService.login(email, password)
+        .then((response) => {
+          const user = response.data;
+
+          if (response.headers.authorization) {
+            user.accessToken = response.headers.authorization;
+          }
+
+          localStorage.setItem('user', JSON.stringify(user));
+
+          dispatch(loginSuccess(user));
+
           history.push('/');
           window.location.reload();
         })
-        .catch(() => {
+        .catch((error) => {
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          dispatch(loginFail());
+          dispatch(setMessage(message));
           setLoading(false);
         });
     } else {
@@ -146,6 +165,7 @@ const Login = ({ history }) => {
             role="presentation"
             onKeyDown={handleGuestLogin}
             onClick={handleGuestLogin}
+            data-testid="guest-login"
           >
             Guest Login
           </span>
