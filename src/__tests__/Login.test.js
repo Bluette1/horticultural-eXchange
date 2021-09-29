@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import {
-  render,
-  waitFor,
-  screen,
-  fireEvent,
+  render, waitFor, screen, fireEvent,
 } from '@testing-library/react';
 import { Router, Switch, Route } from 'react-router-dom';
 import '@testing-library/jest-dom';
@@ -23,17 +20,17 @@ beforeEach(() => {
   delete window.location;
   window.location = { reload: jest.fn() };
   history.push = jest.fn();
-  localStorage.clear();
-  localStorage.setItem.mockClear();
 });
 
 afterEach(() => {
   window.location = realLocation;
+  localStorage.clear();
+  localStorage.setItem.mockClear();
 });
 
 jest.mock('axios');
 
-test('renders the Login form correctly', async () => {
+test('renders the Login form and functions correctly', async () => {
   const user = {
     id: 1,
     email: 'test@example.com',
@@ -73,17 +70,16 @@ test('renders the Login form correctly', async () => {
     }
   });
   render(<LoginWithStore history={history} />);
-  await waitFor(() => {
-    const loginContainer = screen.getByTestId('login-container');
-    const input = loginContainer.querySelectorAll('.form-control');
-    expect(screen.getByTestId('guest-login')).toBeInTheDocument();
-    input[0].value = email;
-    ReactTestUtils.Simulate.change(input[0]);
+  const loginContainer = screen.getByTestId('login-container');
+  const input = loginContainer.querySelectorAll('.form-control');
+  expect(screen.getByTestId('guest-login')).toBeInTheDocument();
+  input[0].value = email;
+  ReactTestUtils.Simulate.change(input[0]);
 
-    input[1].value = password;
-    ReactTestUtils.Simulate.change(input[1]);
-  });
+  input[1].value = password;
+  ReactTestUtils.Simulate.change(input[1]);
   fireEvent.click(screen.getByTestId('submit-btn'));
+
   await waitFor(() => {
     const dispatchSpy = store.dispatch;
     expect(dispatchSpy).toHaveBeenCalled();
@@ -93,9 +89,42 @@ test('renders the Login form correctly', async () => {
     };
     expect(dispatchSpy).toHaveBeenCalledWith(action);
     expect(history.push).toHaveBeenCalledWith('/');
-    expect(localStorage.setItem).toHaveBeenLastCalledWith(
+    expect(localStorage.setItem).toHaveBeenCalledWith(
       'user',
       JSON.stringify({ ...user, accessToken }),
     );
   });
+});
+
+test('renders the Profile page - when the user is logged in', () => {
+  const user = {
+    id: 1,
+    email: 'test@example.com',
+    created_at: '2021-07-22 14:30:15.903533000 +0000',
+    updated_at: '2021-07-22 14:30:15.903533000 +0000',
+    superadmin_role: false,
+    supervisor_role: true,
+    user_role: true,
+    accessToken: 'Bearer 345664456777777777',
+  };
+  const isLoggedIn = true;
+  const store = configureTestStore({ auth: { user, isLoggedIn } });
+  const LoginWithStore = () => (
+    <Provider store={store}>
+      <>
+        <Router history={history}>
+          <Login history={history} />
+          <Switch>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
+        </Router>
+      </>
+    </Provider>
+  );
+
+  render(<LoginWithStore history={history} />);
+  expect(screen.getByText('Profile')).toBeInTheDocument();
+  expect(screen).toMatchSnapshot();
 });

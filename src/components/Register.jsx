@@ -6,9 +6,10 @@ import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail } from 'validator';
 import AuthService from '../services/auth.service';
-import { register } from '../actions/auth';
+import { registerSuccess, registerFail, setMessage } from '../actions/auth';
 
-const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
+const namespace = (currentUser) =>
+  currentUser.supervisor_role ? 'mod' : 'admin';
 
 const required = (value) => {
   if (!value) {
@@ -84,19 +85,28 @@ const Register = () => {
           currentUser,
         );
       } else {
-        addUser = dispatch(register(email, password));
+        addUser = AuthService.register(email, password);
       }
       addUser
         .then(() => {
-          setSuccessful(true);
           if (isLoggedIn) {
             history.push(`/${namespace(currentUser)}`);
           } else {
+            dispatch(registerSuccess());
+            dispatch(setMessage('You have successfully registered'));
             history.push('/login');
           }
           window.location.reload();
         })
-        .catch(() => {
+        .catch((error) => {
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          dispatch(registerFail());
+          dispatch(setMessage(message));
           setSuccessful(false);
         });
     }
@@ -141,7 +151,11 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block" type="submit">
+                <button
+                  className="btn btn-primary btn-block"
+                  type="submit"
+                  data-testid="submit-btn"
+                >
                   {btnLabel}
                 </button>
               </div>

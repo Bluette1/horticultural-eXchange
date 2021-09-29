@@ -5,16 +5,15 @@ import { httpProtocol, host, port } from '../env.variables';
 const API_URL = `${httpProtocol}://${host}:${port}`;
 const headers = authHeader();
 
-const register = (email, password) => axios.post(
-  `${API_URL}/users/`, {
-    email,
-    password,
-  },
-);
+const register = (email, password) => axios.post(`${API_URL}/users/`, {
+  email,
+  password,
+});
 const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
 
-const registerUser = (payload, currentUser) => axios
-  .post(`${API_URL}/${namespace(currentUser)}/users`, payload, { headers });
+const registerUser = (payload, currentUser) => axios.post(`${API_URL}/${namespace(currentUser)}/users`, payload, {
+  headers,
+});
 
 const deregister = (email, currentUser) => axios
   .get(`${API_URL}/${namespace(currentUser)}/users?email=${email}`, {
@@ -25,21 +24,9 @@ const deregister = (email, currentUser) => axios
     { headers },
   ));
 
-const login = (email, password) => axios
-  .post(`${API_URL}/users/sign_in`, {
-    user: { email, password },
-  });
-  // .then((response) => {
-  //   const user = response.data;
-
-//   if (response.headers.authorization) {
-//     user.accessToken = response.headers.authorization;
-//   }
-
-//   window.localStorage.setItem('user', JSON.stringify(user));
-
-//   return user;
-// });
+const login = (email, password) => axios.post(`${API_URL}/users/sign_in`, {
+  user: { email, password },
+});
 
 const logout = () => axios.delete(`${API_URL}/users/sign_out`, { headers });
 
