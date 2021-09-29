@@ -17,7 +17,7 @@ const required = (value) => {
   return null;
 };
 
-const CategoryForm = ({history}) => {
+const CategoryForm = ({ history }) => {
   const form = useRef();
   const checkBtn = useRef();
   const { message } = useSelector((state) => state.message);

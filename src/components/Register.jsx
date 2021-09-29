@@ -8,8 +8,7 @@ import { isEmail } from 'validator';
 import AuthService from '../services/auth.service';
 import { registerSuccess, registerFail, setMessage } from '../actions/auth';
 
-const namespace = (currentUser) =>
-  currentUser.supervisor_role ? 'mod' : 'admin';
+const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
 
 const required = (value) => {
   if (!value) {
@@ -99,12 +98,11 @@ const Register = () => {
           window.location.reload();
         })
         .catch((error) => {
-          const message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+          const message = (error.response
+            && error.response.data
+            && error.response.data.message)
+            || error.message
+            || error.toString();
           dispatch(registerFail());
           dispatch(setMessage(message));
           setSuccessful(false);

@@ -42,7 +42,7 @@ const Profile = () => {
         </p>
       )}
       <strong>Authorities:</strong>
-      <ul data-testid ="authorities">
+      <ul data-testid="authorities">
         {isGuestUser(currentUser) && <li>Guest User</li>}
         {currentUser.user_role && <li>User</li>}
         {currentUser.superadmin_role && <li>Admin</li>}
