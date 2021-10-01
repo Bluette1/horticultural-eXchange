@@ -33,7 +33,7 @@ const Product = () => {
   } = plant;
 
   return (
-    <div className="row d-md-flex">
+    <div className="row d-md-flex" data-testid="product-container">
       <div className="col-md-6">
         <img src={imageUrl} alt="plant" />
       </div>

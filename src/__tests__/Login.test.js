@@ -125,7 +125,7 @@ test('renders the Profile page - when the user is logged in', () => {
     </Provider>
   );
 
-  render(<LoginWithStore history={history} />);
+  render(<LoginWithStore />);
   expect(screen.getByText('Profile')).toBeInTheDocument();
   expect(screen).toMatchSnapshot();
 });
