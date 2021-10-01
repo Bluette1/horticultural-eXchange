@@ -73,6 +73,7 @@ test('renders the Login form and functions correctly', async () => {
   const loginContainer = screen.getByTestId('login-container');
   const input = loginContainer.querySelectorAll('.form-control');
   expect(screen.getByTestId('guest-login')).toBeInTheDocument();
+  expect(screen).toMatchSnapshot();
   input[0].value = email;
   ReactTestUtils.Simulate.change(input[0]);
 

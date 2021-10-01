@@ -76,7 +76,7 @@ const ProductForm = (props) => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" data-testid="productform-container">
       <Form onSubmit={handleSubmit} ref={form}>
         <div className="form-group">
           <p>name</p>
@@ -153,6 +153,7 @@ const ProductForm = (props) => {
             className="btn btn-primary btn-block"
             disabled={loading}
             type="submit"
+            data-testid="submit-btn"
           >
             {loading && <span className="spinner-border spinner-border-sm" />}
             <span>Add Product</span>

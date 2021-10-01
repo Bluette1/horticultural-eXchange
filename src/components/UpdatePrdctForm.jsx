@@ -95,7 +95,7 @@ const PlantForm = (props) => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" data-testid="updateprdctform-container">
       <Form onSubmit={handleSubmit} ref={form}>
         <div className="form-group">
           <p>name</p>
@@ -134,7 +134,7 @@ const PlantForm = (props) => {
           <div className=" row d-flex flex-row">
             <p>Yes</p>
             <Input
-              className="col-1"
+              className="col-1 form-control"
               type="checkbox"
               name="in-stock"
               value={inStock}
@@ -219,6 +219,7 @@ const PlantForm = (props) => {
             className="btn btn-primary btn-block"
             disabled={loading}
             type="submit"
+            data-testid="submit-btn"
           >
             {loading && <span className="spinner-border spinner-border-sm" />}
             <span>Update Product</span>
