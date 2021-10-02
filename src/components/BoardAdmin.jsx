@@ -5,15 +5,17 @@ const BoardAdmin = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
 
   if (!currentUser) {
+    alert(
+      'Unauthorized action! You need to be logged in as admin.',
+    );
     return <Redirect to="/login" />;
   }
   if (
     currentUser
-    && !currentUser.supervisor_role
     && !currentUser.superadmin_role
   ) {
     alert(
-      'Unauthorized action! You need to be logged in as admin or supervisor.',
+      'Unauthorized action! You need to be logged in as admin.',
     );
     return <Redirect to="/profile" />;
   }
@@ -32,7 +34,7 @@ const BoardAdmin = () => {
             Admin Board
           </h3>
         </header>
-        <div className="d-flex flex-column admin">
+        <div className="d-flex flex-column admin" data-testid="actions-container">
           <span className="d-flex justify-content-between">
             <i className="fa fa-plus-circle" aria-hidden="true" />
             <Link to="/register">Add User</Link>

@@ -10,7 +10,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container" data-testid="profile-container">
       <header className="jumbotron">
         <h3>
           {currentUser.user_role && <strong>{currentUser.email}</strong>}
@@ -42,7 +42,7 @@ const Profile = () => {
         </p>
       )}
       <strong>Authorities:</strong>
-      <ul>
+      <ul data-testid="authorities">
         {isGuestUser(currentUser) && <li>Guest User</li>}
         {currentUser.user_role && <li>User</li>}
         {currentUser.superadmin_role && <li>Admin</li>}

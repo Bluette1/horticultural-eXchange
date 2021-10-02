@@ -17,7 +17,7 @@ const required = (value) => {
   return null;
 };
 
-const CategoryForm = (props) => {
+const CategoryForm = ({ history }) => {
   const form = useRef();
   const checkBtn = useRef();
   const { message } = useSelector((state) => state.message);
@@ -42,7 +42,7 @@ const CategoryForm = (props) => {
       if (res.status !== 201 || !res) {
         setLoading(false);
       } else {
-        props.history.push('/');
+        history.push('/');
         window.location.reload();
       }
     } else {
@@ -51,7 +51,7 @@ const CategoryForm = (props) => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" data-testid="categoryform-container">
       <Form onSubmit={handleSubmit} ref={form}>
         <div className="form-group">
           <p>name</p>
@@ -70,6 +70,7 @@ const CategoryForm = (props) => {
             className="btn btn-primary btn-block"
             disabled={loading}
             type="submit"
+            data-testid="submit-btn"
           >
             {loading && <span className="spinner-border spinner-border-sm" />}
             <span>Add Product Category</span>

@@ -111,7 +111,7 @@ export const updatePlant = async (id, plantInfo) => {
     imageUrl = jsonObj.PostResponse.Location;
   }
 
-  // 3) confirm & create plant with backend
+  // 3) confirm & update plant with backend
   const plantsPostOptions = {
     method: 'PUT',
     headers: {

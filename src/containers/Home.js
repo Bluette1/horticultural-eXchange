@@ -11,7 +11,6 @@ import WishlistService from '../services/wishlist.service';
 import CartItemsService from '../services/cartitem.service';
 import Category from '../components/Category';
 import Filter from '../components/CategoryFilter';
-
 import isGuestUser from '../helpers/isGuestUser';
 
 const Home = () => {
@@ -31,42 +30,41 @@ const Home = () => {
     return ctprdcts[idx];
   };
   const getCategories = (categories) => categories.map((item) => item.category);
-  useEffect(() => {
-    window.onload = async function () {
-      try {
-        if ((!currentUser) || (currentUser && isGuestUser(currentUser))) {
-          const [productsResponse, categoriesResponse] = await Promise.all([
+  useEffect(async () => {
+    try {
+      if ((!currentUser) || (currentUser && isGuestUser(currentUser))) {
+        const [productsResponse, categoriesResponse] = await Promise.all([
+          UserService.getPublicContent(),
+          CategoryService.getCategories(),
+        ]);
+        dispatch(registerProducts(productsResponse.data));
+        dispatch(registerCategories(getCategories(categoriesResponse.data)));
+      } else {
+        const [
+          productsResponse, categoriesResponse, wishlistResponse, cartResponse,
+        ] = await Promise
+          .all([
             UserService.getPublicContent(),
             CategoryService.getCategories(),
+            WishlistService.getWishlist(),
+            CartItemsService.getCartItems(),
           ]);
-          dispatch(registerProducts(productsResponse.data));
-          dispatch(registerCategories(getCategories(categoriesResponse.data)));
-        } else {
-          const [
-            productsResponse, categoriesResponse, wishlistResponse, cartResponse,
-          ] = await Promise
-            .all([
-              UserService.getPublicContent(),
-              CategoryService.getCategories(),
-              WishlistService.getWishlist(),
-              CartItemsService.getCartItems(),
-            ]);
-          dispatch(registerProducts(productsResponse.data));
-          dispatch(registerCategories(getCategories(categoriesResponse.data)));
-          dispatch(registerWishlist(wishlistResponse.data));
-          dispatch(registerCartItems(cartResponse.data));
-        }
-      } catch (error) {
-        const errorContent = (error.response && error.response.data)
-        || error.message
-        || error.toString();
-        setErrDisplay(JSON.stringify(errorContent));
+        dispatch(registerProducts(productsResponse.data));
+        dispatch(registerCategories(getCategories(categoriesResponse.data)));
+        dispatch(registerWishlist(wishlistResponse.data));
+        dispatch(registerCartItems(cartResponse.data));
       }
-    };
+    } catch (error) {
+      const errorContent = (error.response && error.response.data)
+      || error.message
+      || error.toString();
+      setErrDisplay(JSON.stringify(errorContent));
+    }
   }, []);
 
   if (errDisplay !== '') {
-    return <p>{errDisplay}</p>;
+    console.log(errDisplay);
+    return null;
   }
 
   return (

@@ -67,7 +67,6 @@ const ToggleButton = ({ prdct }) => {
                   const prodct = resp.data;
                   prodct.quantity = 1;
                   dispatch(addToCart(prodct));
-                  console.log('resp.data: ', resp.data);
                   swal('The item has been added to the cart.');
                 },
                 (err) => {

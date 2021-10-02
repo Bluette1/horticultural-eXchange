@@ -10,70 +10,27 @@ import {
 
 import AuthService from '../services/auth.service';
 
-export const register = (username, email, password) => (dispatch) => AuthService
-  .register(username, email, password)
-  .then(
-    (response) => {
-      dispatch({
-        type: REGISTER_SUCCESS,
-      });
+export const loginSuccess = (user) => ({
+  type: LOGIN_SUCCESS,
+  payload: { user },
+});
 
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data.message,
-      });
+export const loginFail = () => ({
+  type: LOGIN_FAIL,
+});
 
-      return Promise.resolve();
-    },
-    (error) => {
-      const message = (error.response
-        && error.response.data
-        && error.response.data.message)
-        || error.message
-        || error.toString();
+export const setMessage = (message) => ({
+  type: SET_MESSAGE,
+  payload: message,
+});
 
-      dispatch({
-        type: REGISTER_FAIL,
-      });
+export const registerSuccess = () => ({
+  type: REGISTER_SUCCESS,
+});
 
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
-      return Promise.reject();
-    },
-  );
-
-export const login = (email, password) => (dispatch) => AuthService.login(email, password)
-  .then((data) => {
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: { user: data },
-    });
-
-    return Promise.resolve();
-  },
-  (error) => {
-    let message = (error.response
-      && error.response.data
-      && error.response.data.message)
-      || error.message
-      || error.toString();
-    if (message.indexOf('Request failed with status code 401') !== -1) {
-      message = 'Invalid email or password. Signup if unregistered or use guest login';
-    }
-    dispatch({
-      type: LOGIN_FAIL,
-    });
-
-    dispatch({
-      type: SET_MESSAGE,
-      payload: message,
-    });
-
-    return Promise.reject();
-  });
+export const registerFail = () => ({
+  type: REGISTER_FAIL,
+});
 
 export const logout = (user) => (dispatch) => {
   if (user.created_at === undefined || user.id === undefined) {

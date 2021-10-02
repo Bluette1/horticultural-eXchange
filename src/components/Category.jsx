@@ -20,6 +20,7 @@ const Category = ({ plant, category }) => {
   };
   return (
     <div
+      data-testid="category-container"
       className="col-sm-6 col-md-4"
       onClick={handleClick}
       role="presentation"

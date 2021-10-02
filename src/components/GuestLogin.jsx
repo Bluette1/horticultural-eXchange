@@ -8,7 +8,7 @@ import CheckButton from 'react-validation/build/button';
 
 import { guestLogin } from '../actions/auth';
 
-const GuestLogin = (props) => {
+const GuestLogin = ({ history }) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -36,7 +36,7 @@ const GuestLogin = (props) => {
       localStorage.setItem('user', JSON.stringify({ name }));
 
       dispatch(guestLogin({ name }));
-      props.history.push('/');
+      history.push('/');
       window.location.reload();
       setLoading(false);
     } else {
@@ -49,7 +49,7 @@ const GuestLogin = (props) => {
   }
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" data-testid="guestlogin-container">
       <div className="card card-container">
         <h4 style={{ textAlign: 'center' }}>Guest User</h4>
         <img
@@ -75,6 +75,7 @@ const GuestLogin = (props) => {
               className="btn btn-primary btn-block"
               disabled={loading}
               type="submit"
+              data-testid="submit-btn"
             >
               {loading && <span className="spinner-border spinner-border-sm" />}
               <span>Login</span>

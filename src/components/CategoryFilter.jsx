@@ -31,7 +31,7 @@ const Filter = () => {
   };
 
   return categories && categories.length > 0 ? (
-    <div className="col-md-3">
+    <div className="col-md-3" data-testid="category-filter">
       <label htmlFor="category-select">
         PRODUCT CATEGORIES:
         <select name="categories" id="category-select" onChange={handleChange}>

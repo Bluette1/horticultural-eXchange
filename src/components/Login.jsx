@@ -6,8 +6,8 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import GuestLogin from './GuestLogin';
-
-import { login } from '../actions/auth';
+import AuthService from '../services/auth.service';
+import { loginSuccess, loginFail, setMessage } from '../actions/auth';
 
 const required = (value) => {
   if (!value) {
@@ -20,7 +20,7 @@ const required = (value) => {
   return null;
 };
 
-const Login = (props) => {
+const Login = ({ history }) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -56,12 +56,30 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(login(email, password))
-        .then(() => {
-          props.history.push('/');
+      AuthService.login(email, password)
+        .then((response) => {
+          const user = response.data;
+
+          if (response.headers.authorization) {
+            user.accessToken = response.headers.authorization;
+          }
+
+          localStorage.setItem('user', JSON.stringify(user));
+
+          dispatch(loginSuccess(user));
+
+          history.push('/');
           window.location.reload();
         })
-        .catch(() => {
+        .catch((error) => {
+          const message = (error.response
+            && error.response.data
+            && error.response.data.message)
+            || error.message
+            || error.toString();
+
+          dispatch(loginFail());
+          dispatch(setMessage(message));
           setLoading(false);
         });
     } else {
@@ -74,11 +92,11 @@ const Login = (props) => {
   }
 
   if (guest) {
-    return <GuestLogin history={props.history} />;
+    return <GuestLogin history={history} />;
   }
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" data-testid="login-container">
       <div className="card card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -116,6 +134,7 @@ const Login = (props) => {
               className="btn btn-primary btn-block"
               disabled={loading}
               type="submit"
+              data-testid="submit-btn"
             >
               {loading && <span className="spinner-border spinner-border-sm" />}
               <span>Login</span>
@@ -145,6 +164,7 @@ const Login = (props) => {
             role="presentation"
             onKeyDown={handleGuestLogin}
             onClick={handleGuestLogin}
+            data-testid="guest-login"
           >
             Guest Login
           </span>

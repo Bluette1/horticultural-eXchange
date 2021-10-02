@@ -19,10 +19,10 @@ const Filter = () => {
   };
 
   return products && products.length > 0 ? (
-    <div className="col-md-3">
+    <div className="col-md-3" data-testid="productfilter-container">
       <label htmlFor="category-select">
         PRODUCTS:
-        <select name="categories" id="category-select" onChange={handleChange}>
+        <select name="categories" id="product-select" onChange={handleChange}>
           <option value="">Select a product to update</option>
           {products.map((product) => (
             <option key={`product-${uuid()}`} value={JSON.stringify(product)}>

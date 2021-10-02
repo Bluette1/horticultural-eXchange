@@ -78,6 +78,7 @@ const CartItem = ({ cartItem }) => {
           className="fa fa-times-circle"
           aria-hidden="true"
           onClick={handleClickCancel}
+          data-testid="cancel-icon"
         />
       </td>
       <td>
@@ -97,12 +98,14 @@ const CartItem = ({ cartItem }) => {
           className="fa fa-minus-circle"
           aria-hidden="true"
           onClick={handleClickRemove}
+          data-testid="remove-icon"
         />
         {quantity}
         <i
           className="fa fa-plus-circle"
           aria-hidden="true"
           onClick={handleClickAdd}
+          data-testid="add-icon"
         />
       </td>
       <td>{quantity * price}</td>
