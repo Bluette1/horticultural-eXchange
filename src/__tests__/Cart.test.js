@@ -10,13 +10,14 @@ import configureTestStore from '../testutils/ConfigureStore';
 import Cart from '../containers/Cart';
 
 const realLocation = window.location;
-beforeAll(() => {
+beforeEach(() => {
   delete window.location;
   window.location = { reload: jest.fn() };
   history.push = jest.fn();
 });
 
-afterAll(() => {
+afterEach(() => {
+  jest.clearAllMocks();
   window.location = realLocation;
 });
 

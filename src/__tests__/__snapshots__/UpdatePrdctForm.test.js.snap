@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`full app rendering/navigating 1`] = `
+exports[`renders the UpdatePrdctForm and functions correctly 1`] = `
 Object {
   "debug": [Function],
   "findAllByAltText": [Function],

@@ -21,7 +21,7 @@ beforeEach(() => {
 afterEach(() => {
   window.location = realLocation;
   localStorage.clear();
-  localStorage.setItem.mockClear();
+  jest.clearAllMocks();
 });
 
 test('renders the GuestLogin component - user can login', async () => {

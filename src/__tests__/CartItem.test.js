@@ -13,6 +13,10 @@ import { httpProtocol, host, port } from '../env.variables';
 
 jest.mock('axios');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 const cartItem = {
   created_at: '2021-08-31T15:57:32.574Z',
   id: 20,

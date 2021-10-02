@@ -6,22 +6,21 @@ import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { Provider } from 'react-redux';
 import axios from 'axios';
+import swal from 'sweetalert';
 import history from '../helpers/history';
 import configureTestStore from '../testutils/ConfigureStore';
 import ToggleBtn from '../components/ToggleBtn';
 import { httpProtocol, host, port } from '../env.variables';
 
 jest.mock('axios');
+jest.mock('sweetalert');
 
-const realLocation = window.location;
 beforeEach(() => {
-  delete window.location;
   window.location = { reload: jest.fn() };
   history.push = jest.fn();
 });
 
 afterEach(() => {
-  window.location = realLocation;
   jest.clearAllMocks();
 });
 
@@ -129,6 +128,7 @@ test('`ToggleBtn` component displays and functions correctly: current user scena
         return {};
     }
   });
+
   const store = configureTestStore(state);
   const ToggleBtnWithStore = () => (
     <Provider store={store}>
@@ -161,6 +161,9 @@ test('`ToggleBtn` component displays and functions correctly: current user scena
       type: 'ADD_TO_CART',
     };
     expect(dispatchSpy).toHaveBeenCalledWith(actionAddToCart);
+    expect(swal).toHaveBeenCalledTimes(2);
+    expect(swal).toHaveBeenCalledWith('The item has been removed from the wishlist.');
+    expect(swal).toHaveBeenCalledWith('The item has been added to the cart.');
   });
 });
 
@@ -251,6 +254,9 @@ test('`ToggleBtn` component displays and functions correctly: guest user scenari
       type: 'ADD_TO_CART',
     };
     expect(dispatchSpy).toHaveBeenCalledWith(actionAddToCart);
+    expect(swal).toHaveBeenCalledTimes(2);
+    expect(swal).toHaveBeenCalledWith('The item has been removed from the wishlist.');
+    expect(swal).toHaveBeenCalledWith('The item has been added to the cart.');
   });
 });
 
@@ -342,6 +348,8 @@ test('`ToggleBtn` component displays and functions correctly: current user scena
       type: 'REMOVE_FROM_CART',
     };
     expect(dispatchSpy).toHaveBeenCalledWith(actionRemoveFromCart);
+    expect(swal).toHaveBeenCalledTimes(1);
+    expect(swal).toHaveBeenCalledWith('The item has been removed from the cart.');
   });
 });
 
@@ -392,14 +400,6 @@ test('`ToggleBtn` component displays and functions correctly: guest user scenari
     ],
   };
   const { cart } = state;
-  // axios.delete.mockImplementation((url) => {
-  //   switch (url) {
-  //     case `${httpProtocol}://${host}:${port}/api/cart_items/${cart[1].id}`:
-  //       return Promise.resolve();
-  //     default:
-  //       return {};
-  //   }
-  // });
   const store = configureTestStore(state);
   const ToggleBtnWithStore = () => (
     <Provider store={store}>
@@ -426,5 +426,7 @@ test('`ToggleBtn` component displays and functions correctly: guest user scenari
       type: 'REMOVE_FROM_CART',
     };
     expect(dispatchSpy).toHaveBeenCalledWith(actionRemoveFromCart);
+    expect(swal).toHaveBeenCalledTimes(1);
+    expect(swal).toHaveBeenCalledWith('The item has been removed from the cart.');
   });
 });

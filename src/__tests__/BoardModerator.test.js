@@ -15,12 +15,12 @@ import Profile from '../components/Profile';
 import configureTestStore from '../testutils/ConfigureStore';
 
 const realAlert = window.alert;
-beforeAll(() => {
+beforeEach(() => {
   delete window.alert;
   window.alert = jest.fn();
 });
 
-afterAll(() => {
+afterEach(() => {
   window.alert = realAlert;
 });
 

@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import ProductFilter from '../components/ProductFilter';
 import configureTestStore from '../testutils/ConfigureStore';
 
-afterAll(() => {
+afterEach(() => {
   jest.clearAllMocks();
 });
 const product = {
@@ -65,7 +65,7 @@ function renderWithRouter(
   };
 }
 
-test('full app rendering/navigating', async () => {
+test('renders the ProductFilter and functions correctly', async () => {
   renderWithRouter(<ProductFilter path="update-product/select" />, {
     route: 'update-product/select',
   });

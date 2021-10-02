@@ -17,7 +17,7 @@ import configureTestStore from '../testutils/ConfigureStore';
 import { httpProtocol, host, port } from '../env.variables';
 
 const realLocation = window.location;
-beforeAll(() => {
+beforeEach(() => {
   delete window.location;
   window.location = { reload: jest.fn() };
   history.push = jest.fn();
@@ -25,8 +25,9 @@ beforeAll(() => {
   window.alert = jest.fn();
 });
 
-afterAll(() => {
+afterEach(() => {
   window.location = realLocation;
+  jest.clearAllMocks();
 });
 
 jest.mock('axios');

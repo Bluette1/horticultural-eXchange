@@ -25,7 +25,7 @@ beforeEach(() => {
 afterEach(() => {
   window.location = realLocation;
   localStorage.clear();
-  localStorage.setItem.mockClear();
+  jest.clearAllMocks();
 });
 
 jest.mock('axios');
