@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/horticultural-exchange/static/css/main.6c9e8ee6.chunk.css",
+    "main.js": "/horticultural-exchange/static/js/main.65cdf938.chunk.js",
+    "main.js.map": "/horticultural-exchange/static/js/main.65cdf938.chunk.js.map",
+    "runtime-main.js": "/horticultural-exchange/static/js/runtime-main.8733580c.js",
+    "runtime-main.js.map": "/horticultural-exchange/static/js/runtime-main.8733580c.js.map",
+    "static/css/2.818011ed.chunk.css": "/horticultural-exchange/static/css/2.818011ed.chunk.css",
+    "static/js/2.806c877d.chunk.js": "/horticultural-exchange/static/js/2.806c877d.chunk.js",
+    "static/js/2.806c877d.chunk.js.map": "/horticultural-exchange/static/js/2.806c877d.chunk.js.map",
+    "index.html": "/horticultural-exchange/index.html",
+    "static/css/2.818011ed.chunk.css.map": "/horticultural-exchange/static/css/2.818011ed.chunk.css.map",
+    "static/css/main.6c9e8ee6.chunk.css.map": "/horticultural-exchange/static/css/main.6c9e8ee6.chunk.css.map",
+    "static/js/2.806c877d.chunk.js.LICENSE.txt": "/horticultural-exchange/static/js/2.806c877d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8733580c.js",
+    "static/css/2.818011ed.chunk.css",
+    "static/js/2.806c877d.chunk.js",
+    "static/css/main.6c9e8ee6.chunk.css",
+    "static/js/main.65cdf938.chunk.js"
+  ]
+}
