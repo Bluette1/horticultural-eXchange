@@ -2,6 +2,7 @@
   "name": "horticultural-exchange",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://Bluette1.github.io/horticultural-exchange",
   "dependencies": {
     "@popperjs/core": "^2.9.3",
     "@reach/router": "^1.3.4",
@@ -41,7 +42,9 @@
     "eject": "react-scripts eject",
     "eslint-f": "npx eslint . --fix",
     "stylelint-f": "npx stylelint **/*.{css,scss} --fix",
-    "dev": "docker-compose -f docker-compose.dev.yml up"
+    "dev": "docker-compose -f docker-compose.dev.yml up",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +75,7 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "4.x",
+    "gh-pages": "^3.2.3",
     "jest-localstorage-mock": "^2.4.18",
     "react-test-renderer": "^17.0.2",
     "stylelint": "13.x",
