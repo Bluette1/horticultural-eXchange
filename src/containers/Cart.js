@@ -16,7 +16,8 @@ const Cart = () => {
     e.preventDefault();
     history.push('/');
   };
-  const handleClickPay = () => {
+  const handleClickPay = (e) => {
+    e.preventDefault();
     history.push('/payment');
     window.location.reload();
   };

@@ -83,8 +83,8 @@ export default function CheckoutForm() {
     setError(event.error ? event.error.message : '');
   };
 
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Stops the page from reloading!
     setProcessing(true);
 
     const payload = await stripe.confirmCardPayment(clientSecret, {
