@@ -67,7 +67,7 @@ const WishlistItem = ({ item }) => {
           </span>
         )}
         {inStock && (
-          <div data-testid='toggle-btn' style={{ width: '200px' }}>
+          <div data-testid="toggle-btn" style={{ width: '200px' }}>
             <ToggleBtn prdct={product} />
           </div>
         )}

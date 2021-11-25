@@ -22,7 +22,7 @@ This is an E-commerce website for public online shoppers interested in buying fl
 - JSON Web Token (JWT)
 
 ## Live Demo link
-[Horticultural exchange deployed site on heroku](https://igrow-plant-app.herokuapp.com/)
+[Horticultural exchange deployed site](http://137.184.10.36/)
 
 ## Getting Started
 
@@ -103,7 +103,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 #### Heroku Deployment with Docker
 - Instructions can be found [here]( 
  https://betterprogramming.pub/how-to-containerize-and-deploy-apps-with-docker-and-heroku-b1c49e5bc070).
+- [Container Registry and Runtime(Docker Deploys)](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 - You may have to [disable the eslint plugin](https://stackoverflow.com/questions/67364108/react-app-failed-to-load-config-airbnb-in-deploying-to-heroku).
+#### Deployment on cloud server
+- Instructions can be found [here](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-react-application-with-nginx-on-ubuntu-20-04)
 
 ### Integration with Amazon Web Services(AWS) S3 Storage
 - Open an account on [Amazon Web Services](https://signin.aws.amazon.com/)

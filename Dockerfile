@@ -1,4 +1,4 @@
-FROM node:14-alpine AS builder
+FROM chekote/node:14.17.0-alpine AS builder
 ENV NODE_ENV production
 # Add a work directory
 WORKDIR /app
@@ -16,7 +16,7 @@ RUN adduser -D mary
 USER mary
 
 # Bundle static assets with nginx
-FROM nginx:1.21.0-alpine as production
+FROM v8fg/nginx:1.20.0-alpine as production
 ENV NODE_ENV production
 # Copy built assets from builder
 COPY --from=builder /app/build /usr/share/nginx/html

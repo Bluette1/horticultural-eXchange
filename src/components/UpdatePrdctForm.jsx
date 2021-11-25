@@ -51,9 +51,8 @@ const PlantForm = (props) => {
     const care = e.target.value;
     setCare(care);
   };
-  const onChangeInStock = (e) => {
-    const inStock = !e.target.value;
-    setInStock(inStock);
+  const onChangeInStock = () => {
+    setInStock((inStockValue) => !inStockValue);
   };
 
   const onChangePrice = (e) => {
@@ -130,11 +129,11 @@ const PlantForm = (props) => {
           </label>
         </div>
         <div className="form-group">
-          <h4>Is product out of stock?</h4>
+          <h4>Is product in stock?</h4>
           <div className=" row d-flex flex-row">
-            <p>Yes</p>
+            <p>{inStock ? 'Yes' : 'No'}</p>
             <Input
-              className="col-1 form-control"
+              className="col-1 in-stock"
               type="checkbox"
               name="in-stock"
               value={inStock}
