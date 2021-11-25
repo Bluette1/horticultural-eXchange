@@ -106,8 +106,9 @@ test('renders the UpdatePrdctForm and functions correctly', async () => {
     ReactTestUtils.Simulate.change(input[1]);
     input[2].value = 'some common name';
     ReactTestUtils.Simulate.change(input[2]);
-    input[3].value = '40';
-    ReactTestUtils.Simulate.change(input[3]);
+    const inStock = UpdatePrdctFormContainer.querySelector('.in-stock');
+    inStock.value = '40';
+    ReactTestUtils.Simulate.change(inStock);
     const select = UpdatePrdctFormContainer.querySelector('#categories-select');
     select.value = 'Clearance Sale';
     ReactTestUtils.Simulate.change(select);

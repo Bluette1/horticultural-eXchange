@@ -43,6 +43,7 @@
     "eslint-f": "npx eslint . --fix",
     "stylelint-f": "npx stylelint **/*.{css,scss} --fix",
     "dev": "docker-compose -f docker-compose.dev.yml up",
+    "prod": "docker-compose -f docker-compose.prod.yml build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "deploy-cloud": "scp -r ./build/* root@137.184.10.36:/var/www/horticultural-exchange"

@@ -133,7 +133,7 @@ const PlantForm = (props) => {
           <div className=" row d-flex flex-row">
             <p>{inStock ? 'Yes' : 'No'}</p>
             <Input
-              className="col-1"
+              className="col-1 in-stock"
               type="checkbox"
               name="in-stock"
               value={inStock}
