@@ -22,7 +22,7 @@ This is an E-commerce website for public online shoppers interested in buying fl
 - JSON Web Token (JWT)
 
 ## Live Demo link
-[Horticultural exchange deployed site](http://137.184.10.36/)
+[Horticultural exchange deployed site](http://igrow-plant-app.herokuapp.com/)
 
 ## Getting Started
 
