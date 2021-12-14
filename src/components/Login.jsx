@@ -129,7 +129,7 @@ const Login = ({ history }) => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group mt-3">
             <button
               className="btn btn-primary btn-block"
               disabled={loading}
