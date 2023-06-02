@@ -19,7 +19,7 @@ const createPresignedUrl = async (file, byteSize, checksum) => {
     body: JSON.stringify({
       file: {
         filename: file.name,
-        byteSize,
+        byte_size: byteSize,
         checksum,
         content_type: file.type,
       },
