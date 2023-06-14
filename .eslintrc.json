@@ -24,6 +24,7 @@
     "react/no-unknown-property": 1,
     "react/destructuring-assignment": 1,
     "import/no-extraneous-dependencies": 1,
+    "jsx-a11y/control-has-associated-label": 1,
     "no-underscore-dangle":  1,
     "no-unused-expressions": 1
   },
