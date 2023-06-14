@@ -97,6 +97,13 @@ REACT_APP_REQUEST_OPTIONS_HTTP_PROTOCOL=<protocol>
 
 ```
 
+### How to use the site
+Make sure the server is running
+- Follow the links on the [horticultural-exchange-website](https://igrow-app.fly.dev/) (or at http://localhost:3000/) in your web browser to access the available features.
+
+- Making Purchases:
+  - Payment is through [Stripe](https://stripe.com). You can use the test credit card no. 4242424242424242 for testing purposes. For further details view [Stripe documentation](https://stripe.com/docs/testing)
+
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
