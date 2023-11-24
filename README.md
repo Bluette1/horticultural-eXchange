@@ -22,7 +22,7 @@ This is an E-commerce website for public online shoppers interested in buying fl
 - JSON Web Token (JWT)
 
 ## Live Demo link
-[Horticultural exchange deployed site](https://igrow-app.fly.dev)
+[Horticultural exchange deployed site](https://igrow-app.onrender.com)
 
 ## Getting Started
 
