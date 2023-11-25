@@ -77,7 +77,9 @@ const GuestLogin = ({ history }) => {
               type="submit"
               data-testid="submit-btn"
             >
-              {loading && <span className="spinner-border spinner-border-sm" />}
+              {loading && (
+                <span className="spinner-border spinner-border-sm mx-2" />
+              )}
               <span>Login</span>
             </button>
           </div>

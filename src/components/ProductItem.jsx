@@ -29,7 +29,7 @@ const Plant = ({ plant }) => {
       <div className={classPlantDiv}>
         {!inStock && <OutOfStock />}
         <button
-          className="view btn-primary mb-2"
+          className="view btn-primary my-2"
           onClick={handleClick}
           data-testid="action-button"
           type="button"

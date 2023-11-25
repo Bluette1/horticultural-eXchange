@@ -18,7 +18,9 @@ const PlantForm = (props) => {
   const checkBtn = useRef();
   const [name, setName] = useState(product.name);
   const [commonName, setCommonName] = useState(product.common_name || '');
-  const [inStock, setInStock] = useState(product.in_stock);
+  const [availabilityStatus, setAvailabilityStatus] = useState(
+    product.in_stock ? 'in stock' : 'out of stock',
+  );
   const [category, setCategory] = useState(product.category);
   const [price, setPrice] = useState(product.price);
   const [description, setDescription] = useState(product.description || '');
@@ -29,6 +31,9 @@ const PlantForm = (props) => {
   const [imageSelected, setImageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const onAvailabilityStatusChange = ({ target: { value } }) => {
+    setAvailabilityStatus(value);
+  };
   const onChangeName = (e) => {
     const name = e.target.value;
     setName(name);
@@ -51,9 +56,6 @@ const PlantForm = (props) => {
     const care = e.target.value;
     setCare(care);
   };
-  const onChangeInStock = () => {
-    setInStock((inStockValue) => !inStockValue);
-  };
 
   const onChangePrice = (e) => {
     const price = e.target.value;
@@ -73,7 +75,7 @@ const PlantForm = (props) => {
         category,
         price,
         commonName,
-        inStock,
+        inStock: availabilityStatus === 'in stock',
         description,
         care,
       });
@@ -94,10 +96,10 @@ const PlantForm = (props) => {
   };
 
   return (
-    <div className="col-md-12" data-testid="updateprdctform-container">
+    <div className="col-lg-6" data-testid="updateprdctform-container">
       <Form onSubmit={handleSubmit} ref={form}>
         <div className="form-group">
-          <p>name</p>
+          <h4>Name</h4>
           <Input
             type="text"
             className="form-control"
@@ -108,9 +110,9 @@ const PlantForm = (props) => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group my-5">
           <label htmlFor="category-select">
-            Choose a category:
+            <span className="h4">Choose a category:</span>
             <Select
               name="category-select"
               id="categories-select"
@@ -118,32 +120,44 @@ const PlantForm = (props) => {
             >
               <option value={category}>{category}</option>
               {categories.map((item) => (
-                <option
-                  value={item}
-                  key={`category-${uuid()}`}
-                >
+                <option value={item} key={`category-${uuid()}`}>
                   {item}
                 </option>
               ))}
             </Select>
           </label>
         </div>
-        <div className="form-group">
+        <div>
           <h4>Is product in stock?</h4>
-          <div className=" row d-flex flex-row">
-            <p>{inStock ? 'Yes' : 'No'}</p>
-            <Input
-              className="col-1 in-stock"
-              type="checkbox"
-              name="in-stock"
-              value={inStock}
-              onChange={onChangeInStock}
-            />
+          <div className="form-group">
+            <section className="d-flex my-3">
+              <p>Yes</p>
+
+              <input
+                className="in-stock m-2"
+                type="checkbox"
+                name="in-stock"
+                value="in stock"
+                checked={availabilityStatus === 'in stock'}
+                onChange={onAvailabilityStatusChange}
+              />
+            </section>
+            <section className="d-flex my-3">
+              <p>No</p>
+              <input
+                className="in-stock m-2"
+                type="checkbox"
+                name="out-of-stock"
+                value="out of stock"
+                checked={availabilityStatus === 'out of stock'}
+                onChange={onAvailabilityStatusChange}
+              />
+            </section>
           </div>
         </div>
 
-        <div className="form-group">
-          <p>Price</p>
+        <div className="my-3 form-group">
+          <h4>Price</h4>
           <Input
             className="form-control"
             name="price"
@@ -153,8 +167,12 @@ const PlantForm = (props) => {
           />
         </div>
         <div className="form-group">
-          <input type="file" name="image" onChange={handleChangeImage} />
-          {' '}
+          <input
+            className="py-3"
+            type="file"
+            name="image"
+            onChange={handleChangeImage}
+          />
           {imageSelected ? (
             <span>
               <p>
@@ -171,20 +189,23 @@ const PlantForm = (props) => {
               </p>
               <p>
                 lastModifiedDate:
-                {image.lastModifiedDate.toLocaleDateString()}
+                {image.lastModifiedDate
+                  ? image.lastModifiedDate.toLocaleDateString()
+                  : Date.now()}
               </p>
             </span>
           ) : (
-            <p>Select an image file</p>
+            <h4>Select an image file</h4>
           )}
         </div>
-        <div className="form-group">
-          <p>Description</p>
+        <div className="my-3 form-group">
+          <h4>Description</h4>
           <textarea
+            className="border"
             id="description"
             name="description"
             rows="4"
-            cols="50"
+            cols="38"
             value={description}
             onChange={onChangeDescription}
           >
@@ -192,12 +213,13 @@ const PlantForm = (props) => {
           </textarea>
         </div>
         <div className="form-group">
-          <p>Care</p>
+          <h4>Care</h4>
           <textarea
+            className="border"
             id="care"
             name="care"
             rows="4"
-            cols="50"
+            cols="38"
             value={care}
             onChange={onChangeCare}
           >
@@ -205,22 +227,24 @@ const PlantForm = (props) => {
           </textarea>
         </div>
         <div className="form-group">
-          <p>Common name</p>
+          <h4>Common name</h4>
           <Input
-            className="form-control"
+            className="form-control border"
             name="common-name"
             value={commonName}
             onChange={onChangeCommonName}
           />
         </div>
-        <div className="form-group ">
+        <div className="form-group my-3">
           <button
             className="btn btn-primary btn-block"
             disabled={loading}
             type="submit"
             data-testid="submit-btn"
           >
-            {loading && <span className="spinner-border spinner-border-sm" />}
+            {loading && (
+              <span className="spinner-border spinner-border-sm mx-2" />
+            )}
             <span>Update Product</span>
           </button>
         </div>
@@ -239,6 +263,7 @@ const PlantForm = (props) => {
 };
 
 PlantForm.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 export default PlantForm;

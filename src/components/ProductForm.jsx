@@ -76,10 +76,10 @@ const ProductForm = (props) => {
   };
 
   return (
-    <div className="col-md-12" data-testid="productform-container">
+    <div className="col-12 col-lg-6" data-testid="productform-container">
       <Form onSubmit={handleSubmit} ref={form}>
         <div className="form-group">
-          <p>name</p>
+          <h4>Name</h4>
           <Input
             type="text"
             className="form-control"
@@ -90,9 +90,9 @@ const ProductForm = (props) => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group my-5">
           <label htmlFor="category-select">
-            Choose a category:
+            <span className="h4">Choose a category:</span>
             <Select
               name="category-select"
               id="categories-select"
@@ -112,8 +112,8 @@ const ProductForm = (props) => {
           </label>
         </div>
 
-        <div className="form-group">
-          <p>Price</p>
+        <div className="form-group my-5">
+          <h4>Price</h4>
           <Input
             className="form-control"
             name="price"
@@ -122,9 +122,8 @@ const ProductForm = (props) => {
             validations={[required]}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group my-5">
           <input type="file" name="image" onChange={handleChangeImage} />
-          {' '}
           {imageSelected ? (
             <span>
               <p>
@@ -141,11 +140,13 @@ const ProductForm = (props) => {
               </p>
               <p>
                 lastModifiedDate:
-                {image.lastModifiedDate.toLocaleDateString()}
+                {image.lastModifiedDate
+                  ? image.lastModifiedDate.toLocaleDateString()
+                  : Date.now()}
               </p>
             </span>
           ) : (
-            <p>Select an image file</p>
+            <h4>Select an image file</h4>
           )}
         </div>
         <div className="form-group ">
@@ -155,7 +156,9 @@ const ProductForm = (props) => {
             type="submit"
             data-testid="submit-btn"
           >
-            {loading && <span className="spinner-border spinner-border-sm" />}
+            {loading && (
+              <span className="spinner-border spinner-border-sm mx-2" />
+            )}
             <span>Add Product</span>
           </button>
         </div>
