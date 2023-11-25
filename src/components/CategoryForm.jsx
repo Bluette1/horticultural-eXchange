@@ -54,7 +54,7 @@ const CategoryForm = ({ history }) => {
     <div className="col-md-12" data-testid="categoryform-container">
       <Form onSubmit={handleSubmit} ref={form}>
         <div className="form-group">
-          <p>name</p>
+          <h4>Name</h4>
           <Input
             type="text"
             className="form-control"
@@ -65,14 +65,16 @@ const CategoryForm = ({ history }) => {
           />
         </div>
 
-        <div className="form-group ">
+        <div className="form-group mt-3">
           <button
             className="btn btn-primary btn-block"
             disabled={loading}
             type="submit"
             data-testid="submit-btn"
           >
-            {loading && <span className="spinner-border spinner-border-sm" />}
+            {loading && (
+              <span className="spinner-border spinner-border-sm mx-2" />
+            )}
             <span>Add Product Category</span>
           </button>
         </div>

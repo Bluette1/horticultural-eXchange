@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -72,11 +73,12 @@ const Login = ({ history }) => {
           window.location.reload();
         })
         .catch((error) => {
-          const message = (error.response
-            && error.response.data
-            && error.response.data.message)
-            || error.message
-            || error.toString();
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
 
           dispatch(loginFail());
           dispatch(setMessage(message));
@@ -136,7 +138,9 @@ const Login = ({ history }) => {
               type="submit"
               data-testid="submit-btn"
             >
-              {loading && <span className="spinner-border spinner-border-sm" />}
+              {loading && (
+                <span className="spinner-border spinner-border-sm mx-2" />
+              )}
               <span>Login</span>
             </button>
           </div>

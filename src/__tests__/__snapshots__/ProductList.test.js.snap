@@ -43,7 +43,7 @@ exports[`renders the app - navbar links are displayed correctly 1`] = `
           class="plant d-flex justify-content center flex-column"
         >
           <button
-            class="view btn-primary mb-2"
+            class="view btn-primary my-2"
             data-testid="action-button"
             type="button"
           >

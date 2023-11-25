@@ -24,7 +24,8 @@ const Deregister = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const { message } = useSelector((state) => state.message);
   const { user: currentUser } = useSelector((state) => state.auth);
-  const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
+  const namespace = (currentUser) =>
+    currentUser.supervisor_role ? 'mod' : 'admin';
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -75,12 +76,14 @@ const Deregister = ({ history }) => {
 
           <div className="form-group">
             <button
-              className="btn btn-primary btn-block"
+              className="btn btn-primary btn-block my-5"
               type="submit"
               disabled={loading}
               data-testid="submit-btn"
             >
-              {loading && <span className="spinner-border spinner-border-sm" />}
+              {loading && (
+                <span className="spinner-border spinner-border-sm mx-2" />
+              )}
               <span>Deregister User</span>
             </button>
           </div>
