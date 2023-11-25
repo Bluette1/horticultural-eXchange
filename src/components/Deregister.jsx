@@ -24,8 +24,7 @@ const Deregister = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const { message } = useSelector((state) => state.message);
   const { user: currentUser } = useSelector((state) => state.auth);
-  const namespace = (currentUser) =>
-    currentUser.supervisor_role ? 'mod' : 'admin';
+  const namespace = (currentUser) => (currentUser.supervisor_role ? 'mod' : 'admin');
 
   const onChangeEmail = (e) => {
     const email = e.target.value;

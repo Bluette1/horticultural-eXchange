@@ -73,12 +73,11 @@ const Login = ({ history }) => {
           window.location.reload();
         })
         .catch((error) => {
-          const message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+          const message = (error.response
+              && error.response.data
+              && error.response.data.message)
+            || error.message
+            || error.toString();
 
           dispatch(loginFail());
           dispatch(setMessage(message));
