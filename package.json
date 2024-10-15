@@ -87,5 +87,8 @@
   },
   "jest": {
     "resetMocks": false
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
