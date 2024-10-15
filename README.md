@@ -54,12 +54,13 @@ The user can login via the following roles:
   - Moderator user role: "test_moderator@test.com", password: "password"
 
  ## Features
-- The user can access the functions of an E-commerce plant shop   application: 
+- A user can access the functions of an E-commerce plant shop   application: 
   - Display a list of available plant products for sale
   - Can view details about a selected plant in the details page
-  - Can add and remove a desired plant to their wish list
+- A logged in user:
+  - Can add and remove a desired plant from their wish list
   - Display a list of the logged in user's wishlist items
-  - Can add items to the cart
+  - Can add and remove items from the cart
   - Can checkout out of the plant shop via [Stripe](https://stripe.com/docs/payments/integration-builder)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
